@@ -1,0 +1,64 @@
+<?php
+    global $gAr;
+    foreach($gAr as $k=>$v){${$k}=$v;}
+?>
+<input type="hidden" id="sale_return_id" value="<?=$sale['id']?>">
+<div id="details_top">
+    <table class="table table-borderd">
+        <tr><td>Invoice Date</td><td><?=$sale['invoice_date']?></td></tr>
+        <tr><td>Approved Date</td><td><?=$sale['approved_date']?></td></tr>
+        <tr><td>Customer</td><td><?=$sale['customer']?></td></tr>
+        <tr><td>Process date</td>
+            <td>
+                <input type="text" class="form-control datepicker" id="process_date" value="<?=date('d-m-Y')?>" placeholder="Process Date">
+            </td>
+        </tr>
+        <?php
+            if(!empty($sale['note'])){
+        ?>
+        <tr><td>Remarks</td><td><?=$sale['note']?></td></tr>
+        <?php
+            }
+        ?>
+
+    </table>
+</div>
+<style type="text/css">
+    .border{
+        border: 1px solid;
+        background: #f2eeee;
+    }
+</style>
+<table class="table table-borderd">
+    <thead>
+        <tr>
+            <td>#</td>
+            <td>Product</td>
+            <td>Unit</td>
+            <td>Qty</td>
+            <td class="border">Good</td>
+            <td class="border">Damage</td>
+            <td class="border">Expiry</td>
+        </tr>
+    </thead>
+    <tbody id="details_products">
+        <?php
+            $sr=1;
+            foreach($product_details as $product_id=>$po){
+            ?>
+            <tr id="product_<?=$product_id?>">
+                <td><input type="hidden" class="product_id" value="<?=$product_id?>"> <?=$sr++?></td>
+                <td class="product_title"><?=$po['product']?></td>
+                <td><?=$po['unit']?></td>
+                <td class="quantity"><?=$po['quantity']?></td>
+                <td contenteditable="true" class="good border"></td>
+                <td contenteditable="true" class="damage border"></td>
+                <td contenteditable="true" class="expiry border"></td>
+            </tr>
+
+            <?php 
+            }
+        ?>
+    </tbody>
+
+</table>

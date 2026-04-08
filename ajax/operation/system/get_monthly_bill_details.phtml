@@ -1,0 +1,61 @@
+<?php
+    global $gAr;
+    foreach($gAr as $k=>$v){${$k}=$v;}
+    if($bill['pay_date']>0){
+        $pay_date=date('d/m/Y',$bill['pay_date']);
+    }
+    else{
+        $pay_date='Not paid';        
+    }
+?>
+<div id="details_top">
+    <table class="table table-borderd">
+        <tr><td>Bill date</td><td><?=date('d/m/Y',$bill['date'])?></td></tr>
+        <tr><td>Due date</td><td><?=date('d/m/Y',$bill['due_date'])?></td></tr>
+        <tr><td>Pay date</td><td><?=$pay_date?></td></tr>
+    </table>
+</div>   
+
+        <?php
+        if($bill['pay_date']==0){
+            ?>
+          <div>
+            <button class="btn btn-lg btn-success pay_buttone" data-id="<?=$bill['id']?>">Pay now</button>
+          </div>  
+            <?php
+        }
+        ?>
+<table class="table table-borderd">
+    <thead>
+        <tr>
+            <td>#</td>
+            <td>Ref ID</td>
+            <td>Payer Account</td>
+            <td>Transaction ID</td>
+            <td>Payment ID</td>
+            <td>Create time</td>
+            <td>Pay time</td>
+        </tr>
+    </thead>
+    <tbody class="details_products">
+        <?php
+            $sr=1;
+            
+            foreach($bill_details as $b){ 
+                $invoice_id=BKASH_TRANSACTION_PREFIX.$b['id'];
+            ?>
+            <tr>
+                <td><?=$sr++?></td>
+                <td><?=$invoice_id?></td>
+                <td><?=$b['payerAccount']?></td>
+                <td><?=$b['transaction_id']?></td>
+                <td><?=$b['paymentID']?></td>
+                <td><?=date('d/m/y h:i:s A',$b['createdOn'])?></td>
+                <td><?=$b['pay_time']>0?date('d/m/y h:i:s A',$b['pay_time']):'Not paid'?></td>
+            </tr>
+
+            <?php 
+            }
+        ?>
+    </tbody>
+</table>

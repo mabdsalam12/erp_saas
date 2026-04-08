@@ -1,0 +1,72 @@
+<?php
+   global $gAr;
+    foreach($gAr as $k=>$v){${$k}=$v;}
+?>
+<div id="details_top">
+    <table class="table table-borderd">
+        <tr><td>Entry date time</td><td><?=$vl['entry_time']?></td></tr>
+        <tr><td>Dctor</td><td><?=$doctor['name']?></td></tr>
+        <tr><td>Prescription</td><td><?=$vl['prescription']?></td></tr>
+        <tr><td>Note</td><td><?=$vl['note']?></td></tr>
+    </table>
+</div>
+<h4>Finished product</h4>
+<table class="table table-borderd">
+    <thead>
+        <tr>
+            <td>#</td>
+            <td>Product</td>
+            <td>Unit</td>
+
+            <td>Qty</td>
+        </tr>
+    </thead>
+    <tbody class="details_products">
+        <?php
+            $sr=1;
+            foreach($finished_product as $po){
+                $p = $products[$po['product_id']];
+            ?>
+            <tr>
+                <td><?=$sr++?></td>
+                <td><?=$p['code'].' - '.$p['title']?></td>
+                <td><?=$units[$p['unit_id']]['title']?></td>
+                <td><?=$po['quaintity']?></td>
+            </tr>
+
+            <?php 
+            }
+        ?>
+    </tbody>
+
+</table>
+<h4>Gift product</h4>
+<table class="table table-borderd">
+    <thead>
+        <tr>
+            <td>#</td>
+            <td>Product</td>
+            <td>Unit</td>
+
+            <td>Qty</td>
+        </tr>
+    </thead>
+    <tbody class="details_products">
+        <?php
+            $sr=1;
+            foreach($gift_product as $po){
+                $p = $products[$po['product_id']];
+            ?>
+            <tr>
+                <td><?=$sr++?></td>
+                <td><?=$p['code'].' - '.$p['title']?></td>
+                <td><?=$units[$p['unit_id']]['title']?></td>
+                <td><?=$po['quaintity']?></td>
+            </tr>
+
+            <?php 
+            }
+        ?>
+    </tbody>
+
+                    </table>

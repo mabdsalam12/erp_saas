@@ -1,0 +1,126 @@
+<?php
+    global $gAr;
+    foreach($gAr as $k=>$v){${$k}=$v;}
+?>
+
+<script type="text/javascript">
+    function printElemReport(elem){
+        $('#report_data_area').hide();
+        var mywindow = window.open();
+        mywindow.document.write('<html><head><title>Production details</title>');
+        mywindow.document.write('<style type="text/css">table{font-size:12px;border-collapse: collapse;width:100%}</style>'); 
+        mywindow.document.write(
+            '<style type="text/css">' +
+            'table th, table td {' +
+            'border:1px solid #000;' +
+            'padding;0.5em;' +
+            '}' +
+            '</style>'+
+            '<style type="text/css" media="print">'+
+            '@page {'+
+            '   size: auto;'+
+            '  margin-top: 25px;'+
+            '}'+
+            '.noPrint{display:none;}'+
+            '</style>');
+        mywindow.document.write('</head><body >');
+        mywindow.document.write('<h3 style="text-align:center">Production details</h3>');
+        mywindow.document.write(document.getElementById(elem).innerHTML);
+        $('#report_data_area').show();
+        mywindow.document.write('</body></html>');
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus();
+        mywindow.print();
+        mywindow.close();
+        
+        return true;
+    }
+</script>
+<div class="col-md-1 pull-right"><button class="btn btn-success" onclick="printElemReport('report_data_area')">Print</button></div>
+<div id="report_data_area">
+<div id="details_top">
+    <table class="table table-borderd">
+        <tr><td>Date</td><td><?=$production['date']?></td></tr>
+        <tr><td>Batch</td><td><?=$production['batch_no']?></td></tr>
+        <?php
+        if($production['type']=='Packaging'){
+            ?><tr><td>PMO no</td><td><?=$production['pmo_no']?></td></tr><?php
+        }
+        ?>
+        <tr><td>Type</td><td><?=$production['type']?></td></tr>
+        <tr><td>Target Product</td><td><?=$production['product']?></td></tr>
+        <tr><td>Manufacturing product</td><td><?=$production['manufacture_product']?> <?=$production['manufacture_product_quantity']?><?=$production['manufacture_unit']?></td></tr>
+        <tr><td>Production unit cost</td><td><?=(float)$production['manufacture_product_cost']?></td></tr>
+        <tr><td>Remarks</td><td><?=$production['note']?></td></tr>
+        <tr><td>Entry date</td><td><?=$production['entry']?></td></tr>
+
+    </table>
+</div>
+<table class="table table-borderd">
+    <thead>
+        <tr>
+            <td>#</td>
+            <td>Product</td>
+            <td>Unit</td>
+            <td>Qty</td>
+            <?php
+            if($can_show_price==1){
+            ?>
+            <td>Unit Cost</td>
+            <td>Extra cost</td>
+            <td>Total</td>
+            <?php
+            }
+            ?>
+        </tr>
+    </thead>
+    <tbody class="details_products">
+        <?php
+            $sr=1;
+            foreach($product_details as $po){
+            ?>
+            <tr>
+                <td><?=$sr++?></td>
+                <td><?=$po['product']?></td>
+                <td><?=$po['unit']?></td>
+                <td ><?=$po['quantity']?></td>
+            <?php
+            if($can_show_price==1){
+            ?>
+                <td ><?=$po['unit_cost']?></td>
+                <td ><?=$po['extra_cost']?></td>
+                <td style="text-align:right;"><?=$po['total_cost']?></td>
+            <?php
+            }
+            ?>
+            </tr>
+
+            <?php 
+            }
+        ?>
+    </tbody>
+    <tfoot>
+            <?php
+            if($can_show_price==1){
+            ?>
+        <tr><td colspan="6">Total cost</td><td style="text-align:right;"><?=$production['product_cost']?></td></tr>
+        <tr><td colspan="6">Extra cost</td><td style="text-align:right;"><?=$production['extra_cost']?></td></tr>
+        <tr><td colspan="6">Net cost</td><td style="text-align:right;"><?=$production['total_cost']?></td></tr>
+        <tr><td colspan="6">Production unit cost</td><td style="text-align:right;"><?=$production_unit_cost?></td></tr>
+            <?php
+            }
+            ?>
+        <tr><td colspan="6">Target Quantity</td><td><?=$production['quantity']?>  <?=$production['unit']?></td></tr>
+        <tr><td colspan="6">Yield</td><td><?=$production['yield']?>  <?=$production['unit']?></td></tr>
+        <tr><td colspan="6">Retention sample</td><td><?=$production['retention_sample']?>  <?=$production['unit']?></td></tr>
+        <?php
+        if($can_delete){
+            ?>
+        <tr><td colspan="2"><a href="javascript:void();" onclick="production_delete(<?=$production['id']?>)">Delete</a></td></tr>
+        <?php
+        }
+        ?>
+    </tfoot>
+
+</table>
+</div>

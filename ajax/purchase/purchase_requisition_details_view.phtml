@@ -1,0 +1,39 @@
+<?php
+    global $gAr;
+    foreach($gAr as $k=>$v){${$k}=$v;}
+?>
+<div id="details_top">
+    <table class="table table-borderd">
+        <tr><td>Code</td><td><?=$rq['code'] ?></td></tr> 
+        <tr><td>Date</td><td><?=$rq['date']?></td></tr>
+        <tr><td>Remarks</td><td><?=$rq['note']?></td></tr>
+        <tr><td>Create by</td><td><?=$rq['user']['username']?></td></tr>
+
+    </table>
+</div>
+<table class="table table-borderd">
+    <thead>
+        <tr>
+            <td>#</td>
+            <td>Product</td>
+            <td>Quantity</td>
+            <td>Unit</td>
+        </tr>
+    </thead>
+    <tbody class="details_products">
+        <?php
+            $sr=1;
+            foreach($product_details as $po){
+            ?>
+            <tr>
+                <td><?=$sr++?></td>
+                <td><?=$po['product']?></td>
+                <td><?=$po['quantity']?></td>
+                <td><?=$po['unit']?></td>
+            </tr>
+
+            <?php 
+            }
+        ?>
+    </tbody>
+</table>

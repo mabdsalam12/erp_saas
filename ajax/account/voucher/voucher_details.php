@@ -1,0 +1,9 @@
+<?php
+$voucher_id=intval($_POST['voucher_id']);
+$v=$acc->voucher_details($voucher_id);
+if($v){
+    $jArray['status']=1;
+    $gAr['voucher']=$v;
+    $jArray[fl()]=$v;
+    $jArray['html']=$general->fileToVariable(ROOT_DIR.'/ajax/account/voucher/voucher_details.phtml');
+}

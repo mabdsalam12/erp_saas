@@ -1,0 +1,258 @@
+.editable-table tr:hover,.editable-table td:hover{
+background-color: #36e8046e !important;
+/*color: red !important;*/
+}
+
+.bus-hr {
+    margin: 5px 0;
+}
+.table-head-color tr th{
+    color: #000!important;
+}
+.adm-navbar-left .nav>li>a {
+    padding: 3px 0 3px 12px;
+    border-bottom: 1px solid #f0d9ba;
+    background: #f9ebdf;
+}
+
+.adm-navbar-left .nav>li>a:hover {
+    background-color: #ededed!important;
+}
+
+#side-menu>li>a.active {
+    border-left: 2px solid #f2a440;
+    border-bottom: 1px solid #fbedda;
+}
+
+#side-menu li.active>a {
+    background: #f2a440;
+}
+
+.content-wrapper .sidebar #side-menu>li>a {
+    padding: 10px 20px 10px 20px;
+    width: 60px;
+}
+
+.content-wrapper .active span {
+    display: none!important;
+}
+
+.padding-left-0 {
+    padding-left: 0;
+}
+
+.padding-right-0 {
+    padding-right: 0;
+}
+
+.seat-structure-info ul li {
+    list-style: none;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.seat-structure-info ul li strong {
+    float: left;
+    margin-right: 30px;
+    margin-top: 6px;
+}
+
+.seat-structure-info h3, .seat-structure-info h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.ticket-status-main {
+    background: #cdcdcd;
+    overflow: hidden;
+    padding-top: 10px;
+    border: 1px solid #fff;
+}
+
+.status-color {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.booking-color {
+    color: #fff;
+    background: #568000;
+}
+
+.reserve-color {
+    color: #fff;
+    background: #738EEF;
+}
+
+.avaiable-color {
+    color: #000;
+    background: #ededed;
+}
+
+.ticket-status-table {
+    background: #fff;
+    color: #000;
+    text-align: center;
+}
+
+.ticket-status-table thead tr th, .ticket-status-table tbody tr td {
+    border: 1px solid #555;
+}
+
+.action-btn-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.action-btn-list li {
+    margin-top: 11px;
+}
+
+.action-btn-list .btn {
+    width: 90px;
+    box-shadow: 0px 0px 2px #000;
+}
+
+/*=========2nd Part=========*/
+
+.logout-box .dropdown ul.dropdown-menu {
+    border-radius: 4px;
+    box-shadow: none;
+    margin-top: 20px;
+}
+
+.logout-box .dropdown ul.dropdown-menu:before {
+    content: "";
+    border-bottom: 10px solid #fff;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    position: absolute;
+    top: -10px;
+    right: 16px;
+    z-index: 10;
+}
+
+.logout-box .dropdown ul.dropdown-menu:after {
+    content: "";
+    border-bottom: 12px solid #ccc;
+    border-right: 12px solid transparent;
+    border-left: 12px solid transparent;
+    position: absolute;
+    top: -12px;
+    right: 14px;
+    z-index: 9;
+}
+
+.logout-box ul {}
+
+.logout-box ul li:last-child a {
+    border-right: none;
+}
+
+.logout-box ul li {
+    list-style: none;
+    float: left;
+}
+
+.logout-box ul li a {
+    border-right: 1px solid #fff;
+    padding: 2px 20px;
+    display: block;
+    margin-top: 7px;
+}
+
+.logout-box ul li a:hover {
+    color: #000000;
+}
+
+.logout-box {
+    float: right;
+}
+
+.logout-box a {
+    color: #fff;
+}
+
+.seatStatusSold+label {
+    background-color: #29C49E !important;
+}
+
+.seatStatusReserved+label {
+    background-color: #EFD9E6!important;
+}
+
+.seatStatusFree+label {
+    background-color: #169F08 !important;
+}
+
+.seatStatusFree:checked+label {
+    background-color: #FFEBEB !important;
+}
+
+.leftSeparator {
+    border-left: 3px solid #d14836;
+}
+
+.amount_td {
+    text-align: right;
+}
+
+.border-box {
+    border: 1px solid #939090;
+    margin-bottom: 7px;
+    box-shadow: 0px 0px 2px #a7a3a3;
+    padding: 8px 5px;
+}
+
+.border-box .table {
+    margin-bottom: 0px;
+}
+
+.alert {
+    padding: 5px;
+}
+
+h4 .smallEdit {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.padding-left-15 {
+    padding-left: 15px;
+}
+
+.padding-right-15 {
+    padding-right: 15px;
+}
+
+.table .btn {
+    margin-bottom: 1px;
+}
+
+.slimScrollDiv {
+    border-right: 1px solid #fff;
+}
+
+.settings-box {
+    border: 1px solid #888;
+    padding: 0px;
+}
+.editable-table td{
+    border: 1px solid black !important;
+}
+.center{
+    text-align: center;
+}
+.bold{
+    font-weight:bold;
+}
+.needEdit{
+    /*background-color: #00ff9f;*/
+}
+.tableFocusColor{
+    background-color: blue;
+    color: white;
+}
+#reportArea{
+font-family: sans-serif;
+}

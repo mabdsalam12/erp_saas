@@ -1,0 +1,39 @@
+<?php
+    global $gAr;
+    foreach($gAr as $k=>$v){${$k}=$v;}
+?>
+<div id="details_top">
+    <table class="table table-borderd">
+        <tr><td>Date</td><td><?=$date?></td></tr>
+        
+    </table>
+</div>
+<table class="table table-borderd">
+    <thead>
+        <tr>
+            <td>#</td>
+            <td>Product</td>
+            <td>Unit</td>
+            <td>Quantity</td>
+        </tr>
+    </thead>
+    <tbody class="details_products">
+        <?php
+            $sr=1;
+            if(!empty($order_product)){
+                foreach($order_product as $po){
+                ?>
+                <tr>
+                    <td><?=$sr++?></td>
+                    <td><?=$product[$po['product_id']]['title']??''?></td>
+                    <td><?=$units[$product[@$po['product_id']]['id']]['title']??''?></td>
+                    <td><?=$po['quantity']?></td>
+                </tr>
+
+                <?php 
+                }
+            }
+        ?>
+    </tbody>
+
+</table>

@@ -1,0 +1,66 @@
+<?php
+    global $gAr;foreach($gAr as $k=>$v){${$k}=$v;}
+?>
+<div class="table-responsive">
+    <table class="table table-bordered header-white table-striped report-table mt-0">
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th>Category</th>
+                <th>Sub category</th>
+                <th>Product</th>
+                <th class="amount_td">Sale Qty</th>
+                <th class="amount_td">Sale UP</th>
+                <th class="amount_td">Return Qty</th>
+                <th class="amount_td">Av Qty</th>
+                <th class="amount_td">Return</th>
+                <th class="amount_td">Return UP</th>
+                <th class="amount_td">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                $s=1;
+                foreach($purchaseReturnData as $t){
+                ?>
+                <tr id="product_<?=$t['pID']?>" data-pID="<?=$t['pID']?>" class="saleReturnProduct">
+                    <td><?=$s++?></td>
+                    <td><?=$t['category']?></td>
+                    <td><?=$t['subCategory']?></td>
+                    <td><?=$t['product']?></td>
+                    <td class="amount_td qty" ><?=$t['qty']?></td>
+                    <td class="amount_td sale_up"><?=$t['sale_up']?></td>
+                    <td class="amount_td return_qty"><?=$t['returnQty']?></td>
+                    <td class="amount_td avQty"><?=$t['avQty']?></td>
+                    <td style="background-color: #6ed06b;" onkeyup="returnCalculation('product_<?=$t['pID']?>')" class="amount_td returnQty" contenteditable="true"></td>
+                    <td style="background-color: #6ed06b;" onkeyup="returnCalculation('product_<?=$t['pID']?>')" class="amount_td return_up" contenteditable="true"></td>
+                    <td class="amount_td amount">0</td>
+
+
+                </tr>
+                <?php
+                }
+            ?>
+            <tr>
+                <td></td>
+                <td colspan="9">Total</td>
+                <td id="returnAmout" class="amount_td">0</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="9">Cash payment</td>
+                <td style="background-color: #6ed06b;" onkeyup="returnDueCalclulation()" id="cashPayment" class="amount_td" contenteditable="true"> </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="9">Due</td>
+                <td id="returnDue" class="amount_td">0</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td >remarks</td>
+                <td colspan="9" style="background-color: #6ed06b;" id="returnRemarks" contenteditable="true"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

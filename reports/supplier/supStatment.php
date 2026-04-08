@@ -1,0 +1,37 @@
+<?php
+$general->pageHeader($rModule['title']);
+    $suppliers=$db->selectAll('suppliers','where isActive=1 order by name asc');
+?>
+<div class="white-box border-box">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <input type="hidden" id="scID" value="<?= $scID?>">
+                <div class="col-md-2">
+                    <h5 class="box-title">Date</h5>
+                    <input type="text" id="dRange" class="daterangepickerMulti form-control" value="">
+                </div>
+                <div class="col-md-2">
+                    <h5 class="box-title">Supplier</h5>
+                    <select id="supID" class="col-md-8 form-control select2">
+                        <option value="">Select Supplier</option>
+                        <?php
+                            foreach($suppliers as $e){
+                        ?><option value="<?= $e['id']?>"><?= $e['name']?></option><?php
+                            }
+                        ?>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <h5 class="box-title">Search</h5>
+                    <a href="javascript:void()" class="btn btn-success" onclick="supplierStatement()">Search</a>
+                </div>
+                 <?= INFO_SUPPLIER_BALANCE?>
+            </div> 
+
+        </div>
+
+        <div class="col-sm-12 col-lg-12"><?php show_msg()?></div>
+        <div class="col-sm-12 col-lg-12" id="reportArea"></div>
+    </div>
+</div>

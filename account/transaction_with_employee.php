@@ -1,0 +1,234 @@
+<?php
+    $employees=$db->selectAll('employees','where isActive=1 order by name asc','id,name');
+    $general->arrayIndexChange($employees,'id');
+    $data = array($pUrl=>$rModule['title']);
+    $general->pageHeader($rModule['title'],$data);
+    $cash_accounts=$acc->get_all_cash_accounts();
+    
+?>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="white-box border-box">
+            <div class="row">
+                <div class="col-lg-12"><?php show_msg();?></div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <?php $general->inputBoxText('date','Date','','','daterangepicker','autocomplete="off"'); ?>
+                            <?php
+                                $general->inputBoxSelect($employees,'Employee','id','id','name','','y','','','Select Employee');
+                                $general->inputBoxText('mobile','mobile',inputScript:'disabled');
+                                $general->inputBoxSelect([
+                                    [
+                                        'id'=>'1',
+                                        'title'=>'Receive from employee'
+                                    ],
+                                    [
+                                        'id'=>'2',
+                                        'title'=>'Pay to employee'
+                                    ],
+                                    ],'Transaction type','trType','id','title','','','','onclick="newBalance()"');
+                            ?>
+                            <div id="employeeStBtn"></div>
+                            <?php 
+                            $general->inputBoxSelect($cash_accounts,'Bank / Cash','bank_id','id','title');
+                            ?>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                        মাইনাস মানে এমপ্লয়ি পাবে
+                            <?php $general->inputBoxText('currentBalance','Balance','','','','disabled') ?>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <?php $general->inputBoxText('trAmount','Amount','','','','autocomplete="off" onkeyup="newBalance()"'); ?>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <?php $general->inputBoxText('nBalance','New Balance','','','','disabled') ?>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12"> 
+                            <div class="form-group row">
+                                <label for="trNote" class="col-md-4 col-form-label">Note</label>
+                                <div class="col-md-8">
+                                    <textarea placeholder="Note" cols="" class="form-control" rows="" id="trNote" name="trNote"><?php echo isset($_POST['trNote'])?htmlspecialchars(@$_POST['trNote']):''?></textarea>
+                                    <div class="col-xs-6 col-sm-4 col-md-4"></div>
+                                    <div class="col-xs-6 col-sm-4 col-md-4">
+                                        <div class="form-group ">
+                                            <div class="pull-right m-t-5">
+                                                <button  onclick="transactionWithEmployee()" id="employeeTransactionBtn" class="btn btn-info waves-effect waves-light transactionWithEmployee">Save</button>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--</form>-->
+                    <script>
+                        function newBalance(){
+
+                            let cBalance    = parse_int($('#currentBalance').val());
+                            let trAmount    = parse_int($('#trAmount').val());
+                            let trType      = parse_int($('#trType').val());
+                            let nBalance=0;
+                            if(trType==1){
+                                nBalance=cBalance-trAmount;
+                                $('#forPay').hide();
+                            }
+                            else if(trType==2){
+                                nBalance=cBalance+trAmount;
+                                $('#forPay').show(); 
+                            }
+                            else{
+                                nBalance='';
+                            }
+                            $('#nBalance').val(nBalance);
+                        }
+                        function employeeStBtn(){
+                            var id = parse_int($('#id').val());
+                            if(id>0){
+                                $('#employeeStBtn').html('<a href="?mdl=employeeStatment&employee_id='+id+'" target="_blank" class="btn btn-info">Statment</a>');
+                            }
+                            else{
+                                $('#employeeStBtn').html('');
+                            }
+                        }
+                        $('#id').on('change', function(){
+                            employeeCurrentBalance();
+                            employeeStBtn();
+                        }); 
+                           
+                        function employeeCurrentBalance(){
+                            var id= parse_int($('#id').val());
+                            if(0<id){
+                                $.ajax({
+                                    type:'post',
+                                    url:ajUrl,
+                                    data:{employeeCurrentBalance:1,employee_id:id},
+                                    success:function(data){
+                                        if(data.status==1){
+                                            $('#currentBalance').val(data.balance);
+                                            $('#mobile').val(data.mobile);
+                                            newBalance();
+                                        }
+                                    }
+                                }); 
+                            }
+                        }
+                        function transactionWithEmployee(){
+                            buttonLoading('transactionWithEmployee');
+                            var id         = parse_int($('#id').val());
+                            var date      = $('#date').val();
+                            var trNote      = $('#trNote').val();
+                            var trAmount    = parse_float($('#trAmount').val());
+                            var trType      = parse_int($('#trType').val());
+                            let bank_id =parse_int($('#bank_id').val()) ;
+                            errorSet=0;
+                            if(1>id){
+                                errorSet=1;   
+                            }
+                            else if(0==trType){
+                                errorSet=1;
+                                swMessage('Please select transaction type.');
+                            } 
+                            else if(0==trAmount){
+                                errorSet=1;
+                                swMessage('Amount field is required.');
+                            } 
+                            
+                            else if(bank_id<1){
+                                errorSet=1;
+                                swMessage('Please select Bank.');
+                            } 
+                            else if(''==trNote){
+                                errorSet=1;
+                                swMessage('Note field is required.');
+                            } 
+                            if(errorSet==0){
+                                $('#employeeTransactionBtn').hide();
+                                //$('#reportArea').html(loadingImage);
+                                $.ajax({
+                                    type:'post',
+                                    url:ajUrl,
+                                    data:{transactionWithEmployee:1,id:id,date:date,trNote:trNote,trType:trType,trAmount:trAmount,bank_id:bank_id},
+                                    success:function(response){
+                                        button_loading_destroy('transactionWithEmployee','Save')
+                                        //$('#reportArea').html('');
+                                        if (response && typeof response.status !== "undefined") {
+                                            if(response.status==1){
+                                                $('#id').val('');
+                                                $('#trNote').val('');
+                                                $('#trAmount').val('');
+                                                $('#nBalance').val('');
+                                                $('#currentBalance').val('');
+                                                $('#customerStBtn').html('');
+                                                $('#trType').val('');
+                                                
+                                                personPaymentList();
+                                                select2Call();
+                                            }
+                                            $('#employeeTransactionBtn').show();
+                                            swMessageFromJs(response.m);
+                                        }
+                                        else{
+                                            swMessage(AJAX_ERROR_MESSAGE || "Unexpected error occurred.");
+                                        }
+                                    },
+                                    error:function(error){
+                                        button_loading_destroy('transactionWithEmployee','Save')
+                                        swMessage(AJAX_ERROR_MESSAGE || "Unexpected error occurred.");
+                                    }
+                                });
+                            }
+                            else{
+                                button_loading_destroy('transactionWithEmployee','Save')
+                            }
+                        }  
+                    </script>
+                </div>
+            </div>
+            <div class="row"><div class="col-sm-12 col-lg-12" id="trDetailsAreaf"></div></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <div class="row">
+
+                <div class="col-md-3">
+                    <h5 class="box-title">Date </h5>
+                    <input type="text" name="dRange" id="dRange" class="daterangepickerMulti form-control" value="">
+                </div>
+
+                <div class="col-md-2">
+                    <h5 class="box-title">Search</h5>
+                    <input type="submit" value="Search"class="btn btn-success" name="s" onclick="employeePaymentList();">
+                </div>
+                <div class="col-sm-12 col-lg-12"><?php show_msg();?></div>
+                <div class="col-sm-12 col-lg-12" id="trDetailsArea"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $( document ).ready(function() {
+        employeePaymentList();
+    });
+    function employeePaymentList(){
+        //var cID=$('#cIDL').val();
+        var dRange=$('#dRange').val();
+        $('#trDetailsArea').html(loadingImage);
+        $.post(ajUrl,{employeePaymentList:1,dRange:dRange},function(data){
+            if(data.status==1){
+                $('#trDetailsArea').html(data.html);
+            }
+            else{
+                $('#trDetailsArea').html('');
+                swMessageFromJs(data.m);
+            }
+        });
+    }   
+
+</script>

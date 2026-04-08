@@ -1,0 +1,51 @@
+<?php
+    global $gAr;
+    foreach($gAr as $k=>$v){${$k}=$v;}
+?>
+<div id="details_top">
+    <table class="table table-borderd">
+        <tr><td>Date</td><td><?=$gift['date']?></td></tr>
+        <tr><td>Base</td><td><?=$gift['base']?></td></tr>
+        <tr><td>User</td><td><?=$gift['user']?></td></tr>
+    </table>
+</div>   
+<table class="table table-borderd">
+    <thead>
+        <tr>
+            <td>#</td>
+            <td>Product</td>
+            <td>Unit</td>
+            <td>Qty</td>
+            <td>TP</td>
+            <td>Total</td>
+        </tr>
+    </thead>
+    <tbody class="details_products">
+        <?php
+            $sr=1;
+            foreach($gift_product as $po){ 
+            ?>
+            <tr>
+                <td><?=$sr++?></td>
+                <td><?=$po['product']?></td>
+                <td><?=$po['unit']?></td>
+                <td><?=$po['quantity']?></td>
+                <td><?=$po['tp']?></td>
+                <td><?=$po['total']?></td>
+            </tr>
+
+            <?php 
+            }
+        ?>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><?=$gift['total_quantity']?></td>
+            <td></td>
+            <td><?=$gift['tTotal']?></td>
+        </tr>
+    </tfoot>
+</table>

@@ -1,0 +1,11 @@
+<?php
+    $supID=intval($_POST['supID']);
+    $scID=intval($_POST['scID']);
+    $sup=$smt->supplierInfoByID($supID);
+    $jArray['subBalance']=0;
+    if(!empty($sup)){
+        $supHead=$acc->getSupplierHead($sup);
+        $jArray['status']=1;
+        $jArray['subBalance']=$general->numberFormat($acc->headBalance($supHead));
+    }
+?>

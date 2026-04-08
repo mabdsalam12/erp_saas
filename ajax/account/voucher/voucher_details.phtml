@@ -1,0 +1,60 @@
+<?php
+    global $gAr;foreach($gAr as $k=>$v){${$k}=$v;}
+?>
+
+<div>
+    <table class="table table-stripe">
+        <tr>
+            <td>Date</td>
+            <td><?=date('d/m/Y',$voucher['time'])?></td>
+        </tr>
+        <tr>
+            <td>Entry</td>
+            <td><?=date('d/m/y h:i:s A',$voucher['time'])?></td>
+        </tr>
+        <tr>
+            <td>Type</td>
+            <td><?=$voucher['type']['title']?></td>
+        </tr>
+        <tr>
+            <td>Code</td>
+            <td><?=$voucher['code']?></td>
+        </tr>
+        <tr>
+            <td>Add by</td>
+            <td><?=$voucher['user']['username']?></td>
+        </tr>
+        <tr>
+            <td>Reference</td>
+            <td><?=$voucher['reference']?></td>
+    </table>
+    <table class="table table-striped">
+        <tr>
+            <th>#</th>
+            <th>Head</th>
+            <th>Note</th>
+            <th class="text-right">Debit</th>
+            <th class="text-right">Credit</th>
+        </tr>
+        <?php
+        $i=1;
+        $total_debit=0;
+        $total_credit=0;
+        foreach($voucher['entrys'] as $e):
+            $total_debit+=$e['debit'];
+            $total_credit+=$e['credit'];
+        ?>
+        <tr>
+            <td><?=$i++?></td>
+            <td><?=$e['head']['title']?></td>
+            <td><?=$e['note']?></td>
+            <td class="text-right"><?=number_format($e['debit'],2)?></td>
+            <td class="text-right"><?=number_format($e['credit'],2)?></td>
+        </tr>
+        <?php endforeach; ?>
+        <tr>
+            <td colspan="3" class="text-right">Total</td>
+            <td class="text-right"><b><?=number_format($total_debit,2)?></b></td>
+            <td class="text-right"><b><?=number_format($total_credit,2)?></b></td>
+        </tr>
+</div>

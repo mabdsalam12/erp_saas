@@ -1,0 +1,201 @@
+<?php
+global $gAr;
+$report_data=$gAr['report_data'];
+$printArea='printArea'.rand(111,999);
+?>
+<style type="text/css" media="print">
+    @page {
+        size: auto;
+        margin-top: 5px;
+    }
+</style>
+
+<div class="col-md-1 pull-right"><button class="btn btn-success" onclick="printElemReport('<?= $printArea;?>')">Print</button></div>
+<?php
+if(isset($report_data['fileName'])){
+    ?>
+    <div class="col-md-1 pull-right"><button id="exportBtn" class="btn btn-success pull-right"  onclick="reportJsonToExcel('<?= $report_data['fileName'];?>')">Export To Excel</button></div>
+    <?php
+}
+?>
+<script type="text/javascript">
+    function printElemReport(elem){
+        $('#report_data_area').hide();
+        var mywindow = window.open();
+        mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+        mywindow.document.write('<style type="text/css">table{font-size:12px;border-collapse: collapse;width:100%}</style>'); 
+        mywindow.document.write(
+            '<style type="text/css">' +
+            'table th, table td {' +
+            'border:1px solid #000;' +
+            'padding;0.5em;' +
+            '}' +
+            '</style>'+
+            '<style type="text/css" media="print">'+
+            '@page {'+
+            '   size: auto;'+
+            '  margin-top: 25px;'+
+            '}'+
+            '.noPrint{display:none;}'+
+            '</style>');
+        mywindow.document.write('</head><body >');
+        mywindow.document.write('<h3 style="text-align:center"><?= $report_data['title'];?></h3>');
+        <?php
+        if(isset($report_data['info'])){
+            if(!empty($report_data)){
+                ?>
+                mywindow.document.write('<p>');
+                <?php
+                foreach($report_data['info'] as $p){
+                    ?>
+                    mywindow.document.write('<?= $p;?><br>');
+                    <?php
+                }
+                ?>
+                mywindow.document.write('</p>');
+                <?php
+            }
+        }
+        ?>
+        mywindow.document.write(document.getElementById(elem).innerHTML);
+        $('#report_data_area').show();
+        mywindow.document.write('</body></html>');
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus();
+        mywindow.print();
+        mywindow.close();
+        
+        return true;
+    }
+</script>
+<pre>
+    <?php
+    //    print_r($report_data);
+    ?>
+</pre>
+<div id="<?= $printArea;?>">
+    <?php 
+    if(isset($report_data['info'])){
+        if(!empty($report_data)){
+            ?>
+            <div id="report_data_area">
+            <?php
+            foreach($report_data['info'] as $p){
+                echo"<p> $p</p>";
+            }
+            ?>
+            </div>
+            <?php
+        }
+    }
+    
+    ?>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <?php
+                foreach($report_data['head'] as $t){
+                    $hw='style="';
+                    if(isset($t['hw'])){$hw.=' width: '.$t['hw'].'%;';}
+                    if(isset($t['al'])){
+                        if($t['al']=='r'){$hw.=' text-align:right;';}
+                        elseif($t['al']=='l'){$hw.=' text-align:left;';}
+                        elseif($t['al']=='c'){$hw.=' text-align:center;';}
+                    }
+                    if(isset($report_data['headerBackColor'])){
+                        $hw.=' background-color: '.$report_data['headerBackColor'].';';
+                    }
+                    $hw.='"';
+                    if (isset($t['no_for_excel'])) {
+                        $hw .= ' class="noPrint"';
+                    }
+
+                    ?><th <?= $hw;?>><?= $t['title'];?></th><?php
+                }
+                ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $i=0;
+            if(isset($report_data['data'])){
+                foreach($report_data['data'] as $r){
+                    if($i<5000){
+                        $trInfo='style="';
+                        if(isset($r['trColor'])){
+                            //$trInfo.='background-color:red;';
+                            $trInfo.='background: rgba('.implode(',',$r['trColor']).', 0.5) ';
+                        }
+                        $trInfo.='"';
+                        if(isset($r['table_tr_id'])){
+                            $trInfo.='id="'.$r['table_tr_id'].'"';
+                        }
+                        $i++;
+                        ?><tr <?= $trInfo;?>><?php
+                            foreach($report_data['head'] as $t){
+                                $hwp=[];
+                                if(isset($r[$t['key']])){
+                                    $bold=false;
+                                    $tt=$r[$t['key']];
+                                    $att='';
+                                    if(!is_array($tt)){
+                                        $text=$tt;
+                                    }else{
+                                        $text=$tt['t'];
+                                        if(isset($tt['b'])){
+                                            $bold=true;
+                                        }
+                                        if(isset($tt['col'])){
+                                            $att=' colspan="'.$tt['col'].'"';
+                                        }
+                                        if (isset($tt['row'])) {
+                                            $att = ' rowspan="' . $tt['row'] . '"';
+                                        }
+                                        if(isset($tt['al'])){
+                                            //$t['al']=$tt['al'];
+                                            if($tt['al']=='r'){$hwp[]='text-align:right;';}
+                                            elseif($tt['al']=='l'){$hwp[]='text-align:left;';}
+                                            elseif($tt['al']=='c'){$hwp[]='text-align:center;';}
+                                        }
+                                    }
+                                    if($text!==false){
+                                        //$hw='style="';
+                                        if(isset($t['al'])&&!isset($tt['al'])){
+                                            if($t['al']=='r'){$hwp[]='text-align:right;';}
+                                            elseif($t['al']=='l'){$hwp[]='text-align:left;';}
+                                            elseif($t['al']=='c'){$hwp[]='text-align:center;';}
+                                        }
+
+                                        if($bold==true){
+                                            $hwp[]='font-weight:bold;';
+                                        }
+                                        $hw.='"';    
+                                        $hw='';
+                                        if(!empty($hwp)){
+                                            $hw='style="'.implode('',$hwp).'"';
+                                        }
+                                        if (isset($t['no_for_excel'])) {
+                                            $hw .= ' class="noPrint"';
+                                        }
+                                        ?>
+                                        <td <?= $hw.$att;?>><?= $text/*.json_encode($t).' - '.json_encode($tt)*/;?></td>
+                                        <?php
+                                    }
+                                }
+                                else{
+                                    ?>
+                                    <td>&nbsp;</td>
+                                    <?php
+                                }
+                        } ?></tr><?php
+                    }
+                    else{
+                        ?><tr><td colspan="<?= count($report_data['data']);?>"><b style="color: red;">Please export for more data</b></td></tr><?php
+                        break;
+                    }
+                }
+            }
+            ?>
+        </tbody>
+    </table>
+</div>

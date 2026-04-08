@@ -1,0 +1,7 @@
+vendor/
+log/
+.vscode/
+print_file/
+config/
+favicon.ico
+images/

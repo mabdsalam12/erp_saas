@@ -1,0 +1,96 @@
+<?php
+    global $gAr;
+    foreach($gAr as $k=>$v){${$k}=$v;}
+?>
+<div id="details_top">
+    <table class="table table-borderd">
+        <tr><td>Invoice Date</td><td><?=$sale['invoice_date']?></td></tr>
+        <tr><td>Approved Date</td><td><?=$sale['approved_date']?></td></tr>
+        <tr><td>Process Date</td><td><?=$sale['process_date']?></td></tr>
+        <tr><td>Customer</td><td><?=$sale['customer']?></td></tr>
+        <tr><td>Remarks</td><td><?=$sale['note']?></td></tr>
+
+    </table>
+</div>
+<table class="table table-borderd">
+    <thead>
+        <tr>
+            <td>#</td>
+            <td>Product</td>
+            <td>Unit</td>
+            <td>Unit Price</td>
+            <td>Good</td>
+            <td>Damage</td>
+            <td>Expiry</td>
+            <td>Total Qty</td>
+            <td>Total</td>
+        </tr>
+    </thead>
+    <tbody class="details_products">
+        <?php
+            $sr=1;
+            foreach($product_details as $po){
+            ?>
+            <tr>
+                <td><?=$sr++?></td>
+                <td><?=$po['product']?></td>
+                <td><?=$po['unit']?></td>
+                <td><?=$po['unitPrice']?></td>
+                <td><?=$po[SALE_RETURN_PROCESS_TYPE_GOOD]?></td>
+                <td><?=$po[SALE_RETURN_PROCESS_TYPE_DAMAGE]?></td>
+                <td><?=$po[SALE_RETURN_PROCESS_TYPE_EXPIRY]?></td>
+                <td><?=$po['quantity']?></td>
+                <td><?=$po['total']?></td>
+            </tr>
+
+            <?php 
+            }
+        ?>
+    </tbody>
+    <tfoot>
+        <tr><td colspan="8">Subtotal</td><td><b><?=$sale['sub_total']?></b></td></tr>
+        <tr><td colspan="8">Discount</td><td><b><?=$sale['discount']?></b></td></tr>
+        <tr><td colspan="8">Return Amount</td><td><b><?=$sale['return_amount']?></b></td></tr>
+    </tfoot>
+</table>
+<?php
+$due_data=[];
+
+if(isset($sale_data['customer_due_invoice'])){
+    $due_data=$sale_data['customer_due_invoice'];
+}
+if(!empty($due_data)){
+    
+?>
+<h4>Due list</h4>
+<table class="table table-borderd">
+    <thead>
+        <tr>
+            <td>SN</td>
+            <td>Invoice Date</td>
+            <td>Invoice No</td>
+            <td>Sales Terms</td>
+            <td class="amount_td">Dues</td>
+            <td class="amount_td">Aging (Days)</td>
+        </tr>
+    </thead>
+    <tbody class="details_products">
+<?php
+$serial=1;
+foreach($due_data as $d){
+?>
+<tr>
+    <td><?=$serial?></td>
+    <td><?=date('d-m-y',$d['date'])?></td>
+    <td><?=$d['invoice_no']?></td>
+    <td><?=$d['pay_type']?></td>
+    <td class="amount_td"><?=(float)$d['due']?></td>
+    <td class="amount_td"><?=$d['aging']?></td>
+</tr>
+<?php
+}
+?>
+    </tbody>
+    </table>
+<?php
+}

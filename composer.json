@@ -1,0 +1,16 @@
+{
+    "require": {
+        "mailgun/mailgun-php": "^3.5.2",
+        "php-http/curl-client": "^2.2.1",
+        "guzzlehttp/psr7": "^1.4",
+        "phpmailer/phpmailer": "^6.0",
+        "http-interop/http-factory-guzzle": "^1.2",
+        "phpoffice/phpspreadsheet": "^2.2",
+        "tecnickcom/tcpdf": "^6.10"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
+}

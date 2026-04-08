@@ -1,0 +1,101 @@
+<?php
+    global $gAr;
+    foreach($gAr as $k=>$v){${$k}=$v;}
+?>
+<div id="details_top">
+    <table class="table table-borderd">
+        <tr><td>Invoice No</td><td><?=$sale['invoice_no']?></td></tr>
+        <tr><td>Date</td><td><?=$sale['date']?></td></tr>
+        <tr><td>Pay type</td><td><?=$sale['pay_type_name']?></td></tr>
+        <tr><td>Csustomer</td><td><?=$sale['customer']?></td></tr>
+        <tr><td>Due Date</td><td><?=$sale['collection_date']?></td></tr>
+        <tr><td>Remarks</td><td><?=$sale['note']?></td></tr>
+
+    </table>
+</div>   
+<table class="table table-borderd">
+    <thead>
+        <tr>
+            <td>#</td>
+            <td>Product</td>
+            <td>Unit</td>
+            <td class="amount_td">Unit Price</td>
+            <td class="amount_td">Salse Qty</td>
+            <td class="amount_td">Free Qty</td>
+            <td class="amount_td">Total Qty</td>
+            <td class="amount_td">Sub Total</td>
+            <td class="amount_td">Discount</td>
+            <td class="amount_td">VAT</td>
+            <td class="amount_td">Total</td>
+        </tr>
+    </thead>
+    <tbody class="details_products">
+        <?php
+            $sr=1;
+            foreach($product_details as $po){ 
+            ?>
+            <tr>
+                <td><?=$sr++?></td>
+                <td><?=$po['product']?></td>
+                <td><?=$po['unit']?></td>
+                <td class="amount_td"><?=(float)$po['unit_price']?></td>
+                <td class="amount_td"><?=(float)$po['sale_qty']?></td>
+                <td class="amount_td"><?=(float)$po['free_qty']?></td>
+                <td class="amount_td"><?=(float)$po['total_qty']?></td>
+                <td class="amount_td"><?=(float)$po['sub_total']?></td>
+                <td class="amount_td"><?=(float)$po['discount']?></td>
+                <td class="amount_td"><?=(float)$po['VAT']?></td>
+                <td class="amount_td"><?=(float)$po['total']?></td>
+            </tr>
+
+            <?php 
+            }
+        ?>
+    </tbody>
+    <tfoot>
+        <tr><td colspan="10">Subtotal</td><td class="amount_td"><?=(float)$sale['sub_total']?></td></tr>
+        <tr><td colspan="10">Discount</td><td class="amount_td"><?=(float)($sale['discount']+$sale['extra_discount'])?></td></tr>
+        <tr><td colspan="10">Total</td><td class="amount_td"><?=(float)$sale['total']?></td></tr>
+    </tfoot>
+</table>
+<?php
+$due_data=[];
+
+if(isset($sale_data['customer_due_invoice'])){
+    $due_data=$sale_data['customer_due_invoice'];
+}
+if(!empty($due_data)){
+    
+?>
+<h4>Due list</h4>
+<table class="table table-borderd">
+    <thead>
+        <tr>
+            <td>SN</td>
+            <td>Invoice Date</td>
+            <td>Invoice No</td>
+            <td>Sales Terms</td>
+            <td class="amount_td">Dues</td>
+            <td class="amount_td">Aging (Days)</td>
+        </tr>
+    </thead>
+    <tbody class="details_products">
+<?php
+$serial=1;
+foreach($due_data as $d){
+?>
+<tr>
+    <td><?=$serial?></td>
+    <td><?=date('d-m-y',$d['date'])?></td>
+    <td><?=$d['invoice_no']?></td>
+    <td><?=$d['pay_type']?></td>
+    <td class="amount_td"><?=(float)$d['due']?></td>
+    <td class="amount_td"><?=$d['aging']?></td>
+</tr>
+<?php
+}
+?>
+    </tbody>
+    </table>
+<?php
+}
