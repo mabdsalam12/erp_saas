@@ -15,9 +15,9 @@
 	define('DB_SERVER', 'localhost');
     
     $localServers=[
-        'panacea.as',
-        'panacea.moi',
-        'panacea.oo'
+        'erp_saas.as',
+        'erp_saas.moi',
+        'erp_saas.oo'
     ];
 	if (isset($_SERVER['SERVER_NAME'])) {
         if (in_array($_SERVER['SERVER_NAME'],$localServers)) {

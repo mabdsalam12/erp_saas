@@ -10,32 +10,32 @@
 	<!--<link rel="icon" type="image/x-icon" href="<?=URL?>/favicon.ico">-->
 	<title><?php echo $thisPageTitle; ?></title>
 	<link href="<?=URL?>/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="<?=URL?>/plugins/bower_components/bootstrap-extension/css/bootstrap-extension.css" rel="stylesheet">
-	<link href="<?=URL?>/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
-	<link href="<?=URL?>/plugins/bower_components/morrisjs/morris.css" rel="stylesheet">
-	<link href="<?=URL?>/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-	<link href="<?=URL?>/plugins/bower_components/custom-select/custom-select.css" rel="stylesheet" type="text/css" />
+	<link href="<?=URL?>/plugins/bootstrap-extension/css/bootstrap-extension.css" rel="stylesheet">
+	<link href="<?=URL?>/plugins/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+	<link href="<?=URL?>/plugins/morrisjs/morris.css" rel="stylesheet">
+	<link href="<?=URL?>/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+	<link href="<?=URL?>/plugins/custom-select/custom-select.css" rel="stylesheet" type="text/css" />
 	<link href="<?=URL?>/css/font/font.css" rel="stylesheet">
 	<link href="<?=URL?>/css/style.css" rel="stylesheet">
 	<link href="<?=URL?>/css/colors/default.css" id="theme" rel="stylesheet">
 	<link href="<?=URL?>/css/cw-style.css?v=<?php echo RUNNING_VERSION; ?>" id="theme" rel="stylesheet">
-	<script src="<?=URL?>/plugins/bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="<?=URL?>/plugins/bower_components/jqueryui/jquery-ui.min.js"></script>
+	<script src="<?=URL?>/plugins/jquery/dist/jquery.min.js"></script>
+	<script src="<?=URL?>/plugins/jqueryui/jquery-ui.min.js"></script>
 	<script src="<?=URL?>/bootstrap/dist/js/tether.min.js"></script>
 	<script src="<?=URL?>/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="<?=URL?>/plugins/bower_components/bootstrap-extension/js/bootstrap-extension.min.js"></script>
-	<script src="<?=URL?>/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
-	<link href="<?=URL?>/plugins/bower_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
-	<link href="<?=URL?>/plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+	<script src="<?=URL?>/plugins/bootstrap-extension/js/bootstrap-extension.min.js"></script>
+	<script src="<?=URL?>/plugins/sidebar-nav/dist/sidebar-nav.min.js"></script>
+	<link href="<?=URL?>/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+	<link href="<?=URL?>/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 	<script src="<?=URL?>/js/big.min.js"></script>
 	<script src="<?=URL?>/js/custom.min.js"></script>
-	<script src="<?=URL?>/plugins/bower_components/custom-select/custom-select.min.js" type="text/javascript"></script>
-	<script src="<?=URL?>/plugins/bower_components/bootstrap-daterangepicker/moment.min.js"></script>
-	<script src="<?=URL?>/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-	<script src="<?=URL?>/plugins/bower_components/sweetalert/sweetalert.min.js"></script>
-	<script src="<?=URL?>/plugins/bower_components/sweetalert/jquery.sweet-alert.custom.js"></script>
-	<script src="<?=URL?>/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
-	<script src="<?=URL?>/plugins/bower_components/tiny-editable/mindmup-editabletable.js"></script>
+	<script src="<?=URL?>/plugins/custom-select/custom-select.min.js" type="text/javascript"></script>
+	<script src="<?=URL?>/plugins/bootstrap-daterangepicker/moment.min.js"></script>
+	<script src="<?=URL?>/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script src="<?=URL?>/plugins/sweetalert/sweetalert.min.js"></script>
+	<script src="<?=URL?>/plugins/sweetalert/jquery.sweet-alert.custom.js"></script>
+	<script src="<?=URL?>/plugins/datatables/jquery.dataTables.min.js"></script>
+	<script src="<?=URL?>/plugins/tiny-editable/mindmup-editabletable.js"></script>
 	<script src="<?=URL?>/js/jquery.slimscroll.js?v=3"></script>
     <script src="<?=URL?>/js/jscolor.min.js"></script>
 	<script type="text/javascript">

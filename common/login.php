@@ -9,7 +9,7 @@
         <link rel="icon" href="<?=URL?>/favicon.php" type="image/x-icon">
         <title><?=l('login')?></title>
         <link href="<?=URL?>/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="<?=URL?>/plugins/bower_components/bootstrap-extension/css/bootstrap-extension.css" rel="stylesheet">
+        <link href="<?=URL?>/plugins/bootstrap-extension/css/bootstrap-extension.css" rel="stylesheet">
         <link href="<?=URL?>/css/animate.css" rel="stylesheet">
         <link href="<?=URL?>/css/style.css" rel="stylesheet">
         <link href="<?=URL?>/css/colors/default.css" id="theme" rel="stylesheet">
@@ -163,13 +163,13 @@
         </section>
         <script type="text/javascript">function onSubmit(token) {document.getElementById("loginform").submit();}</script>
         <script src="https://www.google.com/recaptcha/api.js"></script>
-        <script src="<?=URL?>/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="<?=URL?>/plugins/jquery/dist/jquery.min.js"></script>
         <script src="<?=URL?>/bootstrap/dist/js/tether.min.js"></script>
         <script src="<?=URL?>/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="<?=URL?>/plugins/bower_components/bootstrap-extension/js/bootstrap-extension.min.js"></script>
+        <script src="<?=URL?>/plugins/bootstrap-extension/js/bootstrap-extension.min.js"></script>
         <script src="<?=URL?>/js/jquery.slimscroll.js"></script>
         <script src="<?=URL?>/js/waves.js"></script>
         <script src="<?=URL?>/js/custom.min.js"></script>
-        <script src="<?=URL?>/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+        <script src="<?=URL?>/plugins/styleswitcher/jQuery.style.switcher.js"></script>
     </body>
 </html>

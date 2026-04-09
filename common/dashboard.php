@@ -26,9 +26,9 @@ if(isset($response['status'])&&$response['status']==1){
 }
 ?>
 
-<link href="<?php echo URL; ?>/plugins/bower_components/morrisjs/morris.css" rel="stylesheet">
-<script src="<?php echo URL; ?>/plugins/bower_components/raphael/raphael-min.js"></script>
-<script src="<?php echo URL; ?>/plugins/bower_components/morrisjs/morris.js?"></script>
+<link href="<?php echo URL; ?>/plugins/morrisjs/morris.css" rel="stylesheet">
+<script src="<?php echo URL; ?>/plugins/raphael/raphael-min.js"></script>
+<script src="<?php echo URL; ?>/plugins/morrisjs/morris.js?"></script>
 <?php
     $general->pageHeader(l('dashboard'));
     $where = "WHERE for_home = 1 order by title asc";   
