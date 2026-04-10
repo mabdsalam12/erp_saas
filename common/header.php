@@ -151,7 +151,7 @@
 
 <?php
 	if (defined('LOGIN_SESSION_ID')) {
-		include("common/left_nav.php");
+		include(__DIR__."/left_nav.php");
 	}
 ?>
 <div id="page-wrapper">

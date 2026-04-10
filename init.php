@@ -1,7 +1,10 @@
 <?php
+
 const RUNNING_VERSION	= 39;
 const DEMO_MODE			= false;
 const SHOW_ERROR_LINE	= true;
+define('PROJECT', $_ENV['PROJECT']);
+define('URL', $_ENV['URL']);
 
 define('TIME'                           ,time());
 const SUPERADMIN_USER		= 1;

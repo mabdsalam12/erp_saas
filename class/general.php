@@ -1,10 +1,6 @@
 <?php
     class General
     {
-    private $con;
-    public function __construct(){
-        $this->con=$GLOBALS['connection'];
-    }
     public function pay_type_title_by_id($type){
         $value='';
         switch ($type) {

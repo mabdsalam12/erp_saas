@@ -1,5 +1,5 @@
 <?php
-include 'connection.php';
+// include 'connection.php';
 class DB{
     private $con;
     private $general;
@@ -14,45 +14,12 @@ class DB{
     private $company_data=[];
     public function __construct($general){
         $this->general  = $general;
+        $GLOBALS['connection'] = mysqli_connect($_ENV['DB_SERVER'], $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD'], $_ENV['DB_DATABASE']) or die('Oops connection error 1'.mysqli_connect_error());
+	    mysqli_set_charset($GLOBALS['connection'],'utf8mb4');
         $this->con=$GLOBALS['connection'];
-        if(0){//Only for editor help
-            $this->general=new General();
-        }
     }
     public function l($slug){
-        return ucfirst(str_ireplace('_',' ',$slug));
-
-        if(!empty($this->allLangText)){
-            if(isset($this->allLangText[$slug])){
-                return @$this->allLangText[$slug];  
-            }
-            else{                                      
-                return $slug;
-            }
-
-        }
-        else{
-            $allTextDefault=$this->selectAll('language_text','where isActive=1 and lnID=1');
-            $allText=$this->selectAll('language_text','where isActive=1 and lnID=1');
-
-            $allSlug=$this->selectAll('language_slug','where isActive=1');
-            $this->general->arrayIndexChange($allSlug,'lnsID');
-            $lData=array();
-            if(isset($allText)){
-                foreach($allText as $lt){
-                    if(isset($allSlug[$lt['lnsID']])){
-                        $lData[$allSlug[$lt['lnsID']]['ltSlug']]=$lt['ltText'];
-                    }
-                }
-            }
-            foreach($allTextDefault as $lt){
-                if(!isset($lData[$allSlug[$lt['lnsID']]['ltSlug']])){
-                    $lData[$allSlug[$lt['lnsID']]['ltSlug']]=$lt['ltText'];
-                }
-            }
-            $this->allLangText=$lData;
-            return @$this->allLangText[$slug];
-        }
+        return $slug;
     }
     public function allUsers($query=''){
         $users=$this->selectAll('users','where group_id!='.SUPERADMIN_USER.' '.$query,'id,group_id,name,username,data,base_id');

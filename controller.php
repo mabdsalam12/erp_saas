@@ -5,25 +5,40 @@
 		error_reporting(E_ALL);
 	}
 	ob_start();
+	if(!isset($crn))session_start();//ক্রোনের ক্ষেত্রে সেশন স্টার্টের দরকার নাই
+
+	date_default_timezone_set('Asia/Dhaka');
 	
-// define('K_PATH_FONTS', 'C:\Users\mabds\OneDrive\Desktop\X\tcpdf\fonts');
-	include "class/general.php";
-	include "class/db.php";
-	include "class/somiti.php";
-	include "class/acc.php";
-	include "class/messages.php";
-	include "class/LanguageManager.php";
-	include "class/Language_call.php";
+	
+	require_once __DIR__.'/vendor/autoload.php';
+
+	$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+	$dotenv->load();
+	
+
+	header('Content-Type: text/html; charset=utf-8');
+	
+	include __DIR__."/class/general.php";
+	include __DIR__."/class/db.php";
+	include __DIR__."/class/somiti.php";
+	include __DIR__."/class/acc.php";
+	include __DIR__."/class/messages.php";
+	include __DIR__."/class/helper.php";
+	include __DIR__."/class/LanguageManager.php";
+	include __DIR__."/class/Language_call.php";
 	$general= new General();
 	$db     = new DB($general);
 	$smt    = new SMT($general,$db);
 	$acc    = new ACC($general,$db,$smt);
+
+	$_POST = sanitize($_POST);
+	$_GET = sanitize($_GET);
 	
 	LanguageManager::getInstance()->setLang();
-	include "init.php";
+	include __DIR__."/init.php";
 
 	if(isset($_GET['dev'])){
-		include 'dev.php';
+		include __DIR__."/dev.php";
 		exit;
 	}
 	// print_r($_SESSION);
@@ -52,14 +67,13 @@
 		}
 		else{$general->redirect(URL);}
 	}
-	elseif(isset($_GET['ajax'])){include 'ajax/ajax_rq.php';}
-	elseif(isset($_GET['srsd'])){include 'routeDetails.php';}
+	elseif(isset($_GET['ajax'])){include __DIR__."/ajax/ajax_rq.php";}
 	elseif(isset($_GET['print'])){
 		
-		include ROOT_DIR.'/print/print.php';
+		include __DIR__."/print/print.php";
 	}
 	elseif(isset($_GET['dev'])){
-		include 'dev.php';
+		include __DIR__."/dev.php";
 	}
 	else{
 		$pUrl='';
@@ -80,7 +94,7 @@
 				}
 			}
 		}
-		$thisPageTitle=PAGE_TITLE_PREFIX.$thisPageTitle;	
+		$thisPageTitle=$_ENV['PAGE_TITLE_PREFIX'].$thisPageTitle;	
 		include_once("common/header.php");
 		include($include1);
 		include_once("common/footer.php");

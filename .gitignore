@@ -5,3 +5,4 @@ print_file/
 config/
 favicon.ico
 images/
+.env

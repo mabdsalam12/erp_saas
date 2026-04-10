@@ -7,7 +7,7 @@
 			</a>
 		</div>
 		<div class="user-profile">
-			<h5 class="adm-logo-title"><?php echo defined('COMPANY_SHORT_NAME')?COMPANY_SHORT_NAME:SITE_NAME;?></h5>
+			<h5 class="adm-logo-title">ERP SAAS</h5>
 		</div>
 		<a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
 

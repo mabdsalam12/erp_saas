@@ -1,51 +1,45 @@
 <?php
 	
-	if(isset($_GET['aaaaaa'])){echo __DIR__;exit;} 
-	require_once __DIR__.'/../config/project.php'; 
-	require_once __DIR__.'/../config/'.PROJECT.'.php';
-	require_once AUTOLOAD_FILE_PATH;
+	// if(isset($_GET['aaaaaa'])){echo __DIR__;exit;} 
+	// require_once __DIR__.'/../config/project.php'; 
+	// require_once __DIR__.'/../config/'.PROJECT.'.php';
+	// require_once AUTOLOAD_FILE_PATH;
 	
 	
-	if(!isset($crn))session_start();//ক্রোনের ক্ষেত্রে সেশন স্টার্টের দরকার নাই
-
-	date_default_timezone_set('Asia/Dhaka');
 	
-	header('Content-Type: text/html; charset=utf-8');
 	// print_r($_SERVER);
-	define('DB_SERVER', 'localhost');
+	// define('DB_SERVER', 'localhost');
     
-    $localServers=[
-        'erp_saas.as',
-        'erp_saas.moi',
-        'erp_saas.oo'
-    ];
-	if (isset($_SERVER['SERVER_NAME'])) {
-        if (in_array($_SERVER['SERVER_NAME'],$localServers)) {
-            define('LOCAL_SERVER_NAME', $_SERVER['SERVER_NAME']);
-        } else {
-            define('LOCAL_SERVER_NAME', 'localhost');
-        }
-    } else {
-        define('LOCAL_SERVER_NAME', 'localhost');
-    }
-	$useWWW='';
-	if(isset($_SERVER['SERVER_NAME'])){
-		if(preg_match("/www/i", $_SERVER['SERVER_NAME'])){
-			$useWWW='www.';
-		}
-	}
+    // $localServers=[
+    //     'erp_saas.as',
+    //     'erp_saas.moi',
+    //     'erp_saas.oo'
+    // ];
+	// if (isset($_SERVER['SERVER_NAME'])) {
+    //     if (in_array($_SERVER['SERVER_NAME'],$localServers)) {
+    //         define('LOCAL_SERVER_NAME', $_SERVER['SERVER_NAME']);
+    //     } else {
+    //         define('LOCAL_SERVER_NAME', 'localhost');
+    //     }
+    // } else {
+    //     define('LOCAL_SERVER_NAME', 'localhost');
+    // }
+	// $useWWW='';
+	// if(isset($_SERVER['SERVER_NAME'])){
+	// 	if(preg_match("/www/i", $_SERVER['SERVER_NAME'])){
+	// 		$useWWW='www.';
+	// 	}
+	// }
+	
 	
 	
 	//echo PROJECT;echo '<br>'; echo DB_DATABASE;exit();
-	$GLOBALS['connection'] = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD,DB_DATABASE) or die('Oops connection error 1'.mysqli_connect_error());
-	mysqli_set_charset($GLOBALS['connection'],'utf8mb4');
+	
 
 
 	/*$connection = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD) or die('Oops connection error 1');
 	mysql_select_db(DB_DATABASE, $connection) or die('Oops connection error 2');
 	mysql_set_charset('utf8', $connection);*/
-	$_POST = sanitize($_POST);
-	$_GET = sanitize($_GET);
 	if(isset($SFU)){$SFU = sanitize($SFU);}
 	function cleanInput($input){
 		$search = array(

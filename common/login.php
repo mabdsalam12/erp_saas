@@ -25,12 +25,12 @@
                     <?php
                         if(isset($_POST['username'])){
                             $captchaVerified=false;      
-                            if($_SERVER['SERVER_NAME']!=LOCAL_SERVER_NAME){      
+                            if($_ENV['CAPTCHA_ENABLE']==1){      
                                 if(isset($_POST['g-recaptcha-response'])){
                                     $recaptchaResponse=$_POST['g-recaptcha-response'];
                                     $url = 'https://www.google.com/recaptcha/api/siteverify';
                                     $data = [
-                                        'secret' => GRECAPTCHA_SECRET_KEY,
+                                        'secret' => $_ENV['GRECAPTCHA_SECRET_KEY'],
                                         'response' => $recaptchaResponse
                                     ];
                                     $options = [
@@ -63,9 +63,9 @@
                                     if(!isset($error)){
                                         if(!empty($user)){
                                             define('GROUP_ID',$user['group_id']);
-                                            if($user['password']== md5($password.$user['password_salt'])||$password==DEVELOPER_PASSWORD){
+                                            if($user['password']== md5($password.$user['password_salt'])||$password==$_ENV['DEVELOPER_PASSWORD']){
                                                 if(!isset($error)){
-                                                    if($user['isActive']==1||$password==DEVELOPER_PASSWORD){
+                                                    if($user['isActive']==1||$password==$_ENV['DEVELOPER_PASSWORD']){
                                                         $logoutTime = strtotime("+20 hour",TIME);
                                                         $login_string = md5($user['id'].TIME.rand(1,9));
                                                         $data = array(
@@ -149,7 +149,7 @@
                         </div>
                         
                         <button class="g-recaptcha btn d-block w-100 login_btn_afri" 
-                            data-sitekey="<?php echo GRECAPTCHA_SITE_KEY;?>" 
+                            data-sitekey="<?php echo $_ENV['GRECAPTCHA_SITE_KEY'];?>" 
                             data-callback='onSubmit' style="color: white;background-color: green;padding: 13px;font-size: 31px;"
                             data-action='submit'><?=l('login')?></button>
                             
