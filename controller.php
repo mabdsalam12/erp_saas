@@ -53,6 +53,11 @@
 		$general->redirect(APP_URL);
 	}
 	if(!defined('LOGIN_SESSION_ID')){    
+		if(isset($_GET['register'])){
+			$thisPageTitle='Register';   
+			include("common/register.php");
+			exit;
+		}
 		$thisPageTitle='Log in';   
 		include("common/login.php");
 	}

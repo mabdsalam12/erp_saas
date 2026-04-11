@@ -152,6 +152,10 @@
                             data-sitekey="<?php echo $_ENV['GRECAPTCHA_SITE_KEY'];?>" 
                             data-callback='onSubmit' style="color: white;background-color: green;padding: 13px;font-size: 31px;"
                             data-action='submit'><?=l('login')?></button>
+
+                        <div class="text-center m-t-20">
+                            <a href="<?=URL?>/?register=1">Create a new account</a>
+                        </div>
                             
 
                          <!-- <button class="g-recaptcha btn d-block w-100 login_btn_afri" 

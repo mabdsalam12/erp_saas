@@ -124,13 +124,12 @@ $categorys=$db->allGroups('order by title asc');
             <table class="table table-striped table-bordered table-hover only_show">
                 <thead>
                     <tr>
-                        <th><?php echo $db->l('sn') ?> </th>
+                        <th># </th>
                         <th>Title</th>
                         <?php
                         if($eStatus){
                         ?>
-                            <th><?php echo $db->l('edit') ?> </th>
-                            <th><?php echo $db->l('status') ?> </th>
+                            <th>Edit</th>
                         <?php
                         }
                         ?>
@@ -143,18 +142,17 @@ $categorys=$db->allGroups('order by title asc');
                     ?>
                         <tr>
                             <td><?=$total++?></td>
-                            <td><?=$c[$tpTitle]?></td>
+                            <td><?=$c['title']?></td>
                             <?php
                             if($eStatus){
                                 if($eStatus){
                             ?>
-                                    <td><a href="<?=$pUrl?>&edit=<?=$c[$tpID]?>" class="btn btn-info"><?php echo $db->l('edit') ?> </a></td>
-                                    <td><?php $general->onclickChangeBTN($c[$tpID],$general->checked($c['isActive']));?></td>
+                                    <td><a href="<?=$pUrl?>&edit=<?=$c['id']?>" class="btn btn-info"><?php echo $db->l('edit') ?> </a></td>
+                                    
                                     <?php
                                 }
                                 else{
                                     ?>
-                                    <td>&nbsp;</td>
                                     <td>&nbsp;</td>
                             <?php
                                 }
@@ -169,6 +167,3 @@ $categorys=$db->allGroups('order by title asc');
         </div>
     </div>
 </div>
-<?php
-$general->onclickChangeJavaScript($tPTbl,$tpID);
-?>
