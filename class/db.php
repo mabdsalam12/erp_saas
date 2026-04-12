@@ -225,13 +225,13 @@ class DB{
     }
     public function getRowData($tableName,$where,$echo='No',&$jArray=[]){
         $query="SELECT * FROM $tableName $where limit 1";
-        $sql = mysqli_query($this->con,$query);
         if($echo=='array'){
             $jArray[fl()][]=$query;
         }
         else{
             if($echo != 'No'){echo '<pre>'.$query.'</pre>';}
         }
+        $sql = mysqli_query($this->con,$query);
         $row = mysqli_fetch_assoc($sql);
         if(mysqli_error($this->con)!=''){
             $backtrace = debug_backtrace();

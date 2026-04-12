@@ -23,50 +23,12 @@
                 <div class="white-box">
                     <?php
                         if(isset($_POST['company_name'])){
-                            $company_name   = trim((string)@$_POST['company_name']);
-                            $mobile         = trim((string)@$_POST['mobile']);
-                            $email          = trim((string)@$_POST['email']);
-                            $contact_person = trim((string)@$_POST['contact_person']);
-
-                            if($company_name==''){setMessage(36,'Company name');$error=fl();}
-                            elseif($mobile==''){setMessage(36,'Mobile number');$error=fl();}
-                            elseif($email==''){setMessage(36,'Email');$error=fl();}
-                            elseif($contact_person==''){setMessage(36,'Contact person');$error=fl();}
-                            elseif(!$general->bangladeshiMobileCheck($mobile)){setMessage(63,'Mobile number');$error=fl();}
-                            elseif(!filter_var($email,FILTER_VALIDATE_EMAIL)){setMessage(63,'Email');$error=fl();}
-
-                            if(!isset($error)){
-                                $companyByMobile = $db->get_rowData('companys','mobile',$mobile);
-                                if(!empty($companyByMobile)){
-                                    setMessage(7,'Mobile number');
-                                    $error=fl();
-                                }
+                            $insert = $company->add($_POST);
+                            if($insert){
+                                $general->redirect(URL,2,'Registration completed successfully. Please login.');
                             }
-
-                            if(!isset($error)){
-                                $companyByEmail = $db->get_rowData('companys','email',$email);
-                                if(!empty($companyByEmail)){
-                                    setMessage(7,'Email');
-                                    $error=fl();
-                                }
-                            }
-
-                            if(!isset($error)){
-                                $data = array(
-                                    'package_id'     => $_ENV['FREE_PACKAGE_ID'],
-                                    'name'           => $company_name,
-                                    'mobile'         => $mobile,
-                                    'email'          => $email,
-                                    'contact_person' => $contact_person
-                                );
-                                $insert = $db->insert('companys',$data);
-                                if($insert){
-                                    $general->redirect(URL,2,'Registration completed successfully. Please login.');
-                                }
-                                else{
-                                    setMessage(66);
-                                    $error=fl();
-                                }
+                            else{
+                                $error = $company->lastErrorLine ?: fl();
                             }
                         }
                         $logoUrl=URL.'/images/'.PROJECT.'/logo.png';
@@ -108,6 +70,16 @@
                         <div class="form-group ">
                             <div class="col-xs-12">
                                 <input class="form-control" type="text" required placeholder="Contact Person" name="contact_person" value="<?php echo htmlspecialchars((string)@$_POST['contact_person']); ?>">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-xs-12">
+                                <input class="form-control" type="text" required placeholder="Username" name="username" value="<?php echo htmlspecialchars((string)@$_POST['username']); ?>">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-xs-12">
+                                <input class="form-control" type="password" required placeholder="Password" name="password" value="">
                             </div>
                         </div>
 
