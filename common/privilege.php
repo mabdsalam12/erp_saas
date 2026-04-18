@@ -40,7 +40,7 @@
                             foreach($userGroup as $ug){
                             ?>
                                 <tr>
-                                    <td><?=$ug['title']?></td>
+                                    <td><?=$ug['name']?></td>
                                     <td>
                                         <a href="javascript:void()">
                                             <button class="btn btn-xs btn-info" onclick="set_permissions('<?=$ug['id']?>')">Permission</button>

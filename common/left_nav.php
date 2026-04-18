@@ -1,3 +1,6 @@
+<?php
+$currentCompany=$cmp->getCurrentCompanyID();
+?>
 <nav class="navbar navbar-default navbar-static-top m-b-0">
 	<div class="navbar-header"> 
 		<div class="adm-logo">
@@ -15,8 +18,8 @@
 			<li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
 		</ul>
 		<div class="logout-box">
-			<ul> 
-				<li><a href="?<?php echo MODULE_URL;?>=profile"><i class="fa fa-user"></i> <?php echo $userData['username'];?></a> </li>
+			<ul>
+				<li><a href="?<?php echo MODULE_URL;?>=profile"><i class="fa fa-user"></i> <?php echo $userData['name'];?></a> </li>
 				<li><a class="" href="<?php echo URL;?>?logout=1"><i class="fa fa-power-off"></i> Logout</a></li>
 
 			</ul>

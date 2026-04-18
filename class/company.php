@@ -13,6 +13,65 @@ class Company{
     public function getById($id){
         return $this->db->get_rowData($this->table,'id',intval($id));
     }
+    public function companyChangeHtml(){
+        $companies = $this->db->selectAll($this->table,'order by name asc');
+        if(empty($companies)){
+            return '';
+        }
+        ?>
+        <div class="company-change">
+            <div class="company-change-inner">
+                <h3>Select Company</h3>
+                <ul>
+                    <?php
+                    foreach($companies as $c){
+                        ?>
+                        <li><a href="?select_company=<?=$c['id']?>"><?=$c['name']?></a></li>
+                        <?php
+                    }
+                    ?>
+                </ul>
+            </div>
+        </div>
+        <?php
+    }
+    public function getCurrentCompanyID() :int{
+        if(defined('COMPANY_ID')&& COMPANY_ID>0){
+            return COMPANY_ID;
+        }
+        if(isset($_SESSION['company_id']) && $_SESSION['company_id']>0){
+            return $_SESSION['company_id'];
+        }
+        $companies = $this->db->selectAll($this->table,'order by name asc');
+        if(empty($companies)){
+            return 0;
+        }
+        ?>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="white-box border-box">
+                    <h3 class="box-title">Select Company</h3>
+                    <div class="row">
+                        <?php
+                        foreach($companies as $c){
+                            ?>
+                            <div class="col-sm-3">
+                                <a href="?select_company=<?=$c['id']?>" class="btn btn-block btn-lg btn-info"><?=$c['name']?></a>
+                            </div>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+        return 0;
+
+    }
+    public function getCurrentCompanyName(){
+
+    }
 
     public function add(array $input){
         $data = $this->prepareData($input,true);
@@ -23,7 +82,6 @@ class Company{
         if($package === false){
             return false;
         }
-
         $user_group_id = $this->getPackageUserGroupId($package);
         if($user_group_id<1){
             setMessage(66);
@@ -112,52 +170,56 @@ class Company{
             $this->lastErrorLine = fl();
             return false;
         }
-        if($mobile==''){
-            setMessage(36,'Mobile number');
+
+        if($mobile=='' && $email==''){
+            setMessage(36,'Mobile or Email');
             $this->lastErrorLine = fl();
             return false;
         }
-        if($email==''){
-            setMessage(36,'Email');
-            $this->lastErrorLine = fl();
-            return false;
-        }
+
         if($contact_person==''){
             setMessage(36,'Contact person');
             $this->lastErrorLine = fl();
             return false;
         }
-        if(!$this->general->bangladeshiMobileCheck($mobile)){
+
+        if($mobile!='' && !$this->general->bangladeshiMobileCheck($mobile)){
             setMessage(63,'Mobile number');
             $this->lastErrorLine = fl();
             return false;
         }
-        if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+
+        if($email!='' && !filter_var($email,FILTER_VALIDATE_EMAIL)){
             setMessage(63,'Email');
             $this->lastErrorLine = fl();
             return false;
         }
-        if($this->isDuplicate('mobile',$mobile,$id)){
+
+        if($mobile!='' && $this->isDuplicate('mobile',$mobile,$id)){
             setMessage(7,'Mobile number');
             $this->lastErrorLine = fl();
             return false;
         }
-        if($this->isDuplicate('email',$email,$id)){
+
+        if($email!='' && $this->isDuplicate('email',$email,$id)){
             setMessage(7,'Email');
             $this->lastErrorLine = fl();
             return false;
         }
-
         if($isNew && $package_id==''){
             $package_id = (string)$_ENV['FREE_PACKAGE_ID'];
         }
-
         $data = array(
             'name'           => $company_name,
-            'mobile'         => $mobile,
-            'email'          => $email,
             'contact_person' => $contact_person
         );
+
+        if($mobile!=''){
+            $data['mobile'] = $mobile;
+        }
+        if($email!=''){
+            $data['email'] = $email;
+        }
 
         if($package_id!=''){
             $data['package_id'] = $package_id;
@@ -167,45 +229,60 @@ class Company{
     }
 
     private function prepareUserData(array $input,array $companyData,int $group_id){
-        $username = trim((string)($input['username'] ?? ''));
         $password = (string)($input['password'] ?? '');
+        $mobile = trim((string)($input['mobile'] ?? $companyData['mobile'] ?? ''));
+        $email = trim((string)($input['email'] ?? $companyData['email'] ?? ''));
 
-        if($username==''){
-            setMessage(36,'Username');
-            $this->lastErrorLine = fl();
-            return false;
-        }
         if($password==''){
             setMessage(36,'Password');
             $this->lastErrorLine = fl();
             return false;
         }
-        if($this->db->check_available('users'," where username = '".$this->db->esc($username)."'")==false){
-            setMessage(55);
+
+        if($mobile=='' && $email==''){
+            setMessage(36,'Mobile or Email');
             $this->lastErrorLine = fl();
             return false;
+        }
+
+        if($mobile!=''){
+            if($this->db->check_available('users'," where mobile = '".$this->db->esc($mobile)."'")==false){
+                setMessage(55);
+                $this->lastErrorLine = fl();
+                return false;
+            }
+        }
+
+        if($email!=''){
+            if($this->db->check_available('users'," where email = '".$this->db->esc($email)."'")==false){
+                setMessage(55);
+                $this->lastErrorLine = fl();
+                return false;
+            }
         }
 
         $salt = md5(rand(0,9).'t'.rand(0,9).'a@'.rand(0,9).'Q'.rand(0,9).'u'.rand(0,9).'W');
         $encPas = md5($password.$salt);
 
-        return array(
+        $finalData=[
             'base_id'       => 0,
             'group_id'      => $group_id,
             'employee_id'   => 0,
             'company_id'    => 0,
             'ledger_id'     => 0,
             'name'          => $companyData['contact_person'] ?: $companyData['name'],
-            'mobile'        => $companyData['mobile'],
-            'email'         => $companyData['email'],
             'address'       => '',
             'type'          => 0,
-            'username'      => $username,
             'password'      => $encPas,
-            'password_salt' => $salt,
-            'data'          => json_encode(array()),
-            'isActive'      => 1
-        );
+            'password_salt' => $salt
+        ];
+        if($mobile!=''){
+            $finalData['mobile'] = $mobile;
+        }
+        if($email!=''){
+            $finalData['email'] = $email;
+        }
+        return $finalData;
     }
 
     private function getPackageData(int $package_id){

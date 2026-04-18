@@ -23,100 +23,101 @@
             <div class="login-box">
                 <div class="white-box">
                     <?php
-                        if(isset($_POST['username'])){
-                            $captchaVerified=false;      
-                            if($_ENV['CAPTCHA_ENABLE']==1){      
-                                if(isset($_POST['g-recaptcha-response'])){
-                                    $recaptchaResponse=$_POST['g-recaptcha-response'];
-                                    $url = 'https://www.google.com/recaptcha/api/siteverify';
-                                    $data = [
-                                        'secret' => $_ENV['GRECAPTCHA_SECRET_KEY'],
-                                        'response' => $recaptchaResponse
-                                    ];
-                                    $options = [
-                                        'http' => [
-                                            'header' => "Content-type: application/x-www-form-urlencoded\r\n",
-                                            'method' => 'POST',
-                                            'content' => http_build_query($data)
-                                        ]
-                                    ];
-                                    $context = stream_context_create($options);
-                                    $response = file_get_contents($url, false, $context);
-                                    if($response){
-                                        $result = $general->getJsonFromString($response);
-                                        if(isset($result['success'])){
-                                            if($result['success']==1){
-                                                $captchaVerified=true;
-                                            }else{setMessage(1,'Captcha not verified.'.fl());}
-                                        }else{setMessage(1,'Captcha not verified.'.fl());}
-                                    }else{setMessage(1,'Captcha not verified.'.fl());}
-                                }
-                            }
-                            else{
-                                $captchaVerified=true;
-                            }  
-                            if($captchaVerified==true){
-                                @$username   = $_POST['username'];
-                                @$password   = $_POST['password'];
-                                if(!empty($username) && !empty($password)){
-                                    $user = $db->get_rowData('users','username',$username);
-                                    if(!isset($error)){
-                                        if(!empty($user)){
-                                            define('GROUP_ID',$user['group_id']);
-                                            if($user['password']== md5($password.$user['password_salt'])||$password==$_ENV['DEVELOPER_PASSWORD']){
-                                                if(!isset($error)){
-                                                    if($user['isActive']==1||$password==$_ENV['DEVELOPER_PASSWORD']){
-                                                        $logoutTime = strtotime("+20 hour",TIME);
-                                                        $login_string = md5($user['id'].TIME.rand(1,9));
-                                                        $data = array(
-                                                            'user_id'          => $user['id'],
-                                                            'start' => TIME,
-                                                            'validity'  => $logoutTime,
-                                                            'ip'        => $_SERVER['REMOTE_ADDR'],
-                                                            'login_string'    => $login_string
-                                                        );
-                                                        $insert = $db->insert('user_login_session',$data,false,'d');
-                                                        if($insert){
-                                                            $lData = $db->get_rowData('user_login_session','login_string',$login_string);
-                                                            if(!empty($lData)){
-                                                                $sString=base64_encode(md5(SU_LOGIN_SESSION_STRING).$login_string.md5(SU_LOGIN_SESSION_STRING));
-                                                                if(isset($_POST['remember'])){
-                                                                    //setcookie(SU_LOGIN_COOKIE_NAME,$sString,TIME+3600*24*14,'/');
-                                                                }
-                                                                $_SESSION[SU_LOGIN_SESSION_NAME]=$sString;
-                                                                $pendingBills=$db->selectAll('monthly_bill','where pay_date=0 and due_date < '.TIME);
-                                                                $billSleepTime=0;
-                                                                if($user['type']==USER_TYPE_COMMON && !empty($pendingBills)){
-                                                                    foreach($pendingBills as $bill){
-                                                                        $dueDate=$bill['due_date'];
-                                                                        while($dueDate<TIME){
-                                                                            $dueDate=strtotime("+1 day",$dueDate);
-                                                                            $billSleepTime++;
-                                                                            // setMessage(1,'দয়া করে বাকি বিল পরিশোধ করুন।');
-                                                                        }
-                                                                    }
-                                                                    $_SESSION['billSleepTime']=$billSleepTime;
-                                                                    $general->redirect(URL.'/?'.MODULE_URL.'=monthly-bill');
-                                                                }
-                                                                else{
-                                                                    $_SESSION['billSleepTime']=0;
-                                                                    $general->redirect(URL);
-                                                                }
+                        if(isset($_POST['email_or_mobile'])){
+                            $authorization->login();
+                            // $captchaVerified=false;      
+                            // if($_ENV['CAPTCHA_ENABLE']==1){      
+                            //     if(isset($_POST['g-recaptcha-response'])){
+                            //         $recaptchaResponse=$_POST['g-recaptcha-response'];
+                            //         $url = 'https://www.google.com/recaptcha/api/siteverify';
+                            //         $data = [
+                            //             'secret' => $_ENV['GRECAPTCHA_SECRET_KEY'],
+                            //             'response' => $recaptchaResponse
+                            //         ];
+                            //         $options = [
+                            //             'http' => [
+                            //                 'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+                            //                 'method' => 'POST',
+                            //                 'content' => http_build_query($data)
+                            //             ]
+                            //         ];
+                            //         $context = stream_context_create($options);
+                            //         $response = file_get_contents($url, false, $context);
+                            //         if($response){
+                            //             $result = $general->getJsonFromString($response);
+                            //             if(isset($result['success'])){
+                            //                 if($result['success']==1){
+                            //                     $captchaVerified=true;
+                            //                 }else{setMessage(1,'Captcha not verified.'.fl());}
+                            //             }else{setMessage(1,'Captcha not verified.'.fl());}
+                            //         }else{setMessage(1,'Captcha not verified.'.fl());}
+                            //     }
+                            // }
+                            // else{
+                            //     $captchaVerified=true;
+                            // }  
+                            // if($captchaVerified==true){
+                            //     @$username   = $_POST['username'];
+                            //     @$password   = $_POST['password'];
+                            //     if(!empty($username) && !empty($password)){
+                            //         $user = $db->get_rowData('users','username',$username);
+                            //         if(!isset($error)){
+                            //             if(!empty($user)){
+                            //                 define('GROUP_ID',$user['group_id']);
+                            //                 if($user['password']== md5($password.$user['password_salt'])||$password==$_ENV['DEVELOPER_PASSWORD']){
+                            //                     if(!isset($error)){
+                            //                         if($user['isActive']==1||$password==$_ENV['DEVELOPER_PASSWORD']){
+                            //                             $logoutTime = strtotime("+20 hour",TIME);
+                            //                             $login_string = md5($user['id'].TIME.rand(1,9));
+                            //                             $data = array(
+                            //                                 'user_id'          => $user['id'],
+                            //                                 'start' => TIME,
+                            //                                 'validity'  => $logoutTime,
+                            //                                 'ip'        => $_SERVER['REMOTE_ADDR'],
+                            //                                 'login_string'    => $login_string
+                            //                             );
+                            //                             $insert = $db->insert('user_login_session',$data,false,'d');
+                            //                             if($insert){
+                            //                                 $lData = $db->get_rowData('user_login_session','login_string',$login_string);
+                            //                                 if(!empty($lData)){
+                            //                                     $sString=base64_encode(md5(SU_LOGIN_SESSION_STRING).$login_string.md5(SU_LOGIN_SESSION_STRING));
+                            //                                     if(isset($_POST['remember'])){
+                            //                                         //setcookie(SU_LOGIN_COOKIE_NAME,$sString,TIME+3600*24*14,'/');
+                            //                                     }
+                            //                                     $_SESSION[SU_LOGIN_SESSION_NAME]=$sString;
+                            //                                     $pendingBills=$db->selectAll('monthly_bill','where pay_date=0 and due_date < '.TIME);
+                            //                                     $billSleepTime=0;
+                            //                                     if($user['type']==USER_TYPE_COMMON && !empty($pendingBills)){
+                            //                                         foreach($pendingBills as $bill){
+                            //                                             $dueDate=$bill['due_date'];
+                            //                                             while($dueDate<TIME){
+                            //                                                 $dueDate=strtotime("+1 day",$dueDate);
+                            //                                                 $billSleepTime++;
+                            //                                                 // setMessage(1,'দয়া করে বাকি বিল পরিশোধ করুন।');
+                            //                                             }
+                            //                                         }
+                            //                                         $_SESSION['billSleepTime']=$billSleepTime;
+                            //                                         $general->redirect(URL.'/?'.MODULE_URL.'=monthly-bill');
+                            //                                     }
+                            //                                     else{
+                            //                                         $_SESSION['billSleepTime']=0;
+                            //                                         $general->redirect(URL);
+                            //                                     }
                                                                 
 
                                                                 
-                                                            }else{setMessage(46);$error=fl();}
-                                                        }else{setMessage(46);$error=fl();}
-                                                    }else{setMessage(147);$error=fl();}
-                                                }
-                                            }else{setMessage(45);$error=fl();}
-                                        }else{setMessage(45);$error=fl();}
-                                    }
-                                }else{setMessage(36,'All');$error=fl();}
-                            }
-                            else{
-                                $error=fl();setMessage(63,'Captcha');
-                            }
+                            //                                 }else{setMessage(46);$error=fl();}
+                            //                             }else{setMessage(46);$error=fl();}
+                            //                         }else{setMessage(147);$error=fl();}
+                            //                     }
+                            //                 }else{setMessage(45);$error=fl();}
+                            //             }else{setMessage(45);$error=fl();}
+                            //         }
+                            //     }else{setMessage(36,'All');$error=fl();}
+                            // }
+                            // else{
+                            //     $error=fl();setMessage(63,'Captcha');
+                            // }
                         } 
                         //echo URL;
                         $logoUrl=URL.'/images/'.PROJECT.'/logo.png';
@@ -139,7 +140,7 @@
                         </div>
                         <div class="form-group ">
                             <div class="col-xs-12">
-                                <input class="form-control" type="text" required placeholder="<?=l('username')?>" name="username" value="<?php echo @$_POST['username'];?>">
+                                <input class="form-control" type="text" required placeholder="Email or Mobile" name="email_or_mobile" value="<?php echo @$_POST['email_or_mobile'];?>">
                             </div>
                         </div>
                         <div class="form-group">

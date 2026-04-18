@@ -757,16 +757,6 @@ function old_sale_return_code_generator(){
     }
     return true;
 }
-
-function logOut($lData,$redirectUrl){
-    $data = array('end'=>TIME,'start'=>0);
-    $where = array('id'=> $lData['id']);
-    $update = $this->update('user_login_session',$data,$where);
-    unset($_SESSION[SU_LOGIN_SESSION_NAME]);
-    if(isset($_SESSION['coID'])){unset($_SESSION['coID']);}
-    if(isset($_SESSION['bID'])){unset($_SESSION['bID']);}
-    $this->general->redirect($redirectUrl,49);
-}
 function getCategoryData(){
     $use_product_category = $this->get_company_settings('use_product_category');
     $categoryData=[];

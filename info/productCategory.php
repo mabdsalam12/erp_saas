@@ -1,26 +1,27 @@
 <?php
 $aStatus      = true;
 $eStatus      = true;
-$tpID           = 'id';
-$tpTitle        = 'title';
 $pageTitle      = $rModule['title'];
 $titleFieldName = 'Title';
- $categorys=$db->selectAll('product_category','order by '.$tpTitle.' asc'); 
+$companyID=$cmp->getCurrentCompanyID();
+if($companyID>0){
+ $categorys=$db->selectAll('product_category','order by name asc'); 
 if(isset($_GET['add'])){
     if(!$aStatus){$general->redirect($pUrl,146,'add '.$rModule['title']);}
     $data = array($pUrl=>$pageTitle,'1'=>'Add');
     $general->pageHeader('Add '.$rModule['title'],$data);
 
     if(isset($_POST['add'])){
-        $title= $_POST["title"];
+        $name= $_POST["name"];
         $parent= intval($_POST["parent"]);
-        if(empty($title)){setMessage(36,$titleFieldName);$error=1;}
+        if(empty($name)){setMessage(36,'Name');$error=1;}
         if(!isset($error)){
             $data = array(
-                $tpTitle=> $title,
-                'parent'=> $parent
+                'name'=> $name,
+                'parent'=> $parent,
+                'company_id'=> $companyID
             );
-            //$db->arrayUserInfoAdd($data);
+            $db->arrayUserInfoAdd($data);
             $insert = $db->insert('product_category',$data);
             if($insert){$general->redirect($pUrl,29,$pageTitle);}
             else{
@@ -39,12 +40,12 @@ if(isset($_GET['add'])){
                             <div class="row">
                                 <div class="col-sm-4">
                                     <?php
-                                    $general->inputBoxText('title','Title',@$_POST['title'],'y');
+                                    $general->inputBoxText('name','Name',@$_POST['name'],'y');
                                     ?>
                                 </div>
                                 <div class="col-sm-4">
                                     <?php
-                                    $general->inputBoxSelect($categorys,'Parent','parent','id','title',@$_POST['id']);
+                                    $general->inputBoxSelect($categorys,'Parent','parent','id','name',@$_POST['parent']);
                                     ?>
                                 </div>
                                 <div class="col-sm-4">
@@ -65,19 +66,19 @@ if(isset($_GET['add'])){
 elseif(isset($_GET['edit'])){
     if(!$eStatus){$general->redirect($pUrl,array(1,'You have no permission to edit.'));}
     $edit = intval($_GET['edit']);
-    $s = $db->get_rowData('product_category',$tpID,$edit);
+    $s = $db->get_rowData('product_category','id',$edit);
     $general->arrayContentShow($s);
     if(empty($s)){$general->redirect($pUrl,array(37,$pageTitle));}
     if(isset($_POST['edit'])){
-        $title= $_POST[$tpTitle];
+        $name= $_POST['name'];
         $parent= intval($_POST["parent"]);
-        if(empty($title)){SetMessage(36,$titleFieldName);$error=1;}
+        if(empty($name)){SetMessage(36,'Name');$error=1;}
         if(!isset($error)){ 
             $data = array(
-                $tpTitle        => $title,
+                'name'        => $name,
                  'parent'=> $parent
             );
-            $where = array($tpID=>$edit);
+            $where = array('id'=>$edit);
             $update = $db->update('product_category',$data,$where);  
             if($update){
                 $general->redirect($pUrl,30,$pageTitle);
@@ -85,7 +86,7 @@ elseif(isset($_GET['edit'])){
             else{$error=fl();SetMessage(66);}
         }
     }
-    $data = array($pUrl=>$pageTitle,'javascript:void()'=>$s[$tpTitle],'1'=>'Edit');
+    $data = array($pUrl=>$pageTitle,'javascript:void()'=>$s['name'],'1'=>'Edit');
     $general->pageHeader('Edit '.$rModule['title'],$data);
     ?>
     <div class="row"><div class="col-lg-12"><?php show_msg();?></div></div>
@@ -98,12 +99,12 @@ elseif(isset($_GET['edit'])){
                             <div class="row">
                                 <div class="col-sm-4">
                                     <?php
-                                    $general->inputBoxText($tpTitle,'Title',$s[$tpTitle],'y');
+                                    $general->inputBoxText('name','Name',$s['name'],'y');
                                     ?>
                                 </div>
                                 <div class="col-sm-4">
                                     <?php
-                                    $general->inputBoxSelect($categorys,'Parent','parent','id','title',$s['parent']);
+                                    $general->inputBoxSelect($categorys,'Parent','parent','id','name',$s['parent']);
                                     ?>
                                 </div>
                                 <div class="col-sm-4">
@@ -159,14 +160,14 @@ $general->arrayIndexChange($parentCategorys,'id');
                     ?>
                         <tr>
                             <td><?=$total++?></td>
-                            <td><?=$c[$tpTitle]?></td>
-                            <td><?=@$parentCategorys[$c['parent']][$tpTitle]?></td>
+                            <td><?=$c['name']?></td>
+                            <td><?=@$parentCategorys[$c['parent']]['name']?></td>
                             <?php
                             if($eStatus){
                             ?>
-                                <td><a href="<?=$pUrl?>&edit=<?=$c[$tpID]?>" class="btn btn-info">Edit </a>
+                                <td><a href="<?=$pUrl?>&edit=<?=$c['id']?>" class="btn btn-info">Edit </a>
                                 </td>
-                                <td><?php $general->onclickChangeBTN($c[$tpID],$general->checked($c['isActive']));?></td>
+                                <td><?php $general->onclickChangeBTN($c['id'],$general->checked($c['isActive']));?></td>
                             <?php
                             }
                             ?>
@@ -180,5 +181,5 @@ $general->arrayIndexChange($parentCategorys,'id');
     </div>
 </div>
 <?php
-$general->onclickChangeJavaScript('product_category',$tpID);
+}
 ?>

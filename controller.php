@@ -21,6 +21,7 @@
 	include __DIR__."/class/general.php";
 	include __DIR__."/class/db.php";
 	include __DIR__."/class/company.php";
+	include __DIR__."/class/Authorization.php";
 	include __DIR__."/class/somiti.php";
 	include __DIR__."/class/acc.php";
 	include __DIR__."/class/messages.php";
@@ -29,7 +30,8 @@
 	include __DIR__."/class/Language_call.php";
 	$general= new General();
 	$db     = new DB($general);
-	$company= new Company($db,$general);
+	$cmp= new Company($db,$general);
+	$authorization = new Authorization($db, $general, $cmp);
 	$smt    = new SMT($general,$db);
 	$acc    = new ACC($general,$db,$smt);
 
@@ -70,7 +72,7 @@
 	}
 	elseif(isset($_GET['logout'])){ 
 		if(defined('LOGIN_SESSION_ID')){ 
-			$db->logOut($lData,URL);
+			$authorization->logOut($lData,URL);
 		}
 		else{$general->redirect(URL);}
 	}

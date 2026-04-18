@@ -23,12 +23,12 @@
                 <div class="white-box">
                     <?php
                         if(isset($_POST['company_name'])){
-                            $insert = $company->add($_POST);
+                            $insert = $cmp->add($_POST);
                             if($insert){
                                 $general->redirect(URL,2,'Registration completed successfully. Please login.');
                             }
                             else{
-                                $error = $company->lastErrorLine ?: fl();
+                                $error = $cmp->lastErrorLine ?: fl();
                             }
                         }
                         $logoUrl=URL.'/images/'.PROJECT.'/logo.png';
@@ -59,22 +59,17 @@
                         </div>
                         <div class="form-group ">
                             <div class="col-xs-12">
-                                <input class="form-control" type="text" required placeholder="Mobile" name="mobile" value="<?php echo htmlspecialchars((string)@$_POST['mobile']); ?>">
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <div class="col-xs-12">
-                                <input class="form-control" type="email" required placeholder="Email" name="email" value="<?php echo htmlspecialchars((string)@$_POST['email']); ?>">
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <div class="col-xs-12">
                                 <input class="form-control" type="text" required placeholder="Contact Person" name="contact_person" value="<?php echo htmlspecialchars((string)@$_POST['contact_person']); ?>">
                             </div>
                         </div>
                         <div class="form-group ">
                             <div class="col-xs-12">
-                                <input class="form-control" type="text" required placeholder="Username" name="username" value="<?php echo htmlspecialchars((string)@$_POST['username']); ?>">
+                                <input class="form-control" type="text" placeholder="Mobile" name="mobile" value="<?php echo htmlspecialchars((string)@$_POST['mobile']); ?>">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-xs-12">
+                                <input class="form-control" type="email" placeholder="Email" name="email" value="<?php echo htmlspecialchars((string)@$_POST['email']); ?>">
                             </div>
                         </div>
                         <div class="form-group ">

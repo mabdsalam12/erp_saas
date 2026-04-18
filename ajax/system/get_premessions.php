@@ -17,7 +17,7 @@ if($db->modulePermission(132)==true){
         }
         $groups=$db->allGroups();
 ?>
-        <p>Permission <br>for <b><?=$ug['title']?></b> Group</p>
+        <p>Permission <br>for <b><?=$ug['name']?></b> Group</p>
         <style type="text/css">.mback{background-color: #9AB8CF;}.mback:hover{background-color: #9AB8CF !important;}</style>
         <div class="report_table">
             <?php
@@ -29,7 +29,7 @@ if($db->modulePermission(132)==true){
                         <option value="">Copy From</option>
                         <?php
                         foreach($groups as $cg){
-                        ?><option value="<?php echo $cg['id'];?>"><?php echo $cg['title'];?></option><?php
+                        ?><option value="<?php echo $cg['id'];?>"><?php echo $cg['name'];?></option><?php
                         }
                         ?>
                     </select>

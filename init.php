@@ -142,6 +142,15 @@ const LEDGER_ACCOUNT_PROVISION_FOR_INCOME_TAX = 'provision-for-income-tax';
 							$update = $db->update_by_id($lData['id'],'user_login_session',$data);
 						}
 						define('USER_ID'			, $userData['id']);
+						define('COMPANY_ID'			, $userData['company_id']);
+						if(COMPANY_ID==0 && isset($_GET['select_company'])){
+						$company_id = intval($_GET['select_company']);
+						$company = $cmp->getById($company_id);
+						if(!empty($company)){
+							$_SESSION['company_id'] = $company_id;
+							$general->redirect(URL);
+						}
+					}
 						define('GROUP_ID'			, $userData['group_id']);
 						define('LOGIN_SESSION_ID'	, $lData['id']);
 					}else{setMessage(63,'login');unset($_SESSION[SU_LOGIN_SESSION_NAME]);}

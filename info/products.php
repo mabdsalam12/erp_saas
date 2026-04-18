@@ -10,9 +10,9 @@
     $units=$db->selectAll('unit','where isActive=1 order by title asc','id,title');
     $general->arrayIndexChange($units,'id');
 
-    $use_product_production = $db->get_company_settings('use_product_production');
-    $use_product_category = $db->get_company_settings('use_product_category');
-    //$general->printArray($use_product_production);
+    
+    $use_product_category = 1;
+    
     
     $types=$smt->get_all_product_type();
     
@@ -69,9 +69,9 @@
             $VAT = floatval($_POST['VAT']);
             $get_one_free = intval($_POST['get_one_free']);
             $type=0;
-            if($use_product_production==1){
-                $type = intval($_POST['type']);
-            }
+            
+            $type = intval($_POST['type']);
+            
             $category=0;
             $subCategory=0;
             if($use_product_category==1){
@@ -100,12 +100,13 @@
                     'unit_id'       => $unID,
                     'category_id'   => $subCategory,
                     'sale_price'    => $pSalePrice,
+                    'type'          => $type,
                     'VAT'    => $VAT,
                     'data'          => json_encode($product_data),
                 ];
-                if($use_product_production==1){
-                    $data['type']=$type;
-                }
+                
+                
+                
                 $db->arrayUserInfoAdd($data);
                 $db->transactionStart();
                 $product_id=$db->insert('products',$data,true);
@@ -148,9 +149,9 @@
                                 <?php $general->inputBoxText('sale_price','TP',@$_POST['sale_price']);?>
                                 <?php $general->inputBoxText('VAT','VAT',@$_POST['VAT']);?>
                                 <?php
-                                    if($use_product_production==1){
-                                        $general->inputBoxSelect($types,'Type','type','id','title',@$_POST['type']); 
-                                    }
+                                    
+                                    $general->inputBoxSelect($types,'Type','type','id','title',@$_POST['type']); 
+                                    
                                 ?>
                                 <?php $general->inputBoxText('get_one_free','Get one free',@$_POST['get_one_free']);?>
                                 <div class="form-group m-b-0">
@@ -284,11 +285,11 @@
                                 <?php $general->inputBoxText('sale_price','TP',$u['sale_price']);?>
                                 <?php $general->inputBoxText('VAT','VAT',$u['VAT']);?>
                                 <?php
-                                    if($use_product_production==1){
+                                    
 
                                         $general->inputBoxSelect($types,'Type','type','id','title',$u['type']); 
 
-                                    }
+                                    
                                 ?>
                                 <?php $general->inputBoxText('get_one_free','Get one free',@$get_one_free);?>
                                 <?php $general->inputBoxSelect($statuss,'Status','status','id','title',$u['isActive'],haveSelect:'n');  ?>
@@ -325,7 +326,7 @@
                     <?php
                         show_msg();
                         $q=['isActive=3'];
-                        if($use_product_production==1){
+                        
                             $general->inputBoxSelectForReport($types,'Type','type','id','title',@$_GET['type']); 
                         ?> 
                         <div class="col-md-2">
@@ -338,7 +339,7 @@
                             if(isset($_GET['type']) && $_GET['type']>-1){
                                 $q[]='type='.intval($_GET['type']);
                             }
-                        }
+                        
                         $products=$db->selectAll('products','where '.implode(' and ',$q));
 
                     ?>
@@ -412,7 +413,7 @@
                             $q[]='type=-100';
                         }
                         
-                        if($use_product_production==1){
+                        
                             $general->inputBoxSelectForReport($types,'Type','type','id','title',@$_GET['type']); 
                         ?> 
                         <div class="col-md-2">
@@ -425,7 +426,7 @@
                             if(isset($_GET['type']) && $_GET['type']>-1){
                                 $q[]='type='.intval($_GET['type']);
                             }
-                        }
+                        
                         $products=$db->selectAll('products','where '.implode(' and ',$q));
                         $total=1;
 
@@ -446,9 +447,9 @@
                                     ?><th>Unit cost</th><?php 
                                     }
                                     
-                                    if($use_product_production==1){
+                                    
                                     ?><th>Type</th> <?php 
-                                    }
+                                    
                                 ?>
 
                                 <th class="amount_td">TP</th>
@@ -478,9 +479,9 @@
                                         ?>
                                     
                                     <?php
-                                        if($use_product_production==1){
+                                        
                                         ?><td><?=$types[$u['type']]['title']?></td> <?php 
-                                        }
+                                        
                                     ?>
 
                                     <td class="amount_td"><?php echo $general->numberFormat($u['sale_price']);?></td>
