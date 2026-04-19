@@ -8,7 +8,7 @@ $bg_color='green';
 <script src="<?php echo URL; ?>/plugins/morrisjs/morris.js?"></script>
 <?php
     $general->pageHeader(l('dashboard'));
-    $where = "WHERE for_home = 1 order by title asc";   
+    $where = "WHERE for_home = 1 order by name asc";   
     $m = $db->selectAll('module',$where);        
 ?>
 <div class='row'>
@@ -59,7 +59,7 @@ $bg_color='green';
                         <ul class="list-inline two-part">
                             <li><i class="<?php echo $icon; ?>"></i></li>
                         </ul>
-                        <h3 class="box-title"><?php echo $a["title"]; ?></h3>
+                        <h3 class="box-title"><?php echo $a["name"]; ?></h3>
                     </div>
                 </a>
             </div>  
