@@ -2,12 +2,12 @@
     $aStatus      = true;
 $eStatus      = true;
 
-$pageTitle      = $rModule['title'];
+$pageTitle      = $rModule['name'];
 
 $can_see_unit_cost=$db->permission(9);
 $companyID=$cmp->getCurrentCompanyID();
 if($companyID>0){
-    $units=$db->selectAll('unit','where isActive=1 order by title asc','id,title');
+    $units=$db->selectAll('unit','where isActive=1 and company_id='.$companyID.' order by name asc','id,name');
     $general->arrayIndexChange($units,'id');
 
     
@@ -20,14 +20,14 @@ if($companyID>0){
     $subCategorys = [];
     $categoryData = [];
     if($use_product_category==1){
-        $categorys=$db->selectAll('product_category','where isActive=1','id,parent,title'); 
+        $categorys=$db->selectAll('product_category','where isActive=1 and company_id='.$companyID,'id,parent,name'); 
         $general->arrayIndexChange($categorys,'id');
         if(!empty($categorys)){
             foreach($categorys as $c){
                 if($c['parent']==0){
                     $categoryData[$c['id']]=[
                         'id'            => $c['id'],
-                        'title'            => $c['title'],
+                        'name'            => $c['name'],
                         'childCategory'    => []
                     ];
                 }
@@ -36,7 +36,7 @@ if($companyID>0){
                         $parent = $categorys[$c['parent']];
                         $categoryData[$c['parent']]=[
                             'id'            => $parent['id'],
-                            'title'            => $parent['title'],
+                            'name'            => $parent['name'],
                             'childCategory'    => []
                         ];
                     }
@@ -46,7 +46,7 @@ if($companyID>0){
                     }
                     $categoryData[$c['parent']]['childCategory'][]=[
                         'id'    => $c['id'],
-                        'title'    => $c['title']
+                        'name'    => $c['name']
                     ];  
                 }
             }
@@ -61,13 +61,12 @@ if($companyID>0){
         $general->pageHeader('Add '.$pageTitle,$data);
 
         if(isset($_POST['add'])){
-            $pTitle     = $_POST[$tpTitle];
+            $name     = $_POST['name'];
             $code     = $_POST['code'];
-            $unID       = intval($_POST['unID']);
+            $unit_id       = intval($_POST['unit_id']);
 
-            $pSalePrice = floatval($_POST['sale_price']);
+            $sale_price = floatval($_POST['sale_price']);
             $VAT = floatval($_POST['VAT']);
-            $get_one_free = intval($_POST['get_one_free']);
             $type=0;
             
             $type = intval($_POST['type']);
@@ -79,30 +78,29 @@ if($companyID>0){
                 $subCategory       = intval($_POST['subCategory']);
             }
             if($type==!0){
-                $pSalePrice=0;
-                $pSalePrice=0;
+                $sale_price=0;
+                $sale_price=0;
             }
-            if(empty($pTitle)){setMessage(36,$titleFieldName);$error=fl();}
+            if(empty($name)){setMessage(36,$titleFieldName);$error=fl();}
             elseif(empty($code)){setMessage(36,'Code');$error=fl();}
-            elseif(!array_key_exists($unID,$units)){$error=fl();setMessage(63,'Unit');}
+            elseif(!array_key_exists($unit_id,$units)){$error=fl();setMessage(63,'Unit');}
 
-            elseif($pSalePrice<=0&&$type==PRODUCT_TYPE_FINISHED){$error=fl();setMessage(63,'TP');}
-            elseif($get_one_free<0){$error=fl();setMessage(63,'get one free');}
+            elseif($sale_price<=0&&$type==PRODUCT_TYPE_FINISHED){$error=fl();setMessage(63,'TP');}
             if($use_product_category==1){
                 if(!isset($categoryData[$category])){$error=fl();setMessage(63,'Category');}
                 elseif(!isset($subCategorys[$category][$subCategory])){$error=fl();setMessage(63,'Sub category');}
             }
             if(!isset($error)){
-                $product_data = ['get_one_free'=>$get_one_free];
+                
                 $data = [
-                    'title'         => $pTitle,
+                    'title'         => $name,
                     'code'          => $code,
-                    'unit_id'       => $unID,
+                    'unit_id'       => $unit_id,
                     'category_id'   => $subCategory,
-                    'sale_price'    => $pSalePrice,
+                    'sale_price'    => $sale_price,
                     'type'          => $type,
                     'VAT'    => $VAT,
-                    'data'          => json_encode($product_data),
+                
                 ];
                 
                 
@@ -137,23 +135,20 @@ if($companyID>0){
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <form method="post" action="">
                             <div class="col-xs-6 col-sm-4 col-md-4">
-                                <?php $general->inputBoxText($tpTitle,$titleFieldName,@$_POST[$tpTitle],'y');?>
+                                <?php $general->inputBoxText('name','Product name',@$_POST['name'],'y');?>
                                 <?php $general->inputBoxText('code','Code',@$_POST['code'],'y');?>
                                 <?php
                                     if($use_product_category==1){
-                                        $general->inputBoxSelect($categoryData,'Category','category','id','title',@$_POST['category']);
-                                        $general->inputBoxSelect([],'Sub Category','subCategory','id','title',@$_POST['subCategory']);
+                                        $general->inputBoxSelect($categoryData,'Category','category','id','name',@$_POST['category']);
+                                        $general->inputBoxSelect([],'Sub Category','subCategory','id','name',@$_POST['subCategory']);
                                     }
                                 ?>
-                                <?php $general->inputBoxSelect($units,'Unit','unID','id','title',@$_POST['unID']);?>
+                                <?php $general->inputBoxSelect($units,'Unit','unit_id','id','name',@$_POST['unit_id']);?>
                                 <?php $general->inputBoxText('sale_price','TP',@$_POST['sale_price']);?>
                                 <?php $general->inputBoxText('VAT','VAT',@$_POST['VAT']);?>
                                 <?php
-                                    
-                                    $general->inputBoxSelect($types,'Type','type','id','title',@$_POST['type']); 
-                                    
+                                    $general->inputBoxSelect($types,'Type','type','id','name',@$_POST['type']); 
                                 ?>
-                                <?php $general->inputBoxText('get_one_free','Get one free',@$_POST['get_one_free']);?>
                                 <div class="form-group m-b-0">
                                     <div class="pull-right">
                                         <input type="submit" name="add" value="Add" class="btn btn-lg btn-info waves-effect waves-light">
@@ -393,9 +388,8 @@ if($companyID>0){
     else{
         $general->arrayIndexChange($categorys,'id');
         $data = array($pUrl=>$pageTitle);
-        //$sortLink='<a style="font-size: 20px; color: #228AE6;margin-left: 20px;" href="'.$pUrl.'&sort=1"><i class="fa fa-arrows-v"></i></a>';
         $archived = '<a href="' . $pUrl . '&archive" class="btn btn-info">Archive</a>';
-        $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl).$archived);
+        $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl).$archived);
 
     ?>
     <div class="row">
