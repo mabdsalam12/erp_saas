@@ -4,7 +4,7 @@
     $tPTbl          = 104;
     $tpID           = 'pID';
     $tpTitle        = 'title';
-    $pageTitle      = $rModule['title'];
+    $pageTitle      = $rModule['name'];
 
 
     //$pLink='?'.MODULE_URL.'=dealerProductStatment&supID='.$supID;
@@ -19,7 +19,7 @@
     $general->arrayIndexChange($categorys,'id');
     $data = array($pUrl=>$pageTitle);
     //$sortLink='<a style="font-size: 20px; color: #228AE6;margin-left: 20px;" href="'.$pUrl.'&sort=1"><i class="fa fa-arrows-v"></i></a>';
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     $prodcutData=[];
 
 ?>

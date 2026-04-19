@@ -3,7 +3,7 @@
 $departments=$db->selectAll('employee_department','where isActive=1');
 $general->arrayIndexChange($departments, 'id');
 
-$general->pageHeader($rModule['title']);
+$general->pageHeader($rModule['name']);
 $report_type=[
     [
         'id'=>1,

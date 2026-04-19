@@ -1,5 +1,5 @@
 <?php
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     //$types=$general->get_all_product_type();
     $products = $db->selectAll('products','where isActive=1 order by title','id,title');
 ?>

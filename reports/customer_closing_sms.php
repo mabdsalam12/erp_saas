@@ -2,8 +2,8 @@
     include_once ROOT_DIR.'/class/sms/Customer_closing_sms.php';
     $cls=new Customer_closing_sms($acc);
     if(isset($_GET['add'])){
-        $data = array($pUrl=>$rModule['title'],1=>'Add');
-        $general->pageHeader('Add '.$rModule['title'],$data);
+        $data = array($pUrl=>$rModule['name'],1=>'Add');
+        $general->pageHeader('Add '.$rModule['name'],$data);
 
         if(isset($_POST['add'])){
             try{
@@ -42,7 +42,7 @@
     }
     elseif(isset($_GET['details'])){
         $id=intval($_GET['details']);
-        $data = array($pUrl=>$rModule['title'],1=>'Details');
+        $data = array($pUrl=>$rModule['name'],1=>'Details');
         $general->pageHeader('Customer closing SMS Details',$data);  
         try{
             $details=$cls->details($id);
@@ -187,8 +187,8 @@
     <?php
     }
     else{
-        $data = array($pUrl=>$rModule['title']);
-        $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl));  
+        $data = array($pUrl=>$rModule['name']);
+        $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl));  
     ?>
     <div class="col-sm-12">
         <div class="white-box border-box">

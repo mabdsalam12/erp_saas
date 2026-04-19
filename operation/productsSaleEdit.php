@@ -7,8 +7,8 @@
         $purDate = date('d-m-Y',$s['date']);
         $saleDetails = $db->selectAll('sale_products','where sale_id='.$sID);
 
-        $data = array($pUrl=>$rModule['title'],'1'=>'Update');
-        $general->pageHeader($rModule['title'],$data);
+        $data = array($pUrl=>$rModule['name'],'1'=>'Update');
+        $general->pageHeader($rModule['name'],$data);
         $customers = $db->selectAll('customer','where isActive=1','id,name');
         $categories=$db->selectAll('product_category','where isActive=1');
         $general->arrayIndexChange($categories,'id');
@@ -222,7 +222,7 @@
 
     }   
     else{
-        $general->pageHeader($rModule['title']);
+        $general->pageHeader($rModule['name']);
     ?>
     <div class="row">
         <div class="col-sm-12">

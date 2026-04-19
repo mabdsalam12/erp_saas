@@ -1,5 +1,5 @@
 <?php
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     $base = $db->selectAll('base');
     $toll_sale_type=[
         ['id'=>0,'title'=>'Without Toll product'],

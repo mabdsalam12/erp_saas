@@ -1,5 +1,5 @@
 <?php
-	$general->pageHeader($rModule['title']);
+	$general->pageHeader($rModule['name']);
 ?>
 <div class="white-box border-box">
 	<div class="row">

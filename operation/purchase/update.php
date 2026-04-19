@@ -1,12 +1,12 @@
 <?php
     $edit = intval($_GET['edit']);   
     $purchase = $db->get_rowData('purchase','id',$edit);
-    if(empty($purchase)){$general->redirect($pUrl,37,$rModule['title']);}
+    if(empty($purchase)){$general->redirect($pUrl,37,$rModule['name']);}
     $purchase_details = $db->selectAll('purchase_details','where purchase_id='.$edit);
     $purchase['discount'] = ($purchase['discount']==0)?'':$general->numberFormatString($purchase['discount']);
     $purchase['VAT'] = ($purchase['VAT']==0)?'':$general->numberFormatString($purchase['VAT']);
     $purchase['AIT'] = ($purchase['AIT']==0)?'':$general->numberFormatString($purchase['AIT']);
-    $general->pageHeader($rModule['title'],[$pUrl=>$rModule['title'],1=>'Update']);
+    $general->pageHeader($rModule['name'],[$pUrl=>$rModule['name'],1=>'Update']);
 
     $products=[];
 

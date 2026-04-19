@@ -1,5 +1,5 @@
 <?php
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     $employees=$db->selectAll($general->table(74),'where isActive =1 order by eName asc');
 ?>
 <div class="white-box border-box">

@@ -4,7 +4,7 @@
     $tPTbl          = 104;
     $tpID           = 'pID';
     $tpTitle        = 'title';
-    $pageTitle      = $rModule['title'];
+    $pageTitle      = $rModule['name'];
     $titleFieldName = 'Product Title';
 
     $suppliers=$db->selectAll('suppliers','where isActive=1 order by name asc','id,name,product_type');
@@ -60,7 +60,7 @@
         </script>
         <?php
         }
-        $general->pageHeader($rModule['title'],[$pUrl=>$rModule['title'],1=>'New']);
+        $general->pageHeader($rModule['name'],[$pUrl=>$rModule['name'],1=>'New']);
 
         $products=[];
         if($use_product_category==0){

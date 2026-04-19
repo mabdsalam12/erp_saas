@@ -1,6 +1,6 @@
 <?php
 $suppliers=$db->selectAll('suppliers','where isActive=1 order by name asc');    
-$general->pageHeader($rModule['title']);
+$general->pageHeader($rModule['name']);
 ?>
 <div class="row">
     <div class="col-sm-12">

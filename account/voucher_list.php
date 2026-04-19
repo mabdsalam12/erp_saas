@@ -24,7 +24,7 @@ $dateTypes=[
     ]
 ];
 
-$general->pageHeader($rModule['title']);
+$general->pageHeader($rModule['name']);
 ?>
 <div class="row">
     <div class="col-sm-12" id="message_show_box"></div>

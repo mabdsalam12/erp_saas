@@ -1,5 +1,5 @@
 <?php
-    $pageTitle      = $rModule['title'];
+    $pageTitle      = $rModule['name'];
     $purDate=date('d-m-Y');
     //$products_data = $db->selectAll('products','where type='.PRODUCT_TYPE_PACKAGING.' and isActive=1','id,type,title');
 
@@ -37,7 +37,7 @@
     $discount='';
     $date=date('d-m-Y');
     $page = 'New';
-    $page_title = $rModule['title'];
+    $page_title = $rModule['name'];
     $batch='';
     $manufacture_product_id='';
     $manufacture_product_quantity='';
@@ -73,7 +73,7 @@
     <input type="hidden" id="manufacture_id" value="<?=$id?>">
     <?php 
     }
-    $general->pageHeader($page_title,[$pUrl=>$rModule['title'],1=>$page]);
+    $general->pageHeader($page_title,[$pUrl=>$rModule['name'],1=>$page]);
     $categoryData=$db->getCategoryData();
     $productData=$db->getProductData('and type='.PRODUCT_TYPE_PACKAGING);
     $manufacture_product_data=$db->getProductData('and type='.PRODUCT_TYPE_MANUFACTURING);

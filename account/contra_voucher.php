@@ -9,8 +9,8 @@ if(isset($_GET['edit'])){
     
 
 
-    $data = ['javascript:void()'=>$rModule['title'],'1'=>'Edit'];
-    $general->pageHeader('Edit '.$rModule['title'],$data);
+    $data = ['javascript:void()'=>$rModule['name'],'1'=>'Edit'];
+    $general->pageHeader('Edit '.$rModule['name'],$data);
 ?>
     <div class="row">
         <div class="col-lg-12">
@@ -55,8 +55,8 @@ if(isset($_GET['edit'])){
     <?php
 }
 elseif(isset($_GET['add'])){
-    $data = [$pUrl=>$rModule['title'],1=>'Add'];
-    $general->pageHeader('Add '.$rModule['title'],$data);
+    $data = [$pUrl=>$rModule['name'],1=>'Add'];
+    $general->pageHeader('Add '.$rModule['name'],$data);
     ?>
     <div class="row">
         <div class="col-lg-12">
@@ -101,8 +101,8 @@ elseif(isset($_GET['add'])){
     
 }
 else{
-    $data = [$pUrl=>$rModule['title']];
-    $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl));
+    $data = [$pUrl=>$rModule['name']];
+    $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl));
     
     ?>
     

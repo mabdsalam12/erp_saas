@@ -12,8 +12,8 @@ $general->arrayIndexChange($designations);
 
 if(isset($_GET['add'])){
     if(!$aStatus){$general->redirect($pUrl,146,'add employee');}
-    $data = array($pUrl=>$rModule['title'],1=>'Add');
-    $general->pageHeader('Add '.$rModule['title'],$data);
+    $data = array($pUrl=>$rModule['name'],1=>'Add');
+    $general->pageHeader('Add '.$rModule['name'],$data);
     if(isset($_POST['add'])){
         $name               = $_POST["name"];
         $father            = $_POST["father"];
@@ -190,10 +190,10 @@ elseif(isset($_GET['editOpening'])){
     if($eStatus==false){$general->redirect($pUrl,146,'Edit');}
     $eID= intval($_GET['editOpening']);
     $e = $db->get_rowData('employees',$tpID,$eID);
-    if(empty($e)){$general->redirect($pUrl,37,$rModule['title']);}
+    if(empty($e)){$general->redirect($pUrl,37,$rModule['name']);}
 
     $general->arrayContentShow($e);
-    $data = array($pUrl=>$rModule['title'],'javascript:void()'=>$e['name'],'1'=>'Edit');
+    $data = array($pUrl=>$rModule['name'],'javascript:void()'=>$e['name'],'1'=>'Edit');
     $general->pageHeader('Salary Info '.$e['name'],$data);
 
     $openingVoucher=$acc->voucherDetails(V_T_OPENING,OPENING_VOUCHER_TYPE_EMPLOYEE.'_'.$eID);
@@ -296,9 +296,9 @@ elseif(isset($_GET['salaryInfo'])){
     if($eStatus==false){$general->redirect($pUrl,146,'Edit');}
     $eID= intval($_GET['salaryInfo']);
     $e = $db->get_rowData('employees',$tpID,$eID);
-    if(empty($e)){$general->redirect($pUrl,37,$rModule['title']);}
+    if(empty($e)){$general->redirect($pUrl,37,$rModule['name']);}
     $general->arrayContentShow($e);
-    $data = array($pUrl=>$rModule['title'],'javascript:void()'=>$e['name'],'1'=>'Edit');
+    $data = array($pUrl=>$rModule['name'],'javascript:void()'=>$e['name'],'1'=>'Edit');
     $general->pageHeader('Salary Info '.$e['name'],$data);
     ?>
     <div class="row">
@@ -397,7 +397,7 @@ elseif(isset($_GET['edit'])){
     if($eStatus==false){$general->redirect($pUrl,146,'Edit');}
     $edit = intval($_GET['edit']);
     $e = $db->get_rowData('employees',$tpID,$edit);
-    if(empty($e)){$general->redirect($pUrl,37,$rModule['title']);}
+    if(empty($e)){$general->redirect($pUrl,37,$rModule['name']);}
     $general->arrayContentShow($e);
     $deletePremision=$db->permission(82);
     if($deletePremision){
@@ -482,8 +482,8 @@ elseif(isset($_GET['edit'])){
             }
         }
     }
-    $data = array($pUrl=>$rModule['title'],'javascript:void()'=>$e['name'],'1'=>'Edit');
-    $general->pageHeader('Edit '.$rModule['title'],$data);
+    $data = array($pUrl=>$rModule['name'],'javascript:void()'=>$e['name'],'1'=>'Edit');
+    $general->pageHeader('Edit '.$rModule['name'],$data);
     ?>
     <div class="row">
         <?php
@@ -581,8 +581,8 @@ elseif(isset($_GET['edit'])){
     <?php
 }
 else{
-    $data = array($pUrl=>$rModule['title']);
-    $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl));
+    $data = array($pUrl=>$rModule['name']);
+    $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl));
     $departments=$db->selectAll('employee_department','where isActive=1');
     $general->arrayIndexChange($departments, 'id');
     ?>

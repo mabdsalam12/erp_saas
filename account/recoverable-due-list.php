@@ -2,7 +2,7 @@
 
 
 
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     $employees = $db->selectAll('employees','where isActive=1','id,name');
     $base = $db->selectAll('base','where status=1');
     $customer_data=$smt->get_base_wise_all_customer();

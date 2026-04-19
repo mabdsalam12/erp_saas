@@ -7,8 +7,8 @@
     
     $base = $db->selectAll('base','where status=1');
     $employees = $db->selectAll('employees','where isActive=1','id,name');
-    $data = [$pUrl=>$rModule['title']];
-    $general->pageHeader($rModule['title'],$data);
+    $data = [$pUrl=>$rModule['name']];
+    $general->pageHeader($rModule['name'],$data);
     $transaction_type=[
         [
             'id'=>V_T_RECEIVE_FROM_CUSTOMER,

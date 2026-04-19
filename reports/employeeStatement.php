@@ -1,5 +1,5 @@
 <?php
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     
     $employees=$db->selectAll('employees',' order by name asc');
 

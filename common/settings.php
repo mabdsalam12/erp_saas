@@ -1,6 +1,6 @@
 <?php
-$data = array($pUrl=>$rModule['title']);
-$general->pageHeader($rModule['title'],$data);
+$data = array($pUrl=>$rModule['name']);
+$general->pageHeader($rModule['name'],$data);
 $company_data = $db->get_company_data();
 $checkbox_settings = [
     'use_product_production'=>['title'=>'Use product production', 'value'=>0],

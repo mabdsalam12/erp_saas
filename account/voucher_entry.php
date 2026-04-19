@@ -1,5 +1,5 @@
 <?php
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     $date=date('d-m-Y');
     $company_data = $db->get_company_data();
     $base = $db->selectAll('base');

@@ -2,7 +2,7 @@
     $customer_data=$smt->get_base_wise_all_customer();
     $base_customers=$customer_data['base_customers'];
     $customers=$customer_data['customers'];
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     $base = $db->selectAll('base','where status=1');
 ?>
 <script type="text/javascript">

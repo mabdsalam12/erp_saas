@@ -3,7 +3,7 @@
 <?php 
     if(isset($_GET['add'])){
 
-        $general->pageHeader($rModule['title'],[$pUrl=>$rModule['title'],1=>'New']);
+        $general->pageHeader($rModule['name'],[$pUrl=>$rModule['name'],1=>'New']);
 
 
 
@@ -200,8 +200,8 @@
     <?php
     }
     else{
-        $data =[$pUrl=>$rModule['title']];
-        $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl));
+        $data =[$pUrl=>$rModule['name']];
+        $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl));
     ?>
     <div class="row">
         <div class="col-sm-12">

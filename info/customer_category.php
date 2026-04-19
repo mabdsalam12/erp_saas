@@ -8,8 +8,8 @@
 
     if(isset($_GET['add'])){
         if(!$aStatus){$general->redirect($pUrl,146,'add customer category');}
-        $data = array($pUrl=>$rModule['title'],1=>'Add');
-        $general->pageHeader('Add '.$rModule['title'],$data);
+        $data = array($pUrl=>$rModule['name'],1=>'Add');
+        $general->pageHeader('Add '.$rModule['name'],$data);
         if(isset($_POST['add'])){
             $title                  = $_POST["title"];
             if(empty($title)){setMessage(36,'title');$error=fl();}
@@ -57,12 +57,12 @@
         // if($eStatus==false){$general->redirect($pUrl,146,'Edit');}
         $edit = intval($_GET['edit']);
         $c = $db->get_rowData('customer_category','id',$edit);
-        if(empty($c)){$general->redirect($pUrl,37,$rModule['title']);}
+        if(empty($c)){$general->redirect($pUrl,37,$rModule['name']);}
 
         if(isset($_POST['edit'])){
             if(!$aStatus){$general->redirect($pUrl,146,'add Customer');}
-            $data = array($pUrl=>$rModule['title'],1=>'Add');
-            $general->pageHeader('Add '.$rModule['title'],$data);
+            $data = array($pUrl=>$rModule['name'],1=>'Add');
+            $general->pageHeader('Add '.$rModule['name'],$data);
             if(isset($_POST['edit'])){
                 $title                  = $_POST["title"];
                 if(empty($title)){setMessage(36,'title');$error=fl();}
@@ -78,8 +78,8 @@
                 }
             }
         }
-        $data = array($pUrl=>$rModule['title'],1=>'Edit');
-        $general->pageHeader('Edit '.$rModule['title'],$data);
+        $data = array($pUrl=>$rModule['name'],1=>'Edit');
+        $general->pageHeader('Edit '.$rModule['name'],$data);
     ?>
 
     <div class="row"><div class="col-lg-12"><?php show_msg();?></div></div>
@@ -108,8 +108,8 @@
     <?php
     }
     else{
-        $data = array($pUrl=>$rModule['title']);
-        $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl));
+        $data = array($pUrl=>$rModule['name']);
+        $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl));
         $banks = $db->selectAll('customer_category');
     ?>
     <div class="row">

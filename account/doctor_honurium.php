@@ -9,8 +9,8 @@ if(isset($_GET['edit'])){
     
 }
 else{
-    $data = [$pUrl=>$rModule['title']];
-    $general->pageHeader($rModule['title'],$data);
+    $data = [$pUrl=>$rModule['name']];
+    $general->pageHeader($rModule['name'],$data);
     $date='';
     if(isset($_GET['date'])){
         $date=$_GET['date'];
@@ -98,7 +98,7 @@ else{
                 <div class="row">
                     <div class="col-lg-12"><?php show_msg();?></div>
                     <div class="col-xs-6 col-sm-6 col-md-6">
-                        <h4><?= $rModule['title'];?> Add</h4>
+                        <h4><?= $rModule['name'];?> Add</h4>
                         
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">

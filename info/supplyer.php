@@ -2,8 +2,8 @@
     $eStatus=true;
     $types=$smt->get_all_product_type();
     if(isset($_GET['add'])){
-        $data = array($pUrl=>$rModule['title'].' Add',1=>'Add New '.$rModule['title']);
-        $general->pageHeader('Add '.$rModule['title'],$data);
+        $data = array($pUrl=>$rModule['name'].' Add',1=>'Add New '.$rModule['name']);
+        $general->pageHeader('Add '.$rModule['name'],$data);
         if(isset($_POST['add'])){
             $code    = $_POST["code"];
             $name    = $_POST["name"];
@@ -119,8 +119,8 @@
         if($eStatus==false){$general->redirect($pUrl,146,'Edit');}
         $id= intval($_GET['editOpening']);
         $sup= $smt->supplierInfoByID($id);
-        if(empty($sup)){$general->redirect($pUrl,37,$rModule['title']);}
-        $data = array($pUrl=>$rModule['title'],'javascript:void()'=>$sup['name'],'1'=>'Opening Balance Edit');
+        if(empty($sup)){$general->redirect($pUrl,37,$rModule['name']);}
+        $data = array($pUrl=>$rModule['name'],'javascript:void()'=>$sup['name'],'1'=>'Opening Balance Edit');
         $general->pageHeader('Opening Balance Edit '.$sup['name'],$data);
         $openingVoucher=$acc->voucherDetails(V_T_OPENING,OPENING_VOUCHER_TYPE_SUPPLIER.'_'.$id);
         $cOpeningB=0;
@@ -235,8 +235,8 @@
     <?php
     }
     elseif(isset($_GET['archive'])){
-        $data = array($pUrl=>$rModule['title'],'1'=>'Archive');
-        $general->pageHeader('Archive '.$rModule['title'],$data);
+        $data = array($pUrl=>$rModule['name'],'1'=>'Archive');
+        $general->pageHeader('Archive '.$rModule['name'],$data);
 
     ?>
     <div class="row">
@@ -307,7 +307,7 @@
         if($eStatus==false){$general->redirect($pUrl,146,'Edit');}
         $id= intval($_GET['edit']);
         $sup = $smt->supplierInfoByID($id);
-        if(empty($sup)){$general->redirect($pUrl,37,$rModule['title']);}
+        if(empty($sup)){$general->redirect($pUrl,37,$rModule['name']);}
         $deletePremision=false;
         if($deletePremision){
             if(isset($_GET['delete'])){
@@ -380,8 +380,8 @@
 
             }
         }
-        $data = array($pUrl=>$rModule['title'],'javascript:void()'=>$sup['name'],'1'=>'Edit');
-        $general->pageHeader('Edit '.$rModule['title'],$data);
+        $data = array($pUrl=>$rModule['name'],'javascript:void()'=>$sup['name'],'1'=>'Edit');
+        $general->pageHeader('Edit '.$rModule['name'],$data);
     ?>
 
     <div class="row"><div class="col-lg-12"><?php show_msg();?></div></div>
@@ -441,9 +441,9 @@
     <?php
     }
     else{
-        $data = array($pUrl=>$rModule['title']);
+        $data = array($pUrl=>$rModule['name']);
         $archived = '<a href="' . $pUrl . '&archive" class="btn btn-info">Archive</a>';
-        $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl).$archived);
+        $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl).$archived);
 
     ?>
     <div class="row">

@@ -3,10 +3,10 @@ $c=$tkt->superadminAdd($pUrl);$coID=$c['coID'];
 ?>
 <div class="row bg-title">
     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-        <h4 class="page-title"><?php echo $rModule['title'];?></h4>
+        <h4 class="page-title"><?php echo $rModule['name'];?></h4>
     </div>
     <?php
-    $data = array($pUrl=>$rModule['title']);$general->breadcrumb($data);
+    $data = array($pUrl=>$rModule['name']);$general->breadcrumb($data);
     ?>
 </div>
 <div class="row">

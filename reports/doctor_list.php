@@ -6,8 +6,8 @@ $categorys = $general->get_all_doctor_category();
 $productData = $db->getProductData(' and type='.PRODUCT_TYPE_FINISHED);
 
 if(isset($_GET['add'])){
-    $data = array($pUrl=>$rModule['title'],1=>'Add');
-    $general->pageHeader('Add '.$rModule['title'],$data);
+    $data = array($pUrl=>$rModule['name'],1=>'Add');
+    $general->pageHeader('Add '.$rModule['name'],$data);
     if(isset($_POST['add'])){
         $name               = $_POST["name"];
         $mobile             = $_POST["mobile"];
@@ -142,7 +142,7 @@ else{
         }
     }
     $base = $db->selectAll('base');
-    $general->pageHeader($rModule['title'],[],$general->addBtnHtml($pUrl));
+    $general->pageHeader($rModule['name'],[],$general->addBtnHtml($pUrl));
 ?>
 <div class="row">
     <div class="col-sm-12">

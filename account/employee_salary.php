@@ -1,5 +1,5 @@
 <?php
-$general->pageHeader($rModule['title']);
+$general->pageHeader($rModule['name']);
 ?>
 <?php
 if(isset($_GET['year']) && isset($_GET['month'])&& isset($_GET['department'])){

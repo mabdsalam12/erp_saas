@@ -1,5 +1,5 @@
 <?php
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     $base = $db->selectAll('base');
 ?>
 <div class="row">

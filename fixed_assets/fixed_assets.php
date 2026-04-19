@@ -10,8 +10,8 @@ $cash_accounts=$acc->get_all_cash_accounts();
 
 
 if(isset($_GET['add'])){                                        
-    $data = array($pUrl=>$rModule['title'],1=>'Add');
-    $general->pageHeader('Add '.$rModule['title'],$data);
+    $data = array($pUrl=>$rModule['name'],1=>'Add');
+    $general->pageHeader('Add '.$rModule['name'],$data);
     if(isset($_POST['add'])){
         $date           = intval(strtotime($_POST["date"]));
         $assets_type_id = intval($_POST["assets_type"]);
@@ -132,7 +132,7 @@ elseif(isset($_GET['edit'])){
     if($eStatus==false){$general->redirect($pUrl,146,'Edit');}
     $edit = intval($_GET['edit']);
     $e = $db->get_rowData('fixed_assets',$tpID,$edit);
-    if(empty($e)){$general->redirect($pUrl,37,$rModule['title']);}
+    if(empty($e)){$general->redirect($pUrl,37,$rModule['name']);}
     $general->arrayContentShow($e);
     if(isset($_POST['edit'])){
         $jArray=[];
@@ -205,8 +205,8 @@ elseif(isset($_GET['edit'])){
             }
         }
     }
-    $data = array($pUrl=>$rModule['title'],'javascript:void()'=>$e['product'],'1'=>'Edit');
-    $general->pageHeader('Edit '.$rModule['title'],$data);
+    $data = array($pUrl=>$rModule['name'],'javascript:void()'=>$e['product'],'1'=>'Edit');
+    $general->pageHeader('Edit '.$rModule['name'],$data);
     ?>
     <div class="row">
         <?php
@@ -260,8 +260,8 @@ elseif(isset($_GET['edit'])){
     <?php
 }
 else{
-    $data = array($pUrl=>$rModule['title']);
-    $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl));
+    $data = array($pUrl=>$rModule['name']);
+    $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl));
     ?>
     <div class="row">
         <div class="col-sm-12">

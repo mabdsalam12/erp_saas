@@ -1,6 +1,6 @@
 <?php
     $pID=intval(@$_GET['pID']);
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     $dRange = date('d-m-Y').' to '.date('d-m-Y');
 ?>
 <div class="white-box border-box">

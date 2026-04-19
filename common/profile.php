@@ -1,6 +1,6 @@
 <?php
-    $data = array($pUrl=>$rModule['title']);
-    $general->pageHeader($rModule['title'],$data);
+    $data = array($pUrl=>$rModule['name']);
+    $general->pageHeader($rModule['name'],$data);
 ?>
 
 <div class="row">

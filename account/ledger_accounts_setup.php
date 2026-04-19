@@ -8,7 +8,7 @@ $ledgerAccounts = $company_data['ledger_accounts']??[];
 if(isset($_GET['edit'])){
     $edit = $_GET['edit'];
     if(!isset($ledger_accounts[$edit])){
-        $general->redirect($pUrl,37,$rModule['title']);
+        $general->redirect($pUrl,37,$rModule['name']);
     }
     if(isset($_POST['edit'])){
         $id = intval($_POST['id']);
@@ -24,7 +24,7 @@ if(isset($_GET['edit'])){
         else{$general->redirect($pUrl,30,'Ledger Account');}
 
     }
-    $data = [$pUrl=>$rModule['title'],'javascript:void()'=>$ledger_accounts[$edit]['title'],1=>'Edit'];
+    $data = [$pUrl=>$rModule['name'],'javascript:void()'=>$ledger_accounts[$edit]['title'],1=>'Edit'];
     $general->pageHeader('Edit '.$ledger_accounts[$edit]['title'],$data);
     $value = $ledgerAccounts[$edit]??0;
 ?>
@@ -55,8 +55,8 @@ if(isset($_GET['edit'])){
 <?php
 }
 else{
-    $data = [$pUrl=>$rModule['title']];
-    $general->pageHeader($rModule['title'],$data);
+    $data = [$pUrl=>$rModule['name']];
+    $general->pageHeader($rModule['name'],$data);
 ?>
 
 <div class="col-sm-12">

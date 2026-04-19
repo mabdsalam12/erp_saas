@@ -1,5 +1,5 @@
 <?php
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     $suppliers = $db->selectAll('suppliers','where isActive in(1,0)','name,id');
 ?>
 <div class="row">

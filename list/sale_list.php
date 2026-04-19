@@ -11,7 +11,7 @@ if(!isset($toll_sale_type)){
         ['id'=>1,'title'=>'Without TP']
     ];
     
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     $base = $db->selectAll('base','where status=1');
 ?>
 <script type="text/javascript">

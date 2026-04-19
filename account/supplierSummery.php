@@ -2,7 +2,7 @@
 exit;
     $scID=SECTION_DEALER;
     $suppliers=$db->selectAll($general->table(45),'where scID='.$scID.' and isActive=1 order by name asc');
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
 ?>
 <div class="white-box border-box">
     <div class="row">

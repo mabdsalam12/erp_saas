@@ -8,8 +8,8 @@
 
     if(isset($_GET['add'])){
         if(!$aStatus){$general->redirect($pUrl,146,'add Bank');}
-        $data = array($pUrl=>$rModule['title'],1=>'Add');
-        $general->pageHeader('Add '.$rModule['title'],$data);
+        $data = array($pUrl=>$rModule['name'],1=>'Add');
+        $general->pageHeader('Add '.$rModule['name'],$data);
         if(isset($_POST['add'])){
             $name                  = $_POST["name"];
             if(empty($name)){setMessage(36,'Name');$error=fl();}
@@ -57,12 +57,12 @@
         // if($eStatus==false){$general->redirect($pUrl,146,'Edit');}
         $edit = intval($_GET['edit']);
         $c = $db->get_rowData('bank','id',$edit);
-        if(empty($c)){$general->redirect($pUrl,37,$rModule['title']);}
+        if(empty($c)){$general->redirect($pUrl,37,$rModule['name']);}
 
         if(isset($_POST['edit'])){
             if(!$aStatus){$general->redirect($pUrl,146,'add Customer');}
-            $data = array($pUrl=>$rModule['title'],1=>'Add');
-            $general->pageHeader('Add '.$rModule['title'],$data);
+            $data = array($pUrl=>$rModule['name'],1=>'Add');
+            $general->pageHeader('Add '.$rModule['name'],$data);
             if(isset($_POST['edit'])){
                 $name                  = $_POST["name"];
 
@@ -92,8 +92,8 @@
                 
             }
         }
-        $data = array($pUrl=>$rModule['title'],1=>'Edit');
-        $general->pageHeader('Edit '.$rModule['title'],$data);
+        $data = array($pUrl=>$rModule['name'],1=>'Edit');
+        $general->pageHeader('Edit '.$rModule['name'],$data);
     ?>
 
     <div class="row"><div class="col-lg-12"><?php show_msg();?></div></div>
@@ -122,8 +122,8 @@
     <?php
     }
     else{
-        $data = array($pUrl=>$rModule['title']);
-        $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl));
+        $data = array($pUrl=>$rModule['name']);
+        $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl));
         $banks = $db->selectAll('bank');
     ?>
     <div class="row">

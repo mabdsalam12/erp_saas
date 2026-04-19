@@ -4,7 +4,7 @@
     $customers=$customer_data['customers'];
     $base = $db->selectAll('base');
 
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     $doctors = $db->selectAll('doctor','','id,base_id,name');
     $base_doctors=[];
     if(!empty($doctors)){

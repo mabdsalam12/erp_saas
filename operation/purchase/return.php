@@ -1,5 +1,5 @@
 <?php
-    $general->pageHeader($rModule['title'],[$pUrl=>$rModule['title'],1=>'New']);
+    $general->pageHeader($rModule['name'],[$pUrl=>$rModule['name'],1=>'New']);
 
     $date=date('d-m-Y');
 

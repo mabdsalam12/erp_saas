@@ -7,8 +7,8 @@
     $districts=$db->getAllDistricts();
 
     if(isset($_GET['add'])){
-        $data = [$pUrl=>$rModule['title'],1=>'Add'];
-        $general->pageHeader('Add '.$rModule['title'],$data);
+        $data = [$pUrl=>$rModule['name'],1=>'Add'];
+        $general->pageHeader('Add '.$rModule['name'],$data);
         $bases = $db->allBase();
         $users = $db->allUsers();
         $months = $general->allMonth();
@@ -101,7 +101,7 @@
         // if($eStatus==false){$general->redirect($pUrl,146,'Edit');}
         $edit = intval($_GET['edit']);
         $c = $db->get_rowData('monthly_target','id',$edit);
-        if(empty($c)){$general->redirect($pUrl,37,$rModule['title']);}
+        if(empty($c)){$general->redirect($pUrl,37,$rModule['name']);}
         $bases = $db->allBase();
         $users = $db->allUsers();
         $months = $general->allMonth();
@@ -150,8 +150,8 @@
                 else{$error=fl(); setMessage(66);}
             }
         }
-        $data = [$pUrl=>$rModule['title'],1=>'Edit'];
-        $general->pageHeader('Edit '.$rModule['title'],$data);
+        $data = [$pUrl=>$rModule['name'],1=>'Edit'];
+        $general->pageHeader('Edit '.$rModule['name'],$data);
     ?>
     <script>
         <?php  echo 'var base_wise_users='.json_encode($base_wise_users).';'; ?>
@@ -192,8 +192,8 @@
     }
     else{
        
-        $data = [$pUrl=>$rModule['title']];
-        $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl));
+        $data = [$pUrl=>$rModule['name']];
+        $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl));
     ?>
     <div class="row">
     <div class="col-sm-12">

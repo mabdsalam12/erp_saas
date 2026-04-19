@@ -1,5 +1,5 @@
 <?php
-$pageTitle      = $rModule['title'];
+$pageTitle      = $rModule['name'];
 $base = $db->selectAll('base','','id,title');
 
 $general->arrayIndexChange($base);
@@ -104,7 +104,7 @@ if(isset($_GET['add'])){
 
 else{
     $data = array($pUrl=>$pageTitle);
-    $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl));
+    $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl));
 
     ?>
 

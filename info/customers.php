@@ -16,8 +16,8 @@
     }
     if(isset($_GET['add'])){
         if(!$aStatus){$general->redirect($pUrl,146,'add Customer');}
-        $data = array($pUrl=>$rModule['title'],1=>'Add');
-        $general->pageHeader('Add '.$rModule['title'],$data);
+        $data = array($pUrl=>$rModule['name'],1=>'Add');
+        $general->pageHeader('Add '.$rModule['name'],$data);
         $credit_limit = $db->get_company_settings('customer_default_credit_limit');
         if(isset($_POST['add'])){
             $general->createLog('customer_add',$_POST);
@@ -181,10 +181,10 @@
         if($eStatus==false){$general->redirect($pUrl,146,'Edit');}
         $cID= intval($_GET['editOpening']);
         $c = $db->get_rowData('customer',$tpID,$cID);
-        if(empty($c)){$general->redirect($pUrl,37,$rModule['title']);}
+        if(empty($c)){$general->redirect($pUrl,37,$rModule['name']);}
 
         $general->arrayContentShow($c);
-        $data = array($pUrl=>$rModule['title'],'javascript:void()'=>$c['name'],'1'=>'Edit');
+        $data = array($pUrl=>$rModule['name'],'javascript:void()'=>$c['name'],'1'=>'Edit');
         $general->pageHeader($c['name'],$data);
 
         $openingVoucher=$acc->voucherDetails(V_T_OPENING,OPENING_VOUCHER_TYPE_CUSTOMER.'_'.$cID);
@@ -302,8 +302,8 @@
     } 
     else if(isset($_GET['archive'])){
         $base = $db->selectAll('base');
-        $data = array($pUrl=>$rModule['title'],'1'=>'Archive');
-        $general->pageHeader('Archive '.$rModule['title'],$data);
+        $data = array($pUrl=>$rModule['name'],'1'=>'Archive');
+        $general->pageHeader('Archive '.$rModule['name'],$data);
         $bazar = $db->selectAll('bazar','','id,title,base_id');
         $bazar_wise_bazars=[];
         if(!empty($bazar)){
@@ -364,7 +364,7 @@
     elseif(isset($_GET['edit'])){
         $edit = intval($_GET['edit']);
         $c = $smt->customerInfoByID($edit);
-        if(empty($c)){$general->redirect($pUrl,37,$rModule['title']);}
+        if(empty($c)){$general->redirect($pUrl,37,$rModule['name']);}
         $customer_data = $general->getJsonFromString($c['data']);
         $statuss=[
             ['id'=>1,'title'=>'Active'],
@@ -378,8 +378,8 @@
         if(isset($_POST['edit'])){
 
             if(!$aStatus){$general->redirect($pUrl,146,'add Customer');}
-            $data = array($pUrl=>$rModule['title'],1=>'Add');
-            $general->pageHeader('Add '.$rModule['title'],$data);
+            $data = array($pUrl=>$rModule['name'],1=>'Add');
+            $general->pageHeader('Add '.$rModule['name'],$data);
             if(isset($_POST['edit'])){
                 $customer_category_id   = intval($_POST["customer_category_id"]);
                 $cName                  = $_POST["cName"];
@@ -452,8 +452,8 @@
             }
         }
         $getClosingSMS=$customer_data['getClosingSMS']??"1";
-        $data = [$pUrl=>$rModule['title'],1=>'Edit'];
-        $general->pageHeader('Edit '.$rModule['title'],$data);
+        $data = [$pUrl=>$rModule['name'],1=>'Edit'];
+        $general->pageHeader('Edit '.$rModule['name'],$data);
         $bazars= $bazar_wise_bazars[$c['bazar_id']]??[];
     ?>
     <script type="text/javascript">
@@ -504,9 +504,9 @@
     }
     else{
         $base = $db->selectAll('base');
-        $data = array($pUrl=>$rModule['title']);
+        $data = array($pUrl=>$rModule['name']);
         $archived = '<a href="' . $pUrl . '&archive" class="btn btn-info">Archive</a>';
-        $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl).$archived);
+        $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl).$archived);
         $bazar = $db->selectAll('bazar','','id,title,base_id');
         $bazar_wise_bazars=[];
         if(!empty($bazar)){

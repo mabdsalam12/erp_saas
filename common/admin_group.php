@@ -4,8 +4,8 @@ $tpID           = 'agID';
 $tpTitle        = 'title';
 $pageTitle      = 'Admin Group';
 $titleFieldName = 'Title';
-$data = array(1=>$rModule['title']);
-$general->pageHeader($rModule['title'],$data);
+$data = array(1=>$rModule['name']);
+$general->pageHeader($rModule['name'],$data);
 
 $aStatus    = $db->permission(25);
 $eStatus    = $db->permission(26);

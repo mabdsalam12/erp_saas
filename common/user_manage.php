@@ -1,7 +1,7 @@
 <?php
 $aStatus      = $db->permission(64);
 $eStatus      = $db->permission(65);
-$general->pageHeader($rModule['title']);
+$general->pageHeader($rModule['name']);
 $groups=$db->allGroups('order by title asc');
 $general->arrayIndexChange($groups,'id');
 $employees=$db->selectAll('employees','where isActive in(0,1) order by name asc');

@@ -2,7 +2,7 @@
     $customer_data=$smt->get_base_wise_all_customer();
     $customers=$customer_data['customers'];
     $base = $db->selectAll('base');
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
 ?>
 <div class="row">
     <div class="col-sm-12">

@@ -1,7 +1,7 @@
 <?php
     $aStatus      = true;
     $eStatus      = true;
-    $pageTitle      = $rModule['title'];
+    $pageTitle      = $rModule['name'];
     $titleFieldName = 'Title';
 
     $mpo_data=$db->selectAll('users','where isActive=1 and type='.USER_TYPE_MPO.' order by username asc');
@@ -162,7 +162,7 @@
 
 
         $data = array($pUrl=>$pageTitle,'javascript:void()'=>$b['title'],'1'=>'Edit');
-        $general->pageHeader('Edit '.$rModule['title'],$data);
+        $general->pageHeader('Edit '.$rModule['name'],$data);
     ?>
     <div class="row">
         <div class="col-lg-12">
@@ -204,7 +204,7 @@ $general->editBtn();
     }
     else{
         $data =[$pUrl=>$pageTitle];
-        $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl));
+        $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl));
         $base_data=$db->selectAll('base','order by title asc');
     ?>
     <div class="row">

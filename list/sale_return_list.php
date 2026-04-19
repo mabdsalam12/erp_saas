@@ -11,7 +11,7 @@
             $base_customers[$c['base_id']][]=$c;
         }
     }
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     $base = $db->selectAll('base','where status=1');
 ?>
 <script type="text/javascript">

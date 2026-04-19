@@ -1,5 +1,5 @@
 <?php
-$pageTitle      = $rModule['title'];
+$pageTitle      = $rModule['name'];
 $titleFieldName = 'Title';
 $base = $db->selectAll('base','','id,title');
 $general->arrayIndexChange($base);
@@ -245,7 +245,7 @@ elseif(isset($_GET['edit'])){
 
 
     $data = array($pUrl=>$pageTitle,'1'=>'Edit');
-    $general->pageHeader('Edit '.$rModule['title'],$data);
+    $general->pageHeader('Edit '.$rModule['name'],$data);
     ?>
     <script type="">
         var doctor_id = <?=intval(@$u['doctor_id'])?>;
@@ -344,7 +344,7 @@ elseif(isset($_GET['edit'])){
 else{
     $data = array($pUrl=>$pageTitle);
     //$sortLink='<a style="font-size: 20px; color: #228AE6;margin-left: 20px;" href="'.$pUrl.'&sort=1"><i class="fa fa-arrows-v"></i></a>';
-    $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl));
+    $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl));
 
     ?>
 

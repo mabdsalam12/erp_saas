@@ -1,5 +1,5 @@
 <?php
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     $types=$smt->get_all_product_type();
 ?>
 <div class="row">

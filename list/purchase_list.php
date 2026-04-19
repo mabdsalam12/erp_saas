@@ -1,6 +1,6 @@
 <?php
 $suppliers=$db->selectAll('suppliers','where  isActive=1 order by name asc');
-$general->pageHeader($rModule['title']);
+$general->pageHeader($rModule['name']);
 $types=$smt->get_all_product_type();
 ?>
 <div class="row">

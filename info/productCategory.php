@@ -1,15 +1,15 @@
 <?php
 $aStatus      = true;
 $eStatus      = true;
-$pageTitle      = $rModule['title'];
+$pageTitle      = $rModule['name'];
 $titleFieldName = 'Title';
 $companyID=$cmp->getCurrentCompanyID();
 if($companyID>0){
     $categorys=$db->selectAll('product_category','where company_Id='.$companyID.' order by name asc'); 
     if(isset($_GET['add'])){
-        if(!$aStatus){$general->redirect($pUrl,146,'add '.$rModule['title']);}
+        if(!$aStatus){$general->redirect($pUrl,146,'add '.$rModule['name']);}
         $data = array($pUrl=>$pageTitle,'1'=>'Add');
-        $general->pageHeader('Add '.$rModule['title'],$data);
+        $general->pageHeader('Add '.$rModule['name'],$data);
 
         if(isset($_POST['add'])){
             $name= $_POST["name"];
@@ -87,7 +87,7 @@ if($companyID>0){
             }
         }
         $data = array($pUrl=>$pageTitle,'javascript:void()'=>$s['name'],'1'=>'Edit');
-        $general->pageHeader('Edit '.$rModule['title'],$data);
+        $general->pageHeader('Edit '.$rModule['name'],$data);
         ?>
         <div class="row"><div class="col-lg-12"><?php show_msg();?></div></div>
         <div class="row">
@@ -123,7 +123,7 @@ if($companyID>0){
     }
     else{
         $data = array($pUrl=>$pageTitle);
-        $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl));
+        $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl));
     }
     $parentCategorys =  $categorys;
     $general->arrayIndexChange($parentCategorys,'id');

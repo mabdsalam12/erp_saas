@@ -1,5 +1,5 @@
  <?php
-        $general->pageHeader($rModule['title']);
+        $general->pageHeader($rModule['name']);
         $ledgers=$acc->getAllHead();
 
         $chart_of_accounts=$db->selectAll('a_charts_accounts','where isActive=1','id,title,code');

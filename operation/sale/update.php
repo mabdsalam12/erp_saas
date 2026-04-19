@@ -3,11 +3,11 @@ $manage_order_number_and_date = $db->get_company_settings('manage_order_number_a
     if(isset($_GET['edit'])){ 
         $edit = intval($_GET['edit']);   
         $sale = $db->get_rowData('sale','id',$edit);
-        if(empty($sale)){$general->redirect($pUrl,37,$rModule['title']);}
+        if(empty($sale)){$general->redirect($pUrl,37,$rModule['name']);}
         $sale_products = $db->selectAll('sale_products','where sale_id='.$edit);
 
-        $data = array($pUrl=>$rModule['title'],'1'=>'Update');
-        $general->pageHeader($rModule['title'],$data);
+        $data = array($pUrl=>$rModule['name'],'1'=>'Update');
+        $general->pageHeader($rModule['name'],$data);
 
         $users = $db->selectAll('users','where type='.USER_TYPE_MPO.' and isActive=1','id,name');
         $base = $db->selectAll('base');
@@ -472,7 +472,7 @@ $manage_order_number_and_date = $db->get_company_settings('manage_order_number_a
 
     }   
     else{
-        $general->pageHeader($rModule['title']);
+        $general->pageHeader($rModule['name']);
     ?>
     <div class="row">
         <div class="col-sm-12">

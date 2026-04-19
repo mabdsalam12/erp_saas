@@ -1,5 +1,5 @@
 <?php
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     $c=$tkt->superadminAdd($pUrl);$coID=$c['coID'];
     $acPermission   = $db->modulePermission($rModule['cmID'],true);
     $b=$tkt->adminBrandAdd($pUrl,true,$acPermission);

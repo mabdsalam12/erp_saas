@@ -1,7 +1,7 @@
 <?php
     $suppliers=$db->selectAll('suppliers','where isActive=1 order by supName asc','supID,supName');
     $users=$db->allUsers(' and isActive=1');
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     $categoryData=$db->getCategoryData();
     $productData=$db->getProductData();
     $reportType=[

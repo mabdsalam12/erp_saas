@@ -14,8 +14,8 @@ $triggers=[
 ];
 
 if(isset($_GET['add'])){
-    $data = [$pUrl => $db->l($rModule['title']), 'Add' => 1];
-    $general->pageHeader('Add ' . $db->l($rModule['title']), $data);
+    $data = [$pUrl => $db->l($rModule['name']), 'Add' => 1];
+    $general->pageHeader('Add ' . $db->l($rModule['name']), $data);
 
     if(isset($_POST['add'])){
         $title      = $_POST["title"];
@@ -78,8 +78,8 @@ if(isset($_GET['add'])){
 }
 elseif(isset($_GET['edit'])){
     $edit = intval($_GET['edit']);
-    $data = [$pUrl => $db->l($rModule['title']), 'Edit' => 1];
-    $general->pageHeader('Edit ' . $db->l($rModule['title']), $data); 
+    $data = [$pUrl => $db->l($rModule['name']), 'Edit' => 1];
+    $general->pageHeader('Edit ' . $db->l($rModule['name']), $data); 
     $s = $db->get_rowData('sms_template',$tpID,$edit);
     $general->arrayContentShow($s);
     if(empty($s)){$general->redirect($pUrl,array(37,$pageTitle));}
@@ -146,7 +146,7 @@ elseif(isset($_GET['edit'])){
 }
 else{
     $data = array($pUrl=>$pageTitle);
-    $general->pageHeader($db->l($rModule['title']), $data, $general->addBtnHtml($pUrl));
+    $general->pageHeader($db->l($rModule['name']), $data, $general->addBtnHtml($pUrl));
     $categorys=$db->selectAll('sms_template','where isActive=1  order by '.$tpTitle.' asc'); 
     $company_data = $db->get_company_data();
     $sms_settings =[];

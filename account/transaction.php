@@ -68,7 +68,7 @@ if(isset($_GET['edit'])){
     }
 
     $data = array($pUrl=>$pageTitle,'javascript:void()'=>$pageTitle,'1'=>'Edit');
-    $general->pageHeader('Edit '.$rModule['title'].' - '.$pageTitle,$data);
+    $general->pageHeader('Edit '.$rModule['name'].' - '.$pageTitle,$data);
 ?>
     <div class="row">
         <div class="col-lg-12">

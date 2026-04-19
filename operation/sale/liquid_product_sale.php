@@ -1,5 +1,5 @@
 <?php 
-    $general->pageHeader($rModule['title'],[$pUrl=>$rModule['title'],1=>'New']);
+    $general->pageHeader($rModule['name'],[$pUrl=>$rModule['name'],1=>'New']);
     $users = $db->selectAll('users','where type='.USER_TYPE_MPO.' and isActive=1','id,name');
     $base = $db->selectAll('base','where status=1 order by code');
     $draftID=0;

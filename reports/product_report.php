@@ -1,6 +1,6 @@
 <?php
 
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     $products=$db->getProductData('and isActive in(0,1)');
     
     $general->arraySortByColumn($products,'t');

@@ -111,8 +111,11 @@ if($companyID>0){
                 if($product_id==false){
                     $error=fl();setMessage(66);
                 }
-                $product_price_log = $db->product_price_log($product_id,['sale_price'=>$data['sale_price'],'unit_cost'=>0]);
-                if($product_price_log==false){$error=fl();setMessage(66);}
+                else{
+                    $product_price_log = $db->product_price_log($product_id,['sale_price'=>$data['sale_price'],'unit_cost'=>0]);
+
+                    if($product_price_log==false){$error=fl();setMessage(66);}
+                }
                 $ac=false;
                 if(!isset($error)){
                     $ac=true;
@@ -256,7 +259,7 @@ if($companyID>0){
             $box_unit_quantity=intval($product_data['box_unit_quantity']);
         }
         $data = array($pUrl=>$pageTitle,'javascript:void()'=>$u[$tpTitle],'1'=>'Edit');
-        $general->pageHeader('Edit '.$rModule['title'],$data);
+        $general->pageHeader('Edit '.$rModule['name'],$data);
     ?>
     <div class="row">
         <div class="col-lg-12">
@@ -311,7 +314,7 @@ if($companyID>0){
     }
     else if(isset($_GET['archive'])){
         $data = array($pUrl=>$pageTitle,'1'=>'Archive');
-        $general->pageHeader('Archive '.$rModule['title'],$data);
+        $general->pageHeader('Archive '.$rModule['name'],$data);
     ?>
     <div class="row">
         <div class="col-sm-12">

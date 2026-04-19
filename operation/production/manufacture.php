@@ -33,7 +33,7 @@
     $production_product='';
     $mpID='';
     $batch_no='';
-    $page_title = $rModule['title'];
+    $page_title = $rModule['name'];
     $page = 'New';
     if(isset($_GET['edit'])){ 
         $id = intval($_GET['edit']);
@@ -56,7 +56,7 @@
     <input type="hidden" id="manufacture_id" value="<?=$id?>">
     <?php 
     }
-    $general->pageHeader($page_title,[$pUrl=>$rModule['title'],1=>$page]);
+    $general->pageHeader($page_title,[$pUrl=>$rModule['name'],1=>$page]);
 ?>
 <script type="text/javascript">  
     <?php echo 'var can_show_price='.$can_show_price.';';?> 

@@ -1,5 +1,5 @@
 <?php
-$general->pageHeader($rModule['title']);
+$general->pageHeader($rModule['name']);
 $suppliers = $db->selectAll('suppliers', ' order by name asc');
 $cash_accounts=$acc->get_all_cash_accounts();
 ?>

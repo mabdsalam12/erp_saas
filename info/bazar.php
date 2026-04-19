@@ -4,8 +4,8 @@
         $general->arrayIndexChange($base,'id');
     if(isset($_GET['add'])){
         
-        $data = array($pUrl=>$rModule['title'],1=>'Add');
-        $general->pageHeader('Add '.$rModule['title'],$data);
+        $data = array($pUrl=>$rModule['name'],1=>'Add');
+        $general->pageHeader('Add '.$rModule['name'],$data);
         if(isset($_POST['add'])){
             $base_id = intval($_POST['base_id']);
             $title=$_POST['title'];
@@ -55,7 +55,7 @@
         // if($eStatus==false){$general->redirect($pUrl,146,'Edit');}
         $edit = intval($_GET['edit']);
         $bazar = $db->get_rowData('bazar','id',$edit);
-        if(empty($bazar)){$general->redirect($pUrl,37,$rModule['title']);}
+        if(empty($bazar)){$general->redirect($pUrl,37,$rModule['name']);}
 
         if(isset($_POST['edit'])){
             $base_id = intval($_POST['base_id']);
@@ -78,8 +78,8 @@
                         }
             }
         }
-        $data = array($pUrl=>$rModule['title'],1=>'Edit');
-        $general->pageHeader('Edit '.$rModule['title'],$data);
+        $data = array($pUrl=>$rModule['name'],1=>'Edit');
+        $general->pageHeader('Edit '.$rModule['name'],$data);
     ?>
 
     <div class="row"><div class="col-lg-12"><?php show_msg();?></div></div>
@@ -108,8 +108,8 @@
     <?php
     }
     else{
-        $data = array($pUrl=>$rModule['title']);
-        $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl));
+        $data = array($pUrl=>$rModule['name']);
+        $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl));
     ?>
     <div class="row">
     <div class="col-sm-12">

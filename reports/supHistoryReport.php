@@ -1,5 +1,5 @@
 <?php
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     $suppliers=$db->selectAll($general->table(45),'where scID='.$scID.' and isActive=1 order by supName asc');
 ?>
 <div class="white-box border-box">

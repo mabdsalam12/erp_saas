@@ -9,7 +9,7 @@ if(!empty($doctors)){
 }
 $base = $db->selectAll('base');
 
-$general->pageHeader($rModule['title']);
+$general->pageHeader($rModule['name']);
 $report_type=[
     [
         'id'=>1,

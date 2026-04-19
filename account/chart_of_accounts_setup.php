@@ -8,7 +8,7 @@ $chartOfAccount = $company_data['chart_of_account']??[];
 if(isset($_GET['edit'])){
     $edit = $_GET['edit'];
     if(!isset($chart_of_accounts[$edit])){
-        $general->redirect($pUrl,37,$rModule['title']);
+        $general->redirect($pUrl,37,$rModule['name']);
     }
     if(isset($_POST['edit'])){
         $id = intval($_POST['id']);
@@ -24,7 +24,7 @@ if(isset($_GET['edit'])){
         else{$general->redirect($pUrl,30,'Chart of Account');}
 
     }
-    $data = [$pUrl=>$rModule['title'],1=>'Edit'];
+    $data = [$pUrl=>$rModule['name'],1=>'Edit'];
     $general->pageHeader('Edit '.$chart_of_accounts[$edit]['title'],$data);
     $value = $chartOfAccount[$edit]??0;
 ?>
@@ -55,8 +55,8 @@ if(isset($_GET['edit'])){
 <?php
 }
 else{
-    $data = [$pUrl=>$rModule['title']];
-    $general->pageHeader($rModule['title'],$data);
+    $data = [$pUrl=>$rModule['name']];
+    $general->pageHeader($rModule['name'],$data);
 ?>
 
 <div class="col-sm-12">

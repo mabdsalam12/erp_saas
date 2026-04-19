@@ -1,8 +1,8 @@
 <?php
     $employees=$db->selectAll('employees','where isActive=1 order by name asc','id,name');
     $general->arrayIndexChange($employees,'id');
-    $data = array($pUrl=>$rModule['title']);
-    $general->pageHeader($rModule['title'],$data);
+    $data = array($pUrl=>$rModule['name']);
+    $general->pageHeader($rModule['name'],$data);
     $cash_accounts=$acc->get_all_cash_accounts();
     
 ?>

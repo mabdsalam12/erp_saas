@@ -1,5 +1,5 @@
 <?php
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
 
     //$customers = $db->selectAll('customer','where isActive=1','id,name,code,due_day,base_id');
 

@@ -39,15 +39,15 @@
                         }
                     }
 
-                    $general->redirect($pUrl,29,$rModule['title']);
+                    $general->redirect($pUrl,29,$rModule['name']);
                 }
                 else{
                     $error=fl();setMessage(66);
                 }
             }
         }
-        $data = [$pUrl=>$rModule['title'],1=>'Add'];
-        $general->pageHeader($rModule['title'],$data);
+        $data = [$pUrl=>$rModule['name'],1=>'Add'];
+        $general->pageHeader($rModule['name'],$data);
     ?>
     <div class="row">
         <div class="col-lg-12"><?php show_msg();?></div>
@@ -103,7 +103,7 @@
             $for_voucher_entry = isset($for_voucher_entry_ledgers[$id])?1:0;
         }
 
-        if(empty($h)){$general->redirect($pUrl,37,$rModule['title']);}
+        if(empty($h)){$general->redirect($pUrl,37,$rModule['name']);}
 
         $general->arrayContentShow($h);
         if(isset($_POST['edit'])){
@@ -140,12 +140,12 @@
                 else{$error=fl();SetMessage(66);}
             }
             if(!isset($error)){
-                $general->redirect($pUrl,30,$rModule['title']);
+                $general->redirect($pUrl,30,$rModule['name']);
             }
         }
 
-        $data = [$pUrl=>$rModule['title'],'javascript:void()'=>$h['title'],'1'=>'Edit'];
-        $general->pageHeader('Edit '.$rModule['title'],$data);
+        $data = [$pUrl=>$rModule['name'],'javascript:void()'=>$h['title'],'1'=>'Edit'];
+        $general->pageHeader('Edit '.$rModule['name'],$data);
     ?>
     <div class="row">
         <div class="col-lg-12">
@@ -193,10 +193,10 @@
         if($eStatus==false){$general->redirect($pUrl,146,'Edit');}
         $id= intval($_GET['editOpening']);
         $h              = $acc->headInfoByID($id);
-        if(empty($h)){$general->redirect($pUrl,37,$rModule['title']);}
+        if(empty($h)){$general->redirect($pUrl,37,$rModule['name']);}
 
         
-        $data = [$pUrl=>$rModule['title'],'javascript:void()'=>$h['title'],'1'=>'Edit'];
+        $data = [$pUrl=>$rModule['name'],'javascript:void()'=>$h['title'],'1'=>'Edit'];
         $general->pageHeader($h['title'],$data);
 
         $openingVoucher=$acc->voucherDetails(V_T_OPENING,OPENING_VOUCHER_TYPE_LEDGER.'_'.$id);
@@ -306,7 +306,7 @@
     }
     else{
 
-        $general->pageHeader($rModule['title'],'',$general->addBtnHtml($pUrl));
+        $general->pageHeader($rModule['name'],'',$general->addBtnHtml($pUrl));
 
     ?>
     <div class="row">

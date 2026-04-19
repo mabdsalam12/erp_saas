@@ -1,6 +1,6 @@
 <?php
     $users = $db->selectAll('users','where type='.USER_TYPE_MPO.' and isActive=1 ORDER BY id DESC','id,name');
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     $products=$db->getProductData('and isActive in(0,1)');
     $base = $db->selectAll('base');
     $list_types=[

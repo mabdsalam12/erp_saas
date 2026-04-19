@@ -1,6 +1,6 @@
 <?php
 	$suppliers=$db->selectAll($general->table(45),'where isActive=1 order by supName asc');
-	$general->pageHeader($rModule['title']);
+	$general->pageHeader($rModule['name']);
 	if(isset($_GET['remove'])){
 		$draftID=intval($_GET['draftID']);
 		$oldDraft=$db->get_rowData($general->table(51),'purID',$draftID);

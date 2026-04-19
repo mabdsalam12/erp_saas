@@ -1,7 +1,7 @@
 <?php
     $pdID=intval($_GET['pdID']);
-    $data = array($pUrl=>$rModule['title']);
-    $general->pageHeader($rModule['title'].' Details',$data);
+    $data = array($pUrl=>$rModule['name']);
+    $general->pageHeader($rModule['name'].' Details',$data);
 
     $option=[
         1=>['v'=>PROFIT_FOR_DPS,'t'=>'DPS'],

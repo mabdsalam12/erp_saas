@@ -11,7 +11,7 @@ $general->arrayIndexChange($heads);
 if(isset($_GET['add'])){
     if(!$aStatus){$general->redirect($pUrl,146,'add salary allowance');}
     $data = array($pUrl=>$pageTitle,'1'=>'Add');
-    $general->pageHeader('Add '.$rModule['title'],$data);
+    $general->pageHeader('Add '.$rModule['name'],$data);
 
     if(isset($_POST['add'])){
         $title= $_POST["title"];
@@ -93,7 +93,7 @@ elseif(isset($_GET['edit'])){
         }
     }
     $data = array($pUrl=>$pageTitle,'javascript:void()'=>$s[$tpTitle],'1'=>'Edit');
-    $general->pageHeader('Edit '.$rModule['title'],$data);
+    $general->pageHeader('Edit '.$rModule['name'],$data);
     ?>
     <div class="row"><div class="col-lg-12"><?php show_msg();?></div></div>
     <div class="row">
@@ -125,7 +125,7 @@ elseif(isset($_GET['edit'])){
 }
 else{
     $data = array($pUrl=>$pageTitle);
-    $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl));
+    $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl));
 
 ?>
 

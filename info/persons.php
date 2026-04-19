@@ -7,8 +7,8 @@
 
     if(isset($_GET['add'])){
         if(!$aStatus){$general->redirect($pUrl,146,'add employee');}
-        $data = array($pUrl=>$rModule['title'],1=>'Add');
-        $general->pageHeader('Add '.$rModule['title'],$data);
+        $data = array($pUrl=>$rModule['name'],1=>'Add');
+        $general->pageHeader('Add '.$rModule['name'],$data);
         if(isset($_POST['add'])){
             $name       = $_POST["name"];
             $opBalance  = floatval($_POST["opBalance"]);
@@ -51,7 +51,7 @@
                 }
                 $db->transactionStop($ac);
                 if(!isset($error)){
-                    $general->redirect($pUrl,29,$rModule['title']);
+                    $general->redirect($pUrl,29,$rModule['name']);
                 }
             }
         }
@@ -103,8 +103,8 @@
         if($eStatus==false){$general->redirect($pUrl,146,'Edit');}
         $id= intval($_GET['editOpening']);
         $sup= $smt->personInfoByID($id);
-        if(empty($sup)){$general->redirect($pUrl,37,$rModule['title']);}
-        $data = array($pUrl=>$rModule['title'],'javascript:void()'=>$sup['name'],'1'=>'Opening Balance Edit');
+        if(empty($sup)){$general->redirect($pUrl,37,$rModule['name']);}
+        $data = array($pUrl=>$rModule['name'],'javascript:void()'=>$sup['name'],'1'=>'Opening Balance Edit');
         $general->pageHeader('Opening Balance Edit '.$sup['name'],$data);
         $openingVoucher=$acc->voucherDetails(V_T_OPENING,OPENING_VOUCHER_TYPE_PERSON.'_'.$id);
         $cOpeningB=0;
@@ -222,7 +222,7 @@
         // if($eStatus==false){$general->redirect($pUrl,146,'Edit');}
         $edit = intval($_GET['edit']);
         $c = $db->get_rowData('person','id',$edit);
-        if(empty($c)){$general->redirect($pUrl,37,$rModule['title']);}
+        if(empty($c)){$general->redirect($pUrl,37,$rModule['name']);}
 
         if(isset($_POST['edit'])){
             if(isset($_POST['edit'])){
@@ -247,8 +247,8 @@
                 }
             }
         }
-        $data = array($pUrl=>$rModule['title'],1=>'Edit');
-        $general->pageHeader('Edit '.$rModule['title'],$data);
+        $data = array($pUrl=>$rModule['name'],1=>'Edit');
+        $general->pageHeader('Edit '.$rModule['name'],$data);
     ?>
 
     <div class="row"><div class="col-lg-12"><?php show_msg();?></div></div>
@@ -279,8 +279,8 @@
     }
     else{
 
-        $data = array($pUrl=>$rModule['title']);
-        $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl));
+        $data = array($pUrl=>$rModule['name']);
+        $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl));
     ?>
     <div class="row">
     <div class="col-sm-12">

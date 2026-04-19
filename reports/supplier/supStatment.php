@@ -1,5 +1,5 @@
 <?php
-$general->pageHeader($rModule['title']);
+$general->pageHeader($rModule['name']);
     $suppliers=$db->selectAll('suppliers','where isActive=1 order by name asc');
 ?>
 <div class="white-box border-box">

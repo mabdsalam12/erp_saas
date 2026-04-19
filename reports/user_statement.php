@@ -1,5 +1,5 @@
 <?php
-    $general->pageHeader($rModule['title']);
+    $general->pageHeader($rModule['name']);
     $users = $db->selectAll('users','where type='.USER_TYPE_MPO.' and isActive in(1,0)','username,id');
 ?>
 <div class="row">

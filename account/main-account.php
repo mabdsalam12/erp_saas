@@ -11,8 +11,8 @@
     ];
     
     if(isset($_GET['add'])){
-        $data = [$pUrl=>$rModule['title'],1=>'Add'];
-        $general->pageHeader('Add '.$rModule['title'],$data);
+        $data = [$pUrl=>$rModule['name'],1=>'Add'];
+        $general->pageHeader('Add '.$rModule['name'],$data);
         if(isset($_POST['add'])){
             $title  = $_POST["title"];
             $code  = $_POST["code"];
@@ -31,7 +31,7 @@
                 $db->arrayUserInfoAdd($data);
                 $insert=$db->insert('a_master_account',$data);
                 if($insert){
-                    $general->redirect($pUrl,29,$rModule['title']);
+                    $general->redirect($pUrl,29,$rModule['name']);
                 }
                 else{$error=fl(); setMessage(66);}
             }
@@ -67,7 +67,7 @@
         // if($eStatus==false){$general->redirect($pUrl,146,'Edit');}
         $id = intval($_GET['edit']);
         $c = $db->get_rowData('a_master_account','id',$id);
-        if(empty($c)){$general->redirect($pUrl,37,$rModule['title']);}
+        if(empty($c)){$general->redirect($pUrl,37,$rModule['name']);}
         
         if(isset($_POST['edit'])){
             $title  = $_POST["title"];
@@ -86,12 +86,12 @@
             $db->arrayUserInfoEdit($data);
             $update=$db->update('a_master_account',$data,['id'=>$id]);
             if($update){
-                $general->redirect($pUrl,29,$rModule['title']);
+                $general->redirect($pUrl,29,$rModule['name']);
             }
             else{$error=fl(); setMessage(66);}
         }
-        $data = [$pUrl=>$rModule['title'],1=>'Edit'];
-        $general->pageHeader('Edit '.$rModule['title'],$data);
+        $data = [$pUrl=>$rModule['name'],1=>'Edit'];
+        $general->pageHeader('Edit '.$rModule['name'],$data);
     ?>
 
     <div class="row"><div class="col-lg-12"><?php show_msg();?></div></div>
@@ -118,8 +118,8 @@
     <?php
     }
     else{
-        $data = [$pUrl=>$rModule['title']];
-        $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl));
+        $data = [$pUrl=>$rModule['name']];
+        $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl));
         $master_account = $db->selectAll('a_master_account','order by code');
     ?>
     <div class="row">

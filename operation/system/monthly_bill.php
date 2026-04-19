@@ -2,8 +2,8 @@
     $eStatus=SUPERADMIN_USER==GROUP_ID?true:false;
     $general->arrayIndexChange($base,'id');
     if(isset($_GET['add'])){
-        $data = [$pUrl=>$rModule['title'],1=>'Add'];
-        $general->pageHeader('Add '.$rModule['title'],$data);
+        $data = [$pUrl=>$rModule['name'],1=>'Add'];
+        $general->pageHeader('Add '.$rModule['name'],$data);
         if(isset($_POST['add'])){
             $date = strtotime($_POST['date']);
             $due_date = strtotime($_POST['due_date']);
@@ -58,8 +58,8 @@
             $general->redirect($pUrl,63,'edit request');
         }
         else{
-            $data = [$pUrl=>$rModule['title'],1=>'Edit'];
-            $general->pageHeader('Edit '.$rModule['title'],$data);
+            $data = [$pUrl=>$rModule['name'],1=>'Edit'];
+            $general->pageHeader('Edit '.$rModule['name'],$data);
             if(isset($_POST['edit'])){
                 $date = strtotime($_POST['date']);
                 $due_date = strtotime($_POST['due_date']);
@@ -113,8 +113,8 @@
         }
     }
     else{
-        $data = [$pUrl=>$rModule['title']];
-        $general->pageHeader($rModule['title'],$data,$general->addBtnHtml($pUrl));
+        $data = [$pUrl=>$rModule['name']];
+        $general->pageHeader($rModule['name'],$data,$general->addBtnHtml($pUrl));
         $bills=$db->selectAll('monthly_bill','order by date desc');  
     ?>
 
