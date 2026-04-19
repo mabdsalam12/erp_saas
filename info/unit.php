@@ -1,27 +1,25 @@
 <?php
+$companyID=$cmp->getCurrentCompanyID();
+if($companyID>0){
     //        $shIn           = $db->permission(62,'all');
     $aStatus      = $db->permission(37);
     $eStatus      = $db->permission(38);
-    $tPTbl          = 56;
-    $tpID           = 'id';
-    $tpTitle        = 'title';
-    $pageTitle      = 'Units';
-    $titleFieldName = 'Unit Title';
+    $pageTitle      = $rModule['name'];
     
     if(isset($_GET['edit'])){
         $edit = intval($_GET['edit']);
-        $u = $db->get_rowData('unit',$tpID,$edit);
+        $u = $db->get_rowData('unit','id',$edit);
         $general->arrayContentShow($u);
         if(empty($u)){$general->redirect($pUrl,array(37,$pageTitle));}
         if(isset($_POST['edit'])){
-            $unTitle= $_POST["unTitle"]; 
-            if(empty($unTitle)){SetMessage(36,$titleFieldName);$error=1;}
+            $name= $_POST["name"]; 
+            if(empty($name)){SetMessage(36,$titleFieldName);$error=1;}
                 if(!isset($error)){ 
-                $data = array(
-                    $tpTitle        => $unTitle
-                );
+                $data = [
+                    'name'        => $name
+                ];
                 $db->arrayUserInfoEdit($data);
-                $where = array($tpID=>$edit);
+                $where = array('id'=>$edit);
                 $update = $db->update('unit',$data,$where);  
                 if($update){
                     $general->redirect($pUrl,30,$pageTitle);
@@ -30,8 +28,8 @@
             }
         }
         
-        $data = array($pUrl=>$pageTitle,'javascript:void()'=>$u[$tpTitle],'1'=>'Edit');
-        $general->pageHeader('Edit '.$rModule['title'],$data);
+        $data = array($pUrl=>$pageTitle,'javascript:void()'=>$u['name'],'1'=>'Edit');
+        $general->pageHeader('Edit '.$rModule['name'],$data);
     ?>
     <div class="row">
         <div class="col-lg-12">
@@ -41,7 +39,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <form method="post" action="">
                             <div class="col-xs-6 col-sm-4 col-md-4">
-                                   <?php $general->inputBoxText('unTitle',$pageTitle,$u[$tpTitle],'y','','');?>
+                                   <?php $general->inputBoxText('name',$pageTitle,$u['name'],'y','','');?>
                             </div>
                             <div class="clearfix visible-xs"></div>
                             <div class="col-xs-6 col-sm-4 col-md-4">
@@ -61,13 +59,14 @@
     }
     else{
         if(isset($_POST['add'])){
-            $unTitle= $_POST['unTitle'];
-            if(empty($unTitle)){SetMessage(36,$titleFieldName);$error=1;}
+            $name= $_POST['name'];
+            if(empty($name)){SetMessage(36,$titleFieldName);$error=1;}
             
             if(!isset($error)){
-                $data = array(
-                    $tpTitle    => $unTitle
-                );
+                $data = [
+                    'name'    => $name,
+                    'company_id'    => $companyID
+                ];
                 $db->arrayUserInfoAdd($data);
                 $insert = $db->insert('unit',$data);
                 if($insert){$general->redirect($pUrl,29,$pageTitle);}
@@ -77,7 +76,7 @@
             }
         }
         $data = array($pUrl=>$pageTitle);
-        $general->pageHeader($rModule['title'],$data);
+        $general->pageHeader($rModule['name'],$data);
     ?>
     <div class="row">
         <div class="col-lg-12">
@@ -87,7 +86,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <form method="post" action="">
                             <div class="col-xs-6 col-sm-4 col-md-4">
-                                   <?php $general->inputBoxText('unTitle',$pageTitle,@$_POST['unTitle'],'y','','');?>  
+                                   <?php $general->inputBoxText('name',$pageTitle,@$_POST['name'],'y','','');?>  
                             </div>
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                   
@@ -116,7 +115,7 @@
             <?php
                 show_msg();
                
-                    $units=$db->selectAll('unit','order by '.$tpTitle.' asc');  
+                    $units=$db->selectAll('unit','where company_id='.$companyID.' order by name asc');  
             ?>
             <div class="col-md-5">
             <table class="table table-striped table-bordered table-hover">
@@ -125,7 +124,6 @@
                         <th>#</th>
                         <th>Title</th>
                         <th>Edit</th>
-                        <th>Status</th>
                     </tr>
                 </thead> 
                 <tbody>
@@ -135,10 +133,8 @@
                         ?>
                         <tr>
                             <td><?=$total++?></td>
-                            <td><?=$u[$tpTitle]?></td>
-                            <td><a href="<?=$pUrl?>&edit=<?=$u[$tpID]?>" class="btn btn-info">Edit</a>
-                            </td>
-                            <td><?php $general->onclickChangeBTN($u[$tpID],$general->checked($u['isActive']));?></td>
+                            <td><?=$u['name']?></td>
+                            <td><a href="<?=$pUrl?>&edit=<?=$u['id']?>" class="btn btn-info">Edit</a></td>
                         </tr>
                         <?php
                         }
@@ -150,5 +146,5 @@
     </div>
 </div>
 <?php
-    $general->onclickChangeJavaScript('unit',$tpID);
+}
 ?>

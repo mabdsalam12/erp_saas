@@ -1,31 +1,6 @@
 <?php
 $sms_balance=0;
 $bg_color='green';
-if(defined('SMS_API_KEY')){
-    $url    = "https://sms-service.xylub.com/?api=getBalance";
-    $data   = [
-        "api_key"=>SMS_API_KEY,
-    ];
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    //set operation timeout
-    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-    $result = curl_exec($ch);
-    $response=$general->getJsonFromString($result);
-    if(isset($response['status'])&&$response['status']==1){
-        if($response['balance']<200){
-            $bg_color='red';
-        }
-        $sms_balance=$general->numberFormat($response['balance']);
-    }
-}
-
 ?>
 
 <link href="<?php echo URL; ?>/plugins/morrisjs/morris.css" rel="stylesheet">

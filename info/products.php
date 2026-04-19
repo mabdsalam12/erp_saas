@@ -1,12 +1,12 @@
 <?php
     $aStatus      = true;
-    $eStatus      = true;
-    $tpID           = 'id';
-    $tpTitle        = 'title';
-    $pageTitle      = $rModule['title'];
-    $titleFieldName = 'Product Title';
-    $can_see_unit_cost=$db->permission(9);
+$eStatus      = true;
 
+$pageTitle      = $rModule['title'];
+
+$can_see_unit_cost=$db->permission(9);
+$companyID=$cmp->getCurrentCompanyID();
+if($companyID>0){
     $units=$db->selectAll('unit','where isActive=1 order by title asc','id,title');
     $general->arrayIndexChange($units,'id');
 
@@ -531,10 +531,7 @@
         </div>
     </div>
     <?php
-        $general->onclickChangeJavaScript('products',$tpID);
     }
-
-
-
+}
 ?>
 

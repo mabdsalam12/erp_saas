@@ -94,7 +94,7 @@
 					if($db->modulePermission($rModule['id'])){
 						$pUrl = '?'.MODULE_URL.'='.$rModule['slug'];
 						$pSlug = $rModule['slug'];
-						$thisPageTitle = $rModule['title'];
+						$thisPageTitle = $rModule['name'];
 						$include1 = $rModule['folder'].'/'.$rModule['page_name'];
 					}
 				}

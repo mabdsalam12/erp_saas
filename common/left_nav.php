@@ -1,5 +1,5 @@
 <?php
-$currentCompany=$cmp->getCurrentCompanyID();
+// $currentCompany=$cmp->getCurrentCompanyID();
 ?>
 <nav class="navbar navbar-default navbar-static-top m-b-0">
 	<div class="navbar-header"> 
@@ -48,7 +48,7 @@ $currentCompany=$cmp->getCurrentCompanyID();
 							if(!isset($mDatas[$m['id']])){
 								$mDatas[$m['id']]=[
 									'ic'=>[],
-									't'=>$m['title'],
+									't'=>$m['name'],
 									's'=>$m['slug'],
 									'o'=>$m['sequence'],
 									'c'=>[]
@@ -57,7 +57,7 @@ $currentCompany=$cmp->getCurrentCompanyID();
 							$mDatas[$m['id']]['ic'][$m['id']]=$m['id'];
 							if($m['slug']!='n'){
 								$mDatas[$m['id']]['c'][$m['id']]=[
-									't'=>$m['title'],
+									't'=>$m['name'],
 									's'=>$m['slug'],
 									'o'=>0,
 									'c'=>[]
@@ -69,7 +69,7 @@ $currentCompany=$cmp->getCurrentCompanyID();
 								$p=$modules[$m['parent']];
 								$mDatas[$m['parent']]=[
 									'ic'=>[],
-									't'=>$p['title'],
+									't'=>$p['name'],
 									's'=>$p['slug'],
 									'o'=>$p['sequence'],
 									'c'=>[]
@@ -77,7 +77,7 @@ $currentCompany=$cmp->getCurrentCompanyID();
 							}
 							$mDatas[$m['parent']]['ic'][$m['id']]=$m['id'];
 							$mDatas[$m['parent']]['c'][$m['id']]=[
-								't'=>$m['title'],
+								't'=>$m['name'],
 								'o'=>$m['sequence'],
 								's'=>$m['slug'],
 							];
