@@ -882,7 +882,7 @@ public function getProductData($query='',$type_wise=false){
 */
 public function get_company_data():array{
     if(empty($this->company_data)){
-        $co = $this->get_rowData('company','id',1);
+        $co = $this->get_rowData('companys','id',1);
         $company_data= $this->general->getJsonFromString($co['data']);
         $this->company_data=$company_data;
     }

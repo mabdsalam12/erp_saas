@@ -1,7 +1,7 @@
 <?php
 $tpID           = 'id';
-$tpTitle        = 'title';
-$titleFieldName = 'Title'; 
+$tpTitle        = 'name';
+$titleFieldName = 'Name'; 
 $pageTitle='Sms template';
 
 $triggers=[
@@ -167,7 +167,7 @@ else{
                         <thead>
                             <tr>
                                 <th><?php echo $db->l('sn') ?> </th>
-                                <th>Title</th>
+                                <th>Name</th>
                                 <th>SMS</th>
                                 <th><?php echo $db->l('edit') ?> </th> 
                                 <?php
