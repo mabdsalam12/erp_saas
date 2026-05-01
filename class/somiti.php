@@ -224,22 +224,22 @@ class SMT{
     public function get_all_product_type($filter=[]){
         $return=[];
         if($this->db->permission(10)){
-            $return[PRODUCT_TYPE_RAW]= ['id'=>strval(PRODUCT_TYPE_RAW),'title'=>'Raw'];
+            $return[PRODUCT_TYPE_RAW]= ['id'=>strval(PRODUCT_TYPE_RAW),'name'=>'Raw'];
         }
         if($this->db->permission(11)){
-            $return[PRODUCT_TYPE_FINISHED]= ['id'=>strval(PRODUCT_TYPE_FINISHED),'title'=>'Finished'];
+            $return[PRODUCT_TYPE_FINISHED]= ['id'=>strval(PRODUCT_TYPE_FINISHED),'name'=>'Finished'];
         }
         // if($this->db->permission(12)){
-        //     $return[PRODUCT_TYPE_GIFT_ITEM]= ['id'=>strval(PRODUCT_TYPE_GIFT_ITEM),'title'=>'Gift item'];
+        //     $return[PRODUCT_TYPE_GIFT_ITEM]= ['id'=>strval(PRODUCT_TYPE_GIFT_ITEM),'name'=>'Gift item'];
         // }
         if($this->db->permission(13)){
-            $return[PRODUCT_TYPE_PACKAGING]= ['id'=>strval(PRODUCT_TYPE_PACKAGING),'title'=>'Packaging'];
+            $return[PRODUCT_TYPE_PACKAGING]= ['id'=>strval(PRODUCT_TYPE_PACKAGING),'name'=>'Packaging'];
         }
         // if($this->db->permission(14)){
-        //     $return[PRODUCT_TYPE_STATIONARY]= ['id'=>strval(PRODUCT_TYPE_STATIONARY),'title'=>'Stationary'];
+        //     $return[PRODUCT_TYPE_STATIONARY]= ['id'=>strval(PRODUCT_TYPE_STATIONARY),'name'=>'Stationary'];
         // }
         if($this->db->permission(14)){
-            $return[PRODUCT_TYPE_MANUFACTURING]= ['id'=>strval(PRODUCT_TYPE_MANUFACTURING),'title'=>'Manufacturing'];
+            $return[PRODUCT_TYPE_MANUFACTURING]= ['id'=>strval(PRODUCT_TYPE_MANUFACTURING),'name'=>'Manufacturing'];
         }
         if(!empty($filter)){
             $return=array_filter($return,function($v) use ($filter){

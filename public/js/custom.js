@@ -22,7 +22,7 @@ function mainCategoryChange(){
             if(count==1){
                 sel = 'selected';
             }
-            $('#subCategory').append('<option '+sel+' value="'+b.id+'">'+b.title+'</option>');
+            $('#subCategory').append('<option '+sel+' value="'+b.id+'">'+b.name+'</option>');
         });
 
     }

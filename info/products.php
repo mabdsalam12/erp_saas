@@ -1,6 +1,9 @@
 <?php
-    $aStatus      = true;
+$aStatus      = true;
 $eStatus      = true;
+$tpTitle      = 'title';
+$tpID         = 'id';
+$titleFieldName='Name';
 
 $pageTitle      = $rModule['name'];
 
@@ -99,7 +102,8 @@ if($companyID>0){
                     'category_id'   => $subCategory,
                     'sale_price'    => $sale_price,
                     'type'          => $type,
-                    'VAT'    => $VAT,
+                    'VAT'           => $VAT,
+                    'company_id'    => $companyID
                 
                 ];
                 
@@ -213,7 +217,8 @@ if($companyID>0){
                 if(!isset($categoryData[$category])){$error=fl();setMessage(63,'Category');}
                 elseif(!isset($subCategorys[$category][$subCategory])){$error=fl();setMessage(63,'Sub category');}
             }
-            elseif(!isset($error)){
+            
+            if(!isset($error)){
                 $product_data['get_one_free'] = $get_one_free;
                 $product_data['box_unit_quantity'] = $box_unit_quantity;
                 if($product_data['box_unit_quantity']<=0){
@@ -273,20 +278,19 @@ if($companyID>0){
                                 <?php $general->inputBoxText('code','Code',@$u['code']);?>
                                 <?php
                                     if($use_product_category==1){
-                                        $general->inputBoxSelect($categoryData,'Category','category','id','title',$category);
-                                        $general->inputBoxSelect($subCategorys[$category],'Sub Category','subCategory','id','title',$u['category_id']);
+                                        $general->inputBoxSelect($categoryData,'Category','category','id','name',$category);
+                                        $general->inputBoxSelect($subCategorys[$category],'Sub Category','subCategory','id','name',$u['category_id']);
                                     }
                                 ?>
-                                <?php $general->inputBoxSelect($units,'Unit','unID','id','title',$u['unit_id']);?>
-                                <?php $general->inputBoxSelect($units,'Box unit','box_unit_id','id','title',$u['box_unit_id']);?>
+                                <?php $general->inputBoxSelect($units,'Unit','unID','id','name',$u['unit_id']);?>
+                                <?php $general->inputBoxSelect($units,'Box unit','box_unit_id','id','name',$u['box_unit_id']);?>
                                 <?php $general->inputBoxText('box_unit_quantity','Box unit quantity',$box_unit_quantity);?>
                                 <?php $general->inputBoxText('sale_price','TP',$u['sale_price']);?>
                                 <?php $general->inputBoxText('VAT','VAT',$u['VAT']);?>
                                 <?php
                                     
 
-                                        $general->inputBoxSelect($types,'Type','type','id','title',$u['type']); 
-
+                                $general->inputBoxSelect($types,'Type','type','id','name',$u['type']); 
                                     
                                 ?>
                                 <?php $general->inputBoxText('get_one_free','Get one free',@$get_one_free);?>
@@ -468,7 +472,7 @@ if($companyID>0){
                                     <td ><?=$u['code']?></td>
                                     <td ><?=$u[$tpTitle]?></td>
                                     <td class="amount_td"><?=(float)$u['stock']?></td>
-                                    <td ><?=$units[$u['unit_id']]['title']?></td> 
+                                    <td ><?=$units[$u['unit_id']]['name']?></td> 
                                     <?php
                                         if($can_see_unit_cost==1){
                                         ?><td class="amount_td"><?=$u['unit_cost']?></td><?php 
@@ -477,7 +481,7 @@ if($companyID>0){
                                     
                                     <?php
                                         
-                                        ?><td><?=$types[$u['type']]['title']?></td> <?php 
+                                        ?><td><?=$types[$u['type']]['name']?></td> <?php 
                                         
                                     ?>
 
