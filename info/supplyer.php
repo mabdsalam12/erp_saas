@@ -1,4 +1,6 @@
 <?php
+$companyID=$cmp->getCurrentCompanyID();
+if($companyID>0){
     $eStatus=true;
     $types=$smt->get_all_product_type();
     if(isset($_GET['add'])){
@@ -27,6 +29,7 @@
                     if(!isset($error)){
                 $data = array(
                     'name'   => $name,
+                    'company_id'=>$companyID,
                     'code'=> $code,
                     'product_type'   => intval($product_type),
                     'contact_person'   => $contact_person,
@@ -120,6 +123,7 @@
         $id= intval($_GET['editOpening']);
         $sup= $smt->supplierInfoByID($id);
         if(empty($sup)){$general->redirect($pUrl,37,$rModule['name']);}
+        elseif($sup['company_id']!=$companyID){$general->redirect($pUrl,37,$rModule['name']);}
         $data = array($pUrl=>$rModule['name'],'javascript:void()'=>$sup['name'],'1'=>'Opening Balance Edit');
         $general->pageHeader('Opening Balance Edit '.$sup['name'],$data);
         $openingVoucher=$acc->voucherDetails(V_T_OPENING,OPENING_VOUCHER_TYPE_SUPPLIER.'_'.$id);
@@ -246,6 +250,7 @@
                     show_msg();
                     $q=array();
                     $q[]='isActive=3';
+                    $q[]='company_id='.$companyID;
                     $sq='where '.implode(' and ',$q);
                     $suppliers=$db->selectAll('suppliers',$sq);
                 ?>
@@ -308,6 +313,7 @@
         $id= intval($_GET['edit']);
         $sup = $smt->supplierInfoByID($id);
         if(empty($sup)){$general->redirect($pUrl,37,$rModule['name']);}
+        elseif($sup['company_id']!=$companyID){$general->redirect($pUrl,37,$rModule['name']);}
         $deletePremision=false;
         if($deletePremision){
             if(isset($_GET['delete'])){
@@ -315,10 +321,10 @@
                     'isActive'=> 2
                 );
                 $db->arrayUserInfoEdit($data);
-                $where=array('id'=>$edit);
+                $where=array('id'=>$id);
                 $update=$db->update('suppliers',$data,$where);
                 if($update){
-                    $general->redirect($pUrl,14,'Employee');
+                    $general->redirect($pUrl,14,'Supplier');
                 }
             }
         }
@@ -477,4 +483,4 @@
     </div>
     <?php
     }
-?>
+}

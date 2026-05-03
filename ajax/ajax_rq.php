@@ -5,6 +5,7 @@
     $dir = __DIR__;
     $runTimes=array();
     $runTimes[__LINE__]=date('i:s').' '.microtime();
+    $companyID = $cmp->getCurrentCompanyID(0);
     if(isset($_GET['stch']))                                {include("system/stch.php");}
     elseif(isset($_POST['change_premessions']))             {include("system/change_premessions.php");}
     elseif(isset($_GET['loginVerifyComplete']))             {include("system/loginVerifyComplete.php");}

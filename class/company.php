@@ -35,7 +35,7 @@ class Company{
         </div>
         <?php
     }
-    public function getCurrentCompanyID() :int{
+    public function getCurrentCompanyID($withHtml=1) :int{
         if(defined('COMPANY_ID')&& COMPANY_ID>0){
             return COMPANY_ID;
         }
@@ -44,6 +44,9 @@ class Company{
         }
         $companies = $this->db->selectAll($this->table,'order by name asc');
         if(empty($companies)){
+            return 0;
+        }
+        if(!$withHtml){
             return 0;
         }
         ?>
