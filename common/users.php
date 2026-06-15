@@ -2,7 +2,7 @@
     $aStatus      = $db->permission(64);
     $eStatus      = $db->permission(65);
     $general->pageHeader($rModule['name']);
-    $groups=$db->allGroups('order by title asc');
+    $groups=$db->allGroups('order by name asc');
     $general->arrayIndexChange($groups,'id');
     $employees=$db->selectAll('employees','where isActive in(0,1) order by name asc');
     $general->arrayIndexChange($employees,'id');
@@ -342,9 +342,9 @@
                         ,$eName
                         ,$base_title
                         ,$u['mobile']
-                        ,$groups[$u['group_id']]['title']
+                        ,$groups[$u['group_id']]['name']
                         ,$user_types[$u['type']]['title']
-                        ,$u['username']
+                        ,$u['name']
                         ,$st
                         ,$u['id']
                     ];

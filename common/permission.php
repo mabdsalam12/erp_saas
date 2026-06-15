@@ -3,17 +3,17 @@
 
     if(isset($_GET['add'])){
         $cmID=intval($_GET['add']);
-        $cm=$db->get_rowData($general->table(1),'cmID',$cmID);
+        $cm=$db->get_rowData('module','id',$cmID);
         if(empty($cm)){$general->redirect($pUrl,63,'Request');}
         if(isset($_POST['add'])){
             $title=$_POST['title'];
             if(empty($title)){$error=fl();setMessage(36,'Title');}
             if(!isset($error)){
                 $data=array(
-                    'cmID'      => $cmID,
-                    'perDesc'   => $title
+                    'id'            => $cmID,
+                    'description'   => $title
                 );
-                $insert=$db->insert($general->table(40),$data);
+                $insert=$db->insert('user_permissions',$data);
                 if($insert){
                     $general->redirect($pUrl,29,'Permission');
                 }
@@ -23,7 +23,7 @@
             }
         }
     ?>
-    <h2>Add Permission for <?php echo $cm['title'];?></h2>
+    <h2>Add Permission for <?php echo $cm['name'];?></h2>
     <?php
         show_msg();
     ?>
@@ -41,18 +41,18 @@
     }
     elseif(isset($_GET['edit'])){
         $perID=intval($_GET['edit']);
-        $per=$db->get_rowData($general->table(40),'perID',$perID);
+        $per=$db->get_rowData('user_permissions','id',$perID);
         if(empty($per)){$general->redirect($pUrl,63,'Request');}
-        $cm=$db->get_rowData($general->table(1),'cmID',$per['cmID']);
+        $cm=$db->get_rowData('module','id',$per['module_id']);
         if(isset($_POST['edit'])){
             $title=$_POST['title'];
             if(empty($title)){$error=fl();setMessage(36,'Title');}
             if(!isset($error)){
                 $data=array(
-                    'perDesc'   => $title
+                    'description'   => $title
                 );
-                $where=array('perID'=>$perID);
-                $update=$db->update($general->table(40),$data,$where);
+                $where=array('id'=>$perID);
+                $update=$db->update('user_permissions',$data,$where);
                 if($update){
                     $general->redirect($pUrl,30,'Permission');
                 }
@@ -62,14 +62,14 @@
             }
         }
     ?>
-    <h2>Edit Permission for <i><?php echo $cm['title'];?> -> <?php echo $per['perDesc'];?></i></h2>
+    <h2>Edit Permission for <i><?php echo $cm['name'];?> -> <?php echo $per['description'];?></i></h2>
     <?php
         show_msg();
     ?>
     <form action="" method="POST">
         <table>
             <tr>
-                <td>Title</td><td><input type="text" name="title" value="<?php echo $per['perDesc'];?>"></td>
+                <td>Title</td><td><input type="text" name="title" value="<?php echo $per['description'];?>"></td>
             </tr>
             <tr>
                 <td>&nbsp;</td><td><input type="submit" value="Save" name="edit"></td>
@@ -79,7 +79,7 @@
     <?php
     }
     else{
-        $mod   = $db->selectAll($general->table(1),'order by title asc');
+        $mod   = $db->selectAll('module','order by name asc');
         show_msg();
     ?>
 
@@ -96,12 +96,12 @@
                 <?php
                     $total = 1;
                     foreach($mod as $m){
-                        $pers = $db->selectAll($general->table(40),'where cmID='.$m['cmID']);
+                        $pers = $db->selectAll('user_permissions','where module_id='.$m['id']);
                     ?>
                     <tr class="mback">
                         <td><b><?=$total++?></b></td>
-                        <td><?=$m['title']?> (<?=$m['cmID']?>)</td>
-                        <td><a href="<?php echo $pUrl;?>&add=<?php echo $m['cmID'];?>">Add Permission</a></td>
+                        <td><?=$m['name']?> (<?=$m['id']?>)</td>
+                        <td><a href="<?php echo $pUrl;?>&add=<?php echo $m['id'];?>">Add Permission</a></td>
                     </tr>
                     <?php
                         foreach($pers as $p){
@@ -111,7 +111,7 @@
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>
-                                <a href="<?php echo $pUrl;?>&edit=<?php echo $p['perID'];?>"><?php echo $p['perDesc'];?> (<?php echo $p['perID']?>)</a>
+                                <a href="<?php echo $pUrl;?>&edit=<?php echo $p['id'];?>"><?php echo $p['description'];?> (<?php echo $p['id']?>)</a>
                             </td>
                         </tr>
                         <?php

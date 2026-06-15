@@ -68,7 +68,7 @@ if($db->modulePermission(132)==true){
                     ?>
                         <tr class="mback">
                             <td><b><?=$total++?></b></td>
-                            <td><?=$m['title']?>(<?=$m['id']?>)</td>
+                            <td><?=$m['name']?>(<?=$m['id']?>)</td>
                             <td>&nbsp;</td>
                             <td>
                                 <?php
@@ -131,7 +131,7 @@ if($db->modulePermission(132)==true){
                             ?>
                                 <tr class="mback">
                                     <td><b><?=$total++?></b></td>
-                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;| - - <?=$m['title']?>(<?=$m['id']?>)</td>
+                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;| - - <?=$m['name']?>(<?=$m['id']?>)</td>
                                     <td>&nbsp;</td>
                                     <td>
                                         <?php
