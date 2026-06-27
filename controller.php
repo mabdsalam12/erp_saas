@@ -59,11 +59,11 @@
 	if(!defined('LOGIN_SESSION_ID')){    
 		if(isset($_GET['register'])){
 			$thisPageTitle='Register';   
-			include("common/register.php");
+			include(__DIR__."/app/common/register.php");
 			exit;
 		}
-		$thisPageTitle='Log in';   
-		include("common/login.php");
+		include(__DIR__."/app/common/login.php");
+		include(__DIR__."/common/login.php");
 	}
 	elseif(isset($_GET['rFlush'])){
 		$a=$db->runQuery('delete from report_cache');
@@ -104,9 +104,12 @@
 			}
 		}
 		$thisPageTitle=$_ENV['PAGE_TITLE_PREFIX'].$thisPageTitle;	
-		include_once("common/header.php");
+		if(file_exists(__DIR__."/app/".$include1)){
+			include_once(__DIR__."/app/".$include1);
+		}
+		include_once(__DIR__."/common/header.php");
 		include($include1);
-		include_once("common/footer.php");
+		include_once(__DIR__."/common/footer.php");
 	}
 	mysqli_close($GLOBALS['connection']);
 	ob_flush();
