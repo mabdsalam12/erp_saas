@@ -1,15 +1,11 @@
-<?php
-$sms_balance=0;
-$bg_color='green';
-?>
+
 
 <link href="<?php echo URL; ?>/plugins/morrisjs/morris.css" rel="stylesheet">
 <script src="<?php echo URL; ?>/plugins/raphael/raphael-min.js"></script>
 <script src="<?php echo URL; ?>/plugins/morrisjs/morris.js?"></script>
 <?php
     $general->pageHeader(l('dashboard'));
-    $where = "WHERE for_home = 1 order by name asc";   
-    $m = $db->selectAll('module',$where);        
+            
 ?>
 <div class='row'>
     <div class='col-md-12 col-sm-12 col-xs-12 mt-3'>
@@ -25,7 +21,7 @@ $bg_color='green';
 </div>
 <?php 
     $row = 1;     
-    foreach($m as $a){
+    foreach($dashboardMenus as $a){
         $path = $a['slug']; 
         $color='';
         if(!empty($a['color'])){
@@ -48,7 +44,8 @@ $bg_color='green';
 
 
         if($row == 1){
-        ?> <div class='row'>
+        ?>
+        <div class='row'>
             <div class='col-md-12 col-sm-12 col-xs-12 mt-3'><?php
                 } 
                 $row++;                    

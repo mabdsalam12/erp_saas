@@ -88,12 +88,12 @@
         }
         $array=$intArray;
     }
-    function addBtnHtml($pUrl,$aStatus=true){
+    public function addBtnHtml($pUrl,$aStatus=true){
         if($aStatus==true){
             return '<a style="font-size: 20px; color: #228AE6;margin-left: 20px;" href="'.$pUrl.'&add=1"><i class="fa fa-plus-square "></i></a>';
         }
     }
-    function pageHeader($title,$breadCramp=array(),$extraHtml=''){
+    public function pageHeader($title,$breadCramp=array(),$extraHtml=''){
         if(!is_array($breadCramp)){$data=array($breadCramp=>$title);}
         else{
             $data=$breadCramp;
@@ -112,7 +112,7 @@
     </div>
     <?php
     }
-    function breadcrumb($data){
+    public function breadcrumb($data){
     ?>
 
     <div class="col-lg-5 col-sm-5 col-md-5 col-xs-12">
@@ -137,12 +137,12 @@
     </div>
     <?php             
     }
-    function make_url($requestUrl){
+    public function make_url($requestUrl){
         return strtolower(preg_replace('#[^\w-]#',"",str_ireplace(' ', '_',trim($requestUrl))));
     }
-    function make_future_timestamp($day,$timestamp){return strtotime("+$day day", $timestamp);}
+    public function make_future_timestamp($day,$timestamp){return strtotime("+$day day", $timestamp);}
 
-    function make_date($timestamp,$st='',$y_m_d='',$time='') {
+    public function make_date($timestamp,$st='',$y_m_d='',$time='') {
         if($timestamp==''||$timestamp==0){return '';}
         else{
             if($st){
