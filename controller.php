@@ -59,7 +59,7 @@
 	if(!defined('LOGIN_SESSION_ID')){    
 		if(isset($_GET['register'])){
 			$thisPageTitle='Register';   
-			include(__DIR__."/app/common/register.php");
+			include(__DIR__."/common/register.php");
 			exit;
 		}
 		include(__DIR__."/app/common/login.php");

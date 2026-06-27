@@ -1,7 +1,6 @@
 <?php
 $aStatus      = true;
 $eStatus      = true;
-$tpTitle      = 'title';
 $tpID         = 'id';
 $titleFieldName='Name';
 
@@ -96,7 +95,7 @@ if($companyID>0){
             if(!isset($error)){
                 
                 $data = [
-                    'title'         => $name,
+                    'name'         => $name,
                     'code'          => $code,
                     'unit_id'       => $unit_id,
                     'category_id'   => $subCategory,
@@ -187,7 +186,7 @@ if($companyID>0){
             ['id'=>3,'title'=>'Archive']
         ];
         if(isset($_POST['edit'])){
-            $pTitle     = $_POST[$tpTitle];
+            $pTitle     = $_POST['name'];
             $code     = $_POST['code'];
             $unID       = intval($_POST['unID']);
 
@@ -225,7 +224,7 @@ if($companyID>0){
                     unset($product_data['box_unit_quantity']);
                 }
                 $data = [
-                    'title'         => $pTitle,
+                    'name'         => $pTitle,
                     'code'          => $code,
                     'unit_id'       => $unID,
                     'box_unit_id'   => $box_unit_id,
@@ -263,7 +262,7 @@ if($companyID>0){
         if(isset($product_data['box_unit_quantity'])){
             $box_unit_quantity=intval($product_data['box_unit_quantity']);
         }
-        $data = array($pUrl=>$pageTitle,'javascript:void()'=>$u[$tpTitle],'1'=>'Edit');
+        $data = array($pUrl=>$pageTitle,'javascript:void()'=>$u['name'],'1'=>'Edit');
         $general->pageHeader('Edit '.$rModule['name'],$data);
     ?>
     <div class="row">
@@ -274,7 +273,7 @@ if($companyID>0){
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <form method="post" action="">
                             <div class="col-xs-6 col-sm-4 col-md-4">
-                                <?php $general->inputBoxText($tpTitle,$titleFieldName,$u[$tpTitle]);?>
+                                <?php $general->inputBoxText('name','Name',$u['name']);?>
                                 <?php $general->inputBoxText('code','Code',@$u['code']);?>
                                 <?php
                                     if($use_product_category==1){
@@ -371,7 +370,7 @@ if($companyID>0){
 
                                     <td><?=$total++?></td>
                                     <td ><?=$u['code']?></td>
-                                    <td ><?=$u[$tpTitle]?></td>
+                                    <td ><?=$u['name']?></td>
                                     <td class="amount_td"><?=(float)$u['stock']?></td>
                                     <td ><?=$units[$u['unit_id']]['title']?></td>  
                                     <td><?=$types[$u['type']]['title']?></td>
@@ -470,7 +469,7 @@ if($companyID>0){
 
                                     <td><?=$total++?></td>
                                     <td ><?=$u['code']?></td>
-                                    <td ><?=$u[$tpTitle]?></td>
+                                    <td ><?=$u['name']?></td>
                                     <td class="amount_td"><?=(float)$u['stock']?></td>
                                     <td ><?=$units[$u['unit_id']]['name']?></td> 
                                     <?php

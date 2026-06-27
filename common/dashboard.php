@@ -5,7 +5,8 @@
 <script src="<?php echo URL; ?>/plugins/morrisjs/morris.js?"></script>
 <?php
     $general->pageHeader(l('dashboard'));
-            
+    $sms_balance=0;
+    $bg_color='red';
 ?>
 <div class='row'>
     <div class='col-md-12 col-sm-12 col-xs-12 mt-3'>
@@ -20,7 +21,8 @@
     </div>
 </div>
 <?php 
-    $row = 1;     
+    $row = 1;
+    $dashboardMenus = $db->selectAll('module','where isActive=1 and for_home=1 order by sequence asc');
     foreach($dashboardMenus as $a){
         $path = $a['slug']; 
         $color='';

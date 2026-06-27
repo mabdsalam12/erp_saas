@@ -9,9 +9,9 @@
             <?php show_msg();?>
             <div class="col-lg-4 pull-left">
                 <table class="only_show table table-bordered">
-                    <tr><td>Name</td>           <td><?=$userData['uFullName']?></td></tr>
-                    <tr><td>Username</td>       <td><?=$userData['username']?></td></tr>
-                    <tr><td>Email</td>          <td><?=$userData['uEmail']?></td></tr>
+                    <tr><td>Name</td>           <td><?=$userData['name']?></td></tr>
+                    <tr><td>Mobile</td>       <td><?=$userData['mobile']?></td></tr>
+                    <tr><td>Email</td>          <td><?=$userData['email']?></td></tr>
                 </table>
             </div>
             <div class="col-lg-7 pull-right">
