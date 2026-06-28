@@ -3,6 +3,8 @@
     $eStatus      = true;
 
     $tpID           = 'id';
+$companyID=$cmp->getCurrentCompanyID();
+if($companyID>0){
 
     $districts=$db->getAllDistricts();
 
@@ -11,11 +13,12 @@
         $data = array($pUrl=>$rModule['name'],1=>'Add');
         $general->pageHeader('Add '.$rModule['name'],$data);
         if(isset($_POST['add'])){
-            $title                  = $_POST["title"];
-            if(empty($title)){setMessage(36,'title');$error=fl();}
+            $name                  = $_POST["name"];
+            if(empty($name)){setMessage(36,'name');$error=fl();}
             else{
                 $data=[
-                    'title'=>$title
+                    'name'=>$name,
+                    'company_id'=>$companyID
                 ];
                 $db->arrayUserInfoAdd($data);
                 $insert=$db->insert('customer_category',$data);
@@ -36,7 +39,7 @@
                         <form method="post" action="">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-4">
-                                    <?php $general->inputBoxText('title','title',@$_POST['title'],'y');?>
+                                    <?php $general->inputBoxText('name','name',@$_POST['name'],'y');?>
                                 </div>
 
                             </div>
@@ -64,10 +67,10 @@
             $data = array($pUrl=>$rModule['name'],1=>'Add');
             $general->pageHeader('Add '.$rModule['name'],$data);
             if(isset($_POST['edit'])){
-                $title                  = $_POST["title"];
-                if(empty($title)){setMessage(36,'title');$error=fl();}
+                $name                  = $_POST["name"];
+                if(empty($name)){setMessage(36,'name');$error=fl();}
                 else{
-                    $data=['title'=>$title];
+                    $data=['name'=>$name];
                     $where=['id'=>$edit];
                     $db->arrayUserInfoEdit($data);
                     $update = $db->update('customer_category',$data,$where);
@@ -91,7 +94,7 @@
                         <form method="post" action="">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-4">
-                                    <?php $general->inputBoxText('title','title',$c['title'],'y');?>
+                                    <?php $general->inputBoxText('name','name',$c['name'],'y');?>
 
                                 </div>
 
@@ -144,7 +147,7 @@
                                  ?>
                                  <tr>
                                  <td><?=$sr++?></td>
-                                 <td><?=$b['title']?></td>
+                                 <td><?=$b['name']?></td>
                                  <?php
                                     if($eStatus){   
                                   ?>
@@ -169,3 +172,4 @@
     <?php
     }
 
+}

@@ -533,5 +533,4 @@ if($companyID>0){
     <?php
     }
 }
-?>
 

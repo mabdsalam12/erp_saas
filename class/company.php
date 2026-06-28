@@ -11,7 +11,8 @@ class Company{
     }
 
     public function getById($id){
-        return $this->db->get_rowData($this->table,'id',intval($id));
+        $ompany= $this->db->get_rowData($this->table,'id',intval($id));
+        return $this->general->arrayContentShow($ompany);
     }
     public function companyChangeHtml(){
         $companies = $this->db->selectAll($this->table,'order by name asc');

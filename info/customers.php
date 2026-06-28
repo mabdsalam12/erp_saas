@@ -1,12 +1,13 @@
 <?php
     $aStatus      = true;
     $eStatus      = true;
-
+$companyID=$cmp->getCurrentCompanyID();
+if($companyID>0){
     $tpID           = 'id';
     $base = $db->selectAll('base');
     $general->arrayIndexChange($base,'id');
     $bazar = $db->selectAll('bazar','','id,title,base_id');
-    $customer_category = $db->selectAll('customer_category','where isActive=1','id,title');
+    $customer_category = $db->selectAll('customer_category','where isActive=1','id,name');
     $general->arrayIndexChange($customer_category);
     $baze_wise_bazars=[];
     if(!empty($bazar)){
@@ -68,6 +69,7 @@
                 //if(intval($cDOB)==0){$cDOB=0;}
                 $data = [
                     //'mIDNo'             => $mIDNo,
+                    'company_id'    => $companyID,
                     'name'          =>$cName,
                     'base_id'       =>$base_id,
                     'customer_category_id'       =>$customer_category_id,
@@ -135,7 +137,7 @@
                             <div class="row">
                                 <div class="col-xs-6 col-sm-4">
                                     <?php $general->inputBoxSelect($base,'Base','base_id','id','title',@$_POST['base_id']);?>
-                                    <?php $general->inputBoxSelect($customer_category,'Category','customer_category_id','id','title',@$_POST['customer_category_id']);?>
+                                    <?php $general->inputBoxSelect($customer_category,'Category','customer_category_id','id','name',@$_POST['customer_category_id']);?>
                                     <?php $general->inputBoxText('cName','Name',@$_POST['cName'],'y');?>
                                     <?php $general->inputBoxText('cMobile','Mobile',@$_POST['cMobile']);?>
                                     <?php $general->inputBoxText('owner_name','Owner Name',@$_POST['owner_name']);?>
@@ -160,7 +162,7 @@
                                     <?php $general->inputBoxText('credit_limit','Credit limit',$credit_limit);?>
                                     <?php $general->inputBoxText('due_day','Due day',@$_POST['due_day']);?>
                                     <?php $general->inputBoxText('bazar','Bazar',@$_POST['bazar']);?>
-                                    <?php $general->inputBoxSelect([],'Bazar','bazar_id','id','title');?>
+                                    <?php $general->inputBoxSelect([],'Bazar','bazar_id','id','name');?>
 
                                 </div>
 
@@ -612,3 +614,5 @@
         return true;
     }
 </script>
+<?php
+}
