@@ -825,7 +825,7 @@ public function product_price_log(int $product_id,array $product_data,array &$jA
     return $this->insert('product_price_log',$data,false,'array',$jArray);
 }
 public function getProductData($query='',$type_wise=false){
-    $products=$this->selectAll('products','where isActive=1 '.$query.' order by title asc');
+    $products=$this->selectAll('products','where isActive=1 '.$query.' order by name asc');
     $units=$this->selectAll('unit');
     $this->general->arrayIndexChange($units,'id');    
     $productData=[];
@@ -838,15 +838,15 @@ public function getProductData($query='',$type_wise=false){
                 if(isset($data['box_unit_quantity'])&&$data['box_unit_quantity']>0){
                     $box_unit_quantity=intval($data['box_unit_quantity']);
                 }
-                $box_unit=$units[$p['box_unit_id']]['title'];
+                $box_unit=$units[$p['box_unit_id']]['name'];
             }
             if($type_wise){
                 $productData[$p['type']][$p['id']]=[
                     'id'                => $p['id'],
-                    't'                 => $p['code'].' - '.$p['title'],
+                    't'                 => $p['code'].' - '.$p['name'],
                     'pc'                => $p['category_id'],
                     's'                 => floatval($p['sale_price']),
-                    'u'                 => $units[$p['unit_id']]['title'],
+                    'u'                 => $units[$p['unit_id']]['name'],
                     'box_unit'          => $box_unit,
                     'box_unit_quantity' => $box_unit_quantity,
                     'VAT'               => (float)$p['VAT'],
@@ -859,10 +859,10 @@ public function getProductData($query='',$type_wise=false){
             else{
                 $productData[$p['id']]=[
                     'id'            => $p['id'],
-                    't'             => $p['code'].' - '.$p['title'],
+                    't'             => $p['code'].' - '.$p['name'],
                     'pc'            => $p['category_id'],
                     's'             => floatval($p['sale_price']),
-                    'u'             => $units[$p['unit_id']]['title'] ,
+                    'u'             => $units[$p['unit_id']]['name'] ,
                     'box_unit'          => $box_unit,
                     'box_unit_quantity' => $box_unit_quantity,
                     'VAT'           => (float)$p['VAT'],

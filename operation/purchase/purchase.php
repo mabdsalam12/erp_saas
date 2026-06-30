@@ -16,7 +16,7 @@
 
     } 
     $use_product_category = $db->get_company_settings('use_product_category');
-    $units=$db->selectAll('unit','where isActive=1 order by title asc');
+    $units=$db->selectAll('unit','where isActive=1 order by name asc');
     $general->arrayIndexChange($units,'id');
 ?> 
 <script type="text/javascript">   
@@ -64,10 +64,10 @@
 
         $products=[];
         if($use_product_category==0){
-            $products = $db->selectAll('products','where isActive=1','id as pID, title,code');
+            $products = $db->selectAll('products','where isActive=1','id as pID, name,code');
             if(!empty($products)){
                 foreach($products as $k=>$p){
-                    $products[$k]['title']=$p['code'].' '.$p['title'];
+                    $products[$k]['title']=$p['code'].' '.$p['name'];
                 }
             }
         }
